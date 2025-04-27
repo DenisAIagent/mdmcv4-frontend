@@ -1,16 +1,15 @@
+// src/i18n.js
+
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-// Supprimer l'import de Backend car non utilisé avec les ressources locales
-// import Backend from 'i18next-http-backend';
+// Pas besoin de 'Backend' car on charge tout depuis les ressources locales
 
-// Import correct de l'export nommé TRANSLATIONS en l'aliasant en frTranslations
-import { TRANSLATIONS as frTranslations } from './constants/translations';
-// Les autres imports de langues peuvent rester commentés si vous ne les utilisez pas encore
-
-// Langues supportées (vous pouvez les garder si vous prévoyez de les ajouter plus tard)
-// const supportedLocales = ['fr-fr', 'en-us', 'es-es', 'pt-br'];
-// const defaultLocale = 'fr-fr';
+// Importer TOUTES les traductions depuis les fichiers JS locaux
+import frTranslations from './locales/fr.js';
+import enTranslations from './locales/en.js'; // Assurez-vous que ce fichier existe
+import esTranslations from './locales/es.js'; // Assurez-vous que ce fichier existe
+import ptTranslations from './locales/pt.js'; // Assurez-vous que ce fichier existe
 
 i18n
   // Module react-i18next
@@ -19,34 +18,38 @@ i18n
   .use(LanguageDetector)
   // Initialisation
   .init({
-    // Ressources préchargées
+    // Ressources préchargées avec TOUTES les langues
     resources: {
-      // Utilisation de la variable frTranslations correctement importée
       fr: { translation: frTranslations },
-      // Les autres langues restent commentées
-      // en: { translation: enTranslations },
-      // es: { translation: esTranslations },
-      // pt: { translation: ptTranslations }
+      en: { translation: enTranslations }, // Ajout EN
+      es: { translation: esTranslations }, // Ajout ES
+      pt: { translation: ptTranslations }  // Ajout PT
     },
 
-    // Langue par défaut
+    // Langue par défaut si la détection échoue ou si la langue n'est pas supportée
     fallbackLng: 'fr',
-    // lng: 'fr', // Vous pouvez décommenter ceci pour forcer le français si besoin
+
+    // IMPORTANT: La ligne 'lng: 'fr',' DOIT rester commentée ou supprimée
+    // pour que la détection automatique fonctionne (Option B).
+    // lng: 'fr',
 
     // Détection de la langue
     detection: {
-      order: ['navigator', 'querystring', 'htmlTag', 'path', 'cookie'],
-      lookupFromPathIndex: 0,
-      convertDetectedLanguage: (lng) => lng.split('-')[0],
-      caches: ['cookie'],
-      cookieExpirationDate: 365,
-      cookieName: 'i18next',
+      // Ordre des méthodes de détection
+      order: ['navigator', 'querystring', 'cookie', 'localStorage', 'htmlTag', 'path', 'subdomain'],
+      // Cache la langue détectée
+      caches: ['cookie', 'localStorage'],
+      // Nom du cookie / localStorage
+      lookupCookie: 'i18next_lng',
+      lookupLocalStorage: 'i18nextLng',
+      // Paramètre d'URL (?lang=...)
       lookupQuerystring: 'lang',
-      lookupBrowserLanguage: true,
-      checkWhitelist: true // Assurez-vous que 'fr' est implicitement autorisé ou ajoutez une whitelist explicite si besoin
+      // Optionnel: vérifier si la langue détectée est dans une liste restreinte
+      // checkWhitelist: true,
+      // whitelist: ['fr', 'en', 'es', 'pt']
     },
 
-    // Permet l'utilisation de clés imbriquées
+    // Permet l'utilisation de clés imbriquées (ex: nav.home)
     keySeparator: '.',
 
     // Namespace par défaut
@@ -62,7 +65,7 @@ i18n
 
     // Réagir aux changements de langue
     react: {
-      useSuspense: true, // Recommandé pour React >= 16.8
+      useSuspense: true,
     }
   });
 
@@ -74,6 +77,7 @@ export const updateMetaTags = (t) => {
     if (metaDescription) {
       metaDescription.setAttribute('content', t('meta_description'));
     }
+    // ... (autres mises à jour meta si nécessaire, ex: OG, Twitter) ...
     const ogTitle = document.querySelector('meta[property="og:title"]');
     const ogDescription = document.querySelector('meta[property="og:description"]');
     if (ogTitle) {
@@ -95,19 +99,21 @@ export const updateMetaTags = (t) => {
   }
 };
 
-// Écouteurs d'événements (inchangés)
+// Écouteurs d'événements (inchangés, avec vérification)
 i18n.on('initialized', () => {
-  // Vérifier si i18n.t est défini avant de l'utiliser
   if (typeof i18n.t === 'function') {
     updateMetaTags(i18n.t.bind(i18n));
   }
 });
 
 i18n.on('languageChanged', (lng) => {
-   // Vérifier si i18n.t est défini avant de l'utiliser
   if (typeof i18n.t === 'function') {
     updateMetaTags(i18n.t.bind(i18n));
   }
+  // Optionnel: stocker la langue choisie par l'utilisateur si différent du détecté
+  // if (i18n.services.languageDetector) {
+  //   i18n.services.languageDetector.cacheUserLanguage(lng);
+  // }
 });
 
 export default i18n;
