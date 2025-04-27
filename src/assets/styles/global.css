@@ -51,7 +51,7 @@ h3 {
 }
 
 h4 {
-  font-size: 1.1rem; /* Était 1.2rem, ajusté pour cohérence */
+  font-size: 1.1rem;
 }
 
 p {
@@ -110,6 +110,13 @@ section {
     padding: 5rem 0;
   }
 }
+
+/* === AJOUTÉ POUR FORCER UN FOND TRANSPARENT SUR L'ENTÊTE DE SECTION === */
+/* Ceci est pour annuler une règle existante non trouvée qui met un fond blanc */
+.section-header {
+  background-color: transparent !important;
+}
+/* ==================================================================== */
 
 /* Style commun pour les titres de section */
 .section-title {
