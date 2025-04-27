@@ -5,8 +5,7 @@ const API_KEY = "AIzaSyDO2mciJoMkhQmamnyP0oELTsuQWsYR4KI";
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 // Importer la documentation
-import documentation from '../data/documentation.json';
-
+import documentation from '../data/documentation.js';
 // Créer un contexte riche à partir de la documentation
 const createDocumentationContext = () => {
   // Convertir la documentation JSON en texte structuré
