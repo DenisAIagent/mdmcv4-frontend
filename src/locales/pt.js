@@ -1,206 +1,219 @@
 // src/locales/pt.js
-// ATTENTION: Ce fichier contient le texte français comme placeholder.
-// Il DOIT être traduit en Portugais.
+// TODO: Translate all French placeholder text to Portuguese.
 
 export default {
-  "meta_title": "MDMC Music Ads - Marketing musical que converte", // Exemple traduit
-  "meta_description": "Agência especializada em marketing musical. Expertise em YouTube Ads, Meta Ads, TikTok Ads e estratégia de conteúdo para artistas e gravadoras.", // Exemple traduit
+  "meta_title": "MDMC Music Ads - Marketing musical que converte", // Example translation
+  "meta_description": "Agência especializada em marketing musical. Expertise em YouTube Ads, Meta Ads, TikTok Ads e estratégia de conteúdo para artistas e gravadoras.", // Example translation
   "language": {
-    "fr": "Francês", // Exemple traduit
-    "en": "Inglês", // Exemple traduit
-    "es": "Espanhol", // Exemple traduit
-    "pt": "Português" // Exemple traduit
+    "fr": "Francês", // Example translation
+    "en": "Inglês", // Example translation
+    "es": "Espanhol", // Example translation
+    "pt": "Português" // Example translation
   },
   "nav": {
-    "home": "Início", // Exemple traduit
-    "services": "Serviços", // Exemple traduit
-    "about": "Sobre nós", // Exemple traduit
-    "articles": "Artigos", // Exemple traduit
-    "contact": "Contato" // Exemple traduit
+    "home": "Início", // Example translation
+    "services": "Serviços",
+    "about": "Sobre nós",
+    "articles": "Artigos",
+    "contact": "Contato"
   },
   "header": {
-    "home": "Início", // Exemple traduit
-    "services": "Serviços", // Exemple traduit
-    "about": "Sobre nós", // Exemple traduit
-    "contact": "Contato", // Exemple traduit
-    "reviews": "Avaliações", // Exemple traduit
-    "simulator": "Simulador" // Exemple traduit
+    "home": "Início",
+    "services": "Serviços",
+    "about": "Sobre nós",
+    "contact": "Contato",
+    "reviews": "Avaliações",
+    "simulator": "Simulador"
   },
   "hero": {
-    "title": "Impulsione sua música com campanhas publicitárias que convertem", // Exemple traduit
+    "title": "Impulsione sua música com campanhas publicitárias que convertem",
     "subtitle": "Push. Play. Blow up.",
     "slogan": "Push. Play. Blow up.",
-    "description": "Expertise em YouTube Ads, Meta Ads, TikTok Ads e estratégia de conteúdo para artistas e gravadoras.", // Exemple traduit
-    "cta": "Iniciar o simulador", // Exemple traduit
+    "description": "Expertise em YouTube Ads, Meta Ads, TikTok Ads e estratégia de conteúdo para artistas e gravadoras.",
+    "cta": "Iniciar o simulador",
     "stats": {
-      "campaigns": "Campanhas realizadas", // Exemple traduit
-      "artists": "Artistas apoiados", // Exemple traduit
-      "views": "Visualizações geradas", // Exemple traduit
-      "countries": "Países cobertos" // Exemple traduit
+      "campaigns": "Campanhas realizadas",
+      "artists": "Artistas apoiados",
+      "views": "Visualizações geradas",
+      "countries": "Países cobertos"
     }
   },
   "simulator": {
-    "title": "Simulador de campanha", // Exemple traduit
-    "subtitle": "Descubra quanto você poderia ganhar", // Exemple traduit
-
-    // Clés ajoutées basées sur la capture d'écran et la discussion
-    "step1_title": "Passo 1: Escolha sua plataforma", // Exemple traduit
-    "step1_platform_label": "Plataforma de publicidade", // Exemple traduit
-    "option_select": "-- Selecionar --", // Exemple traduit
-    "platform_youtube": "YouTube Ads", // Exemple traduit
-    "platform_meta": "Meta Ads (Facebook/Instagram)", // Exemple traduit
-    "platform_tiktok": "TikTok Ads", // Exemple traduit
-    "button_next": "Próximo", // Exemple traduit (ou 'Continuar')
-
-    // Clés existantes dans fr.js (à conserver et traduire si besoin)
+    "title": "Simulador de campanha",
+    "subtitle": "Descubra quanto você poderia ganhar",
+    "step1_title": "Passo 1: Escolha sua plataforma",
+    "step1_platform_label": "Plataforma de publicidade",
+    "option_select": "-- Selecionar --",
+    "platform_youtube": "YouTube Ads",
+    "platform_meta": "Meta Ads (Facebook/Instagram)",
+    "platform_tiktok": "TikTok Ads",
+    "button_next": "Próximo",
     "step1": {
-      "title": "Qual é o seu objetivo principal?", // Exemple traduit
-      "option1": "Aumentar os streams", // Exemple traduit
-      "option2": "Vender produtos derivados", // Exemple traduit
-      "option3": "Promover um show/evento", // Exemple traduit
-      "option4": "Desenvolver minha comunidade" // Exemple traduit
+      "title": "Qual é o seu objetivo principal?",
+      "option1": "Aumentar os streams",
+      "option2": "Vender produtos derivados",
+      "option3": "Promover um show/evento",
+      "option4": "Desenvolver minha comunidade"
     },
     "step2": {
-      "title": "Qual é o seu orçamento mensal?", // Exemple traduit
+      "title": "Qual é o seu orçamento mensal?",
       "option1": "€500 - €1000",
       "option2": "€1000 - €3000",
       "option3": "€3000 - €5000",
       "option4": "€5000+"
     },
     "step3": {
-      "title": "Qual é o seu gênero musical?", // Exemple traduit
+      "title": "Qual é o seu gênero musical?",
       "option1": "Pop",
       "option2": "Hip-Hop/Rap",
-      "option3": "Eletrônica", // Exemple traduit
+      "option3": "Eletrônica",
       "option4": "Rock/Metal",
       "option5": "R&B/Soul",
-      "option6": "Outro" // Exemple traduit
+      "option6": "Outro"
     },
     "step4": {
-      "title": "Onde está baseada sua audiência principal?", // Exemple traduit
-      "option1": "França", // Exemple traduit
-      "option2": "Europa", // Exemple traduit
-      "option3": "América do Norte", // Exemple traduit
-      "option4": "Mundial" // Exemple traduit
+      "title": "Onde está baseada sua audiência principal?",
+      "option1": "França",
+      "option2": "Europa",
+      "option3": "América do Norte",
+      "option4": "Mundial"
     },
     "step5": {
-      "title": "Você já fez publicidade online antes?", // Exemple traduit
-      "option1": "Nunca", // Exemple traduit
-      "option2": "Algumas campanhas", // Exemple traduit
-      "option3": "Regularmente", // Exemple traduit
-      "option4": "Especialista" // Exemple traduit
+      "title": "Você já fez publicidade online antes?",
+      "option1": "Nunca",
+      "option2": "Algumas campanhas",
+      "option3": "Regularmente",
+      "option4": "Especialista"
     },
     "step6": {
-      "title": "Aqui está sua estimativa personalizada", // Exemple traduit
-      "roi_title": "ROI estimado", // Exemple traduit
-      "monthly_streams": "Streams mensais potenciais", // Exemple traduit
-      "monthly_sales": "Vendas mensais potenciais", // Exemple traduit
-      "ticket_sales": "Vendas de ingressos potenciais", // Exemple traduit
-      "followers_growth": "Crescimento potencial de seguidores", // Exemple traduit
-      "cta": "Falar com um especialista", // Exemple traduit
-      "disclaimer": "Estes números são estimativas baseadas em nossos dados históricos e podem variar dependendo de muitos fatores." // Exemple traduit
+      "title": "Aqui está sua estimativa personalizada",
+      "roi_title": "ROI estimado",
+      "monthly_streams": "Streams mensais potenciais",
+      "monthly_sales": "Vendas mensais potenciais",
+      "ticket_sales": "Vendas de ingressos potenciais",
+      "followers_growth": "Crescimento potencial de seguidores",
+      "cta": "Falar com um especialista",
+      "disclaimer": "Estes números são estimativas baseadas em nossos dados históricos e podem variar dependendo de muitos fatores."
     },
-    "next": "Próximo", // Exemple traduit
-    "previous": "Anterior", // Exemple traduit
-    "close": "Fechar" // Exemple traduit
+    "next": "Próximo",
+    "previous": "Anterior",
+    "close": "Fechar"
   },
   "services": {
-    "title": "Nossos Serviços", // Exemple traduit
-    "subtitle": "Soluções completas de marketing para a indústria musical", // Exemple traduit
+    "title": "Nossos Serviços",
+    "subtitle": "Soluções completas de marketing para a indústria musical",
     "youtube": {
       "title": "YouTube Ads",
-      "description": "Campanhas de vídeo direcionadas para maximizar visualizações e engajamento." // Exemple traduit
+      "description": "Campanhas de vídeo direcionadas para maximizar visualizações e engajamento."
     },
     "meta": {
       "title": "Meta Ads",
-      "description": "Estratégias de Facebook e Instagram para desenvolver sua audiência." // Exemple traduit
+      "description": "Estratégias de Facebook e Instagram para desenvolver sua audiência."
     },
     "tiktok": {
       "title": "TikTok Ads",
-      "description": "Campanhas virais para alcançar a Geração Z e além." // Exemple traduit
+      "description": "Campanhas virais para alcançar a Geração Z e além."
     },
     "content": {
-      "title": "Estratégia de Conteúdo", // Exemple traduit
-      "description": "Criação e otimização de conteúdo que converte." // Exemple traduit
+      "title": "Estratégia de Conteúdo",
+      "description": "Criação e otimização de conteúdo que converte."
     }
   },
   "about": {
-    "title": "Sobre Nós", // Exemple traduit
-    "subtitle": "Especialistas em marketing musical desde 2018", // Exemple traduit
-    "description": "MDMC é uma agência especializada em marketing digital para a indústria musical. Ajudamos artistas e gravadoras a alcançar seus objetivos através de estratégias publicitárias personalizadas e campanhas otimizadas para maximizar o ROI.", // Exemple traduit
+    "title": "Sobre Nós",
+    "subtitle": "Especialistas em marketing musical desde 2018",
+    "description": "MDMC é uma agência especializada em marketing digital para a indústria musical. Ajudamos artistas e gravadoras a alcançar seus objetivos através de estratégias publicitárias personalizadas e campanhas otimizadas para maximizar o ROI.",
     "advantages": {
-      "expertise": "Expertise especializada na indústria musical", // Exemple traduit
-      "campaigns": "Campanhas otimizadas para maximizar o ROI", // Exemple traduit
-      "targeting": "Segmentação precisa de audiências relevantes", // Exemple traduit
-      "analytics": "Análises detalhadas e relatórios transparentes" // Exemple traduit
+      "expertise": "Expertise especializada na indústria musical",
+      "campaigns": "Campanhas otimizadas para maximizar o ROI",
+      "targeting": "Segmentação precisa de audiências relevantes",
+      "analytics": "Análises detalhadas e relatórios transparentes"
     },
     "stats": {
-      "artists": "Artistas apoiados", // Exemple traduit
-      "campaigns": "Campanhas realizadas", // Exemple traduit
-      "streams": "Streams gerados", // Exemple traduit
-      "roi": "ROI médio" // Exemple traduit
+      "artists": "Artistas apoiados",
+      "campaigns": "Campanhas realizadas",
+      "streams": "Streams gerados",
+      "roi": "ROI médio"
     }
   },
   "articles": {
-    "title": "Artigos Recentes", // Exemple traduit
-    "subtitle": "Dicas e notícias sobre marketing musical", // Exemple traduit
-    "view_all": "Ver todos os artigos" // Exemple traduit
+    "title": "Nossos últimos artigos", // Example translation
+    "subtitle": "Dicas e notícias sobre marketing musical",
+    "view_all": "Ver todos os artigos",
+    "read_more": "Ler mais",
+    "error_loading": "Erro ao carregar os artigos.",
+    "categories": {
+      "strategy": "Estratégia",
+      "youtube": "YouTube",
+      "meta": "Meta",
+      "tiktok": "TikTok",
+      "default": "Notícia"
+    }
   },
   "contact": {
-    "title": "Contate-nos", // Exemple traduit
-    "subtitle": "Pronto para impulsionar sua música?", // Exemple traduit
-    "description": "Vamos discutir seu projeto e como podemos ajudá-lo a alcançar seus objetivos.", // Exemple traduit
-    "name": "Nome", // Exemple traduit
-    "email": "Email", // Exemple traduit
-    "message": "Mensagem", // Exemple traduit
-    "submit": "Enviar", // Exemple traduit
-    "success": "Mensagem enviada com sucesso!", // Exemple traduit
-    "error": "Ocorreu um erro. Por favor, tente novamente.", // Exemple traduit
+    "title": "Contate-nos",
+    "name": "Nome",
+    "email": "Email",
+    "message": "Mensagem",
+    "submit": "Enviar",
+    "success": "Mensagem enviada com sucesso!",
+    "error": "Ocorreu um erro. Por favor, tente novamente.",
     "form": {
-      "name": "Seu nome", // Exemple traduit
-      "email": "Seu email", // Exemple traduit
-      "message": "Sua mensagem", // Exemple traduit
-      "submit": "Enviar" // Exemple traduit
+      "platform_label": "Plataforma principal alvo",
+      "option_select": "-- Selecionar --",
+      "platform_youtube": "YouTube Ads",
+      "platform_meta": "Meta Ads (Facebook/Instagram)",
+      "platform_tiktok": "TikTok Ads",
+      "name": "Seu nome",
+      "email": "Seu email",
+      "message": "Sua mensagem",
+      "submit": "Enviar",
+      "submitting": "Enviando...",
+      "book_call": "Agendar uma chamada",
+      "success": "Mensagem enviada com sucesso!",
+      "error": "Ocorreu um erro durante o envio. Por favor, tente novamente.",
+      "error_fields": "Por favor, preencha todos os campos obrigatórios.",
+      "error_email": "Por favor, insira um endereço de email válido."
     },
     "partners": {
-      "title": "Eles confiam em nós", // Exemple traduit
-      "fmm": "Fédération des Musiques Métalliques", // Garder nom propre?
-      "fmm_description": "Parceiro oficial para a promoção de artistas de metal", // Exemple traduit
+      "title": "Nossos Parceiros", // Text changed here
+      "fmm": "Fédération des Musiques Métalliques", // Keep proper name?
+      "fmm_description": "Parceiro oficial para a promoção de artistas de metal",
       "google": "Google Partner",
-      "google_description": "Agência certificada Google Ads", // Exemple traduit
-      "google_badge_alt": "Selo Google Partner", // Exemple traduit
-      "mhl": "MHL Agency & Co", // Garder nom propre?
-      "mhl_description": "Colaboração em campanhas internacionais", // Exemple traduit
-      "algorythme": "Algorythme", // Garder nom propre?
-      "algorythme_description": "Parceiro tecnológico para análise de dados" // Exemple traduit
+      "google_description": "Agência certificada Google Ads",
+      "google_badge_alt": "Selo Google Partner",
+      "mhl": "MHL Agency & Co", // Keep proper name?
+      "mhl_description": "Colaboração em campanhas internacionais",
+      "algorythme": "Algorythme", // Keep proper name?
+      "algorythme_description": "Parceiro tecnológico para análise de dados"
     }
   },
   "reviews": {
-    "title": "O que nossos clientes dizem", // Exemple traduit
-    "subtitle": "Depoimentos de artistas e gravadoras", // Exemple traduit
-    "cta": "Ver todas as avaliações", // Exemple traduit
-    "leave_review": "Deixar uma avaliação", // Exemple traduit
-    "view_all": "Ver todas as avaliações" // Exemple traduit
+    "title": "O que nossos clientes dizem",
+    "subtitle": "Depoimentos de artistas e gravadoras",
+    "cta": "Ver todas as avaliações",
+    "leave_review": "Deixar uma avaliação",
+    "view_all": "Ver todas as avaliações"
   },
   "footer": {
-    "rights": "Todos os direitos reservados", // Exemple traduit
-    "privacy": "Política de Privacidade", // Exemple traduit
-    "terms": "Termos de Uso", // Exemple traduit
-    "copyright": "MDMC Music Ads. Todos os direitos reservados.", // Exemple traduit
-    "logo_p": "Marketing musical que converte", // Exemple traduit
-    "nav_title": "Navegação", // Exemple traduit
-    "nav_home": "Início", // Exemple traduit
-    "resources_title": "Recursos", // Exemple traduit
-    "resources_blog": "Blog", // Exemple traduit
-    "resources_simulator": "Simulador", // Exemple traduit
-    "resources_faq": "FAQ", // Exemple traduit
-    "resources_glossary": "Glossário", // Exemple traduit
-    "legal_title": "Menções Legais", // Exemple traduit
-    "legal_privacy": "Privacidade", // Exemple traduit
-    "legal_terms": "Termos", // Exemple traduit
-    "legal_cookies": "Política de Cookies" // Exemple traduit
+    "rights": "Todos os direitos reservados",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Uso",
+    "copyright": "MDMC Music Ads. Todos os direitos reservados.",
+    "logo_p": "Marketing musical que converte",
+    "nav_title": "Navegação",
+    "nav_home": "Início",
+    "resources_title": "Recursos",
+    "resources_blog": "Blog",
+    "resources_simulator": "Simulador",
+    "resources_faq": "FAQ",
+    "resources_glossary": "Glossário",
+    "legal_title": "Menções Legais",
+    "legal_privacy": "Privacidade",
+    "legal_terms": "Termos",
+    "legal_cookies": "Política de Cookies"
   },
-  "admin": { // Garder FR pour l'admin ? Ou traduire ? (Exemple: garder FR)
+  "admin": { // Keeping admin panel in French for this example, translate if needed
     "dashboard": "Tableau de bord",
     "reviews": "Avis",
     "content": "Contenu",
@@ -247,7 +260,7 @@ export default {
     "change_password": "Changer le mot de passe",
     "new_password": "Nouveau mot de passe",
     "save_settings": "Enregistrer les paramètres",
-    "chatbot": { // Exemple traduit en PT
+    "chatbot": { // Example translation
       "title": "Assistente MDMC",
       "welcome_message": "Olá! Eu sou seu assistente MDMC. Como posso ajudar hoje?",
       "help_prompt": "Aqui estão alguns tópicos em que posso ajudar:",
@@ -295,4 +308,4 @@ export default {
       "open": "Abrir assistente"
     }
   }
-}
+};
