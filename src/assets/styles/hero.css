@@ -1,3 +1,5 @@
+/* src/assets/styles/hero.css */
+
 .hero {
   position: relative;
   height: 100vh;
@@ -26,9 +28,11 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: flex-start; /* Contenu aligné à gauche */
   gap: 2.5rem;
-  padding-top: 80px;
+  /* === MODIFICATION IMPORTANTE === */
+  /* padding-top: 80px; */ /* Ligne SUPPRIMÉE - Géré par le padding du body */
+  /* ============================== */
   padding-bottom: 2rem;
   width: 100%;
   max-width: 1200px;
@@ -40,7 +44,7 @@
 .hero-content {
   max-width: 800px;
   width: 100%;
-  text-align: left;
+  text-align: left; /* Texte aligné à gauche */
   margin: 0;
 }
 
@@ -83,7 +87,7 @@
 
 .hero-stats {
   display: flex;
-  justify-content: flex-start;
+  justify-content: flex-start; /* Stats alignées à gauche sur desktop */
   gap: 2rem;
   flex-wrap: wrap;
   border-top: 1px solid var(--color-border);
@@ -96,7 +100,7 @@
 .stat-item {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Contenu du stat centré */
   text-align: center;
   flex: 1;
   min-width: 150px;
@@ -121,12 +125,19 @@
   .hero-slogan {
     font-size: 2.5rem;
   }
-  
+
   .hero-content h1 {
     font-size: 2rem;
   }
-  
+
   .hero-stats {
-    justify-content: center;
+    justify-content: center; /* Stats centrées sur mobile */
   }
 }
+
+/* === Note sur le centrage === */
+/* Si d'autres éléments que les stats sur mobile doivent être */
+/* centrés, il faudra ajouter/modifier les styles CSS */
+/* (ex: text-align: center; sur .hero-content, ou */
+/* align-items: center; sur .hero-container si TOUT doit être centré). */
+/* Précisez quels éléments sont concernés si besoin. */
