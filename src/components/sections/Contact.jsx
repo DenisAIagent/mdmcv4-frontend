@@ -83,9 +83,6 @@ const Contact = () => {
         <div className="section-header">
           {/* On garde uniquement le titre principal H2 */}
           <h2>{t('contact.title')}</h2>
-          {/* Les lignes H3 et P suivantes ont été supprimées */}
-          {/* <h3>Prêt à propulser votre musique ?</h3> */}
-          {/* <p>Discutons de votre projet et de la façon dont nous pouvons vous aider à atteindre vos objectifs.</p> */}
         </div>
         {/* ========================================= */}
 
@@ -98,8 +95,9 @@ const Contact = () => {
               {/* Carte FMM */}
               <div className="partner-card">
                 <img
-                  src="/src/assets/images/partner/FMM_Logo_Rough_White_Horizontal.png" // Vérifiez si le chemin src/ est nécessaire ou si c'est public/assets/...
-                  alt={t('contact.partners.fmm', 'Fédération des Musiques Métalliques')} // Ajouter traduction alt
+                  // === Chemin CORRIGÉ ===
+                  src="/assets/images/partner/FMM_Logo_Rough_White_Horizontal.png"
+                  alt={t('contact.partners.fmm', 'Fédération des Musiques Métalliques')}
                   loading="lazy"
                   className="partner-logo"
                 />
@@ -109,8 +107,9 @@ const Contact = () => {
               {/* Carte Google */}
               <div className="partner-card">
                 <img
-                  src="/src/assets/images/partner/Partner-CMYK.jpg" // Vérifiez chemin
-                  alt={t('contact.partners.google', 'Google Partner')} // Ajouter traduction alt
+                  // === Chemin CORRIGÉ ===
+                  src="/assets/images/partner/Partner-CMYK.jpg"
+                  alt={t('contact.partners.google', 'Google Partner')}
                   loading="lazy"
                   className="partner-logo"
                 />
@@ -120,8 +119,10 @@ const Contact = () => {
               {/* Carte MHL */}
               <div className="partner-card">
                 <img
-                  src="/src/assets/images/partner/logo mhl.avif" // Vérifiez chemin
-                  alt={t('contact.partners.mhl', 'MHL Agency & Co')} // Ajouter traduction alt
+                  // === Chemin CORRIGÉ ===
+                  // (Rappel: renommer "logo mhl.avif" en "logo-mhl.avif" est plus sûr)
+                  src="/assets/images/partner/logo mhl.avif"
+                  alt={t('contact.partners.mhl', 'MHL Agency & Co')}
                   loading="lazy"
                   className="partner-logo"
                 />
@@ -131,8 +132,9 @@ const Contact = () => {
               {/* Carte Algorythme */}
               <div className="partner-card">
                 <img
-                  src="/src/assets/images/partner/logo-vertical-algorythmes.png" // Vérifiez chemin
-                  alt={t('contact.partners.algorythme', 'Algorythme')} // Ajouter traduction alt
+                  // === Chemin CORRIGÉ ===
+                  src="/assets/images/partner/logo-vertical-algorythmes.png"
+                  alt={t('contact.partners.algorythme', 'Algorythme')}
                   loading="lazy"
                   className="partner-logo"
                 />
@@ -143,7 +145,8 @@ const Contact = () => {
 
             {/* Liens sociaux (inchangés) */}
             <div className="social-links">
-               {/* ... vos liens ... */}
+              {/* Pensez à ajouter vos liens/icônes ici si nécessaire */}
+              {/* Exemple: <a href="lien_facebook"><img src="/icons/facebook.png" alt="Facebook"/></a> */}
             </div>
           </div>
 
@@ -152,88 +155,88 @@ const Contact = () => {
             <form onSubmit={handleSubmit}>
               {/* Groupe Plateforme */}
               <div className="form-group">
-                 <label htmlFor="platform">{t('contact.form.platform_label', 'Plateforme principale ciblée')}</label> {/* Ajouter clé traduction label */}
-                 <select
-                   id="platform"
-                   name="platform"
-                   value={formData.platform}
-                   onChange={handleChange}
-                   required
-                 >
-                   <option value="" disabled>{t('contact.form.option_select', '-- Sélectionner --')}</option> {/* Ajouter clé traduction */}
-                   <option value="youtube">{t('contact.form.platform_youtube', 'YouTube Ads')}</option> {/* Ajouter clé traduction */}
-                   <option value="meta">{t('contact.form.platform_meta', 'Meta Ads (Facebook/Instagram)')}</option> {/* Ajouter clé traduction */}
-                   <option value="tiktok">{t('contact.form.platform_tiktok', 'TikTok Ads')}</option> {/* Ajouter clé traduction */}
-                 </select>
-               </div>
-               {/* Groupe Nom */}
-               <div className="form-group">
-                 <label htmlFor="name">{t('contact.form.name')}</label>
-                 <input
-                   type="text"
-                   id="name"
-                   name="name"
-                   value={formData.name}
-                   onChange={handleChange}
-                   required
-                 />
-               </div>
-               {/* Groupe Email */}
-               <div className="form-group">
-                 <label htmlFor="email">{t('contact.form.email')}</label>
-                 <input
-                   type="email"
-                   id="email"
-                   name="email"
-                   value={formData.email}
-                   onChange={handleChange}
-                   required
-                 />
-               </div>
-               {/* Groupe Message */}
-               <div className="form-group">
-                 <label htmlFor="message">{t('contact.form.message')}</label>
-                 <textarea
-                   id="message"
-                   name="message"
-                   rows="5"
-                   value={formData.message}
-                   onChange={handleChange}
-                   required
-                 ></textarea>
-               </div>
-               {/* Boutons */}
-               <div className="form-buttons">
-                 <button
-                   type="submit"
-                   className="btn btn-primary"
-                   disabled={formStatus.submitting}
-                 >
-                   {formStatus.submitting ? t('contact.form.submitting', 'Envoi en cours...') : t('contact.form.submit')}
-                 </button>
+                  <label htmlFor="platform">{t('contact.form.platform_label', 'Plateforme principale ciblée')}</label>
+                  <select
+                    id="platform"
+                    name="platform"
+                    value={formData.platform}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="" disabled>{t('contact.form.option_select', '-- Sélectionner --')}</option>
+                    <option value="youtube">{t('contact.form.platform_youtube', 'YouTube Ads')}</option>
+                    <option value="meta">{t('contact.form.platform_meta', 'Meta Ads (Facebook/Instagram)')}</option>
+                    <option value="tiktok">{t('contact.form.platform_tiktok', 'TikTok Ads')}</option>
+                  </select>
+                </div>
+                {/* Groupe Nom */}
+                <div className="form-group">
+                  <label htmlFor="name">{t('contact.form.name')}</label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                {/* Groupe Email */}
+                <div className="form-group">
+                  <label htmlFor="email">{t('contact.form.email')}</label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+                {/* Groupe Message */}
+                <div className="form-group">
+                  <label htmlFor="message">{t('contact.form.message')}</label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    rows="5"
+                    value={formData.message}
+                    onChange={handleChange}
+                    required
+                  ></textarea>
+                </div>
+                {/* Boutons */}
+                <div className="form-buttons">
+                  <button
+                    type="submit"
+                    className="btn btn-primary"
+                    disabled={formStatus.submitting}
+                  >
+                    {formStatus.submitting ? t('contact.form.submitting', 'Envoi en cours...') : t('contact.form.submit')}
+                  </button>
 
-                 {selectedPlatform && CALENDLY_LINKS[selectedPlatform] && ( // Vérifier si lien existe
-                   <a
-                     href={CALENDLY_LINKS[selectedPlatform]}
-                     target="_blank"
-                     rel="noopener noreferrer"
-                     className="btn btn-secondary"
-                   >
-                     {t('contact.form.book_call', 'Réserver un appel')} {/* Ajouter clé traduction */}
-                   </a>
-                 )}
-               </div>
-               {/* Messages de statut */}
-               {formStatus.success && (
-                 <div className="form-message success">
-                   {t('contact.form.success', 'Message envoyé avec succès !')}
-                 </div>
-               )}
-               {formStatus.error && (
-                 <div className="form-message error">
-                   {formStatus.error} {/* Afficher l'erreur (peut être traduite si clé utilisée) */}
-                 </div>
-               )}
+                  {selectedPlatform && CALENDLY_LINKS[selectedPlatform] && ( // Vérifier si lien existe
+                    <a
+                      href={CALENDLY_LINKS[selectedPlatform]}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-secondary"
+                    >
+                      {t('contact.form.book_call', 'Réserver un appel')}
+                    </a>
+                  )}
+                </div>
+                {/* Messages de statut */}
+                {formStatus.success && (
+                  <div className="form-message success">
+                    {t('contact.form.success', 'Message envoyé avec succès !')}
+                  </div>
+                )}
+                {formStatus.error && (
+                  <div className="form-message error">
+                    {formStatus.error}
+                  </div>
+                )}
             </form>
           </div>
         </div>
