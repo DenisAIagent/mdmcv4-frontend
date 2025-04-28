@@ -15,7 +15,6 @@ const About = () => {
             <h3>{t('about.subtitle')}</h3>
             <p>{t('about.description')}</p>
 
-            {/* Cette liste n'utilise pas d'icônes dans ce code JSX */}
             <ul>
               <li><strong>{t('about.advantages.expertise')}</strong></li>
               <li><strong>{t('about.advantages.campaigns')}</strong></li>
@@ -25,9 +24,9 @@ const About = () => {
           </div>
 
           <div className="about-image">
-            {/* === Chemin CORRIGÉ === */}
-            <img src="/assets/images/about-image.jpg" alt="MDMC Team" />
-            {/* ===================== */}
+            {/* === Chemin et Nom de fichier CORRIGÉS === */}
+            <img src="/assets/images/fans-loyalty.jpg" alt="Illustration section À Propos" />
+            {/* ========================================= */}
           </div>
         </div>
       </div>
