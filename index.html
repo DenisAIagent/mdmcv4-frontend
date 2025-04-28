@@ -1,13 +1,27 @@
 <!doctype html>
-<html lang="en">
+<html lang="en"> {/* La langue sera mise à jour par App.jsx */}
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+
+    {/* === FAVICON CORRIGÉ === */}
+    {/* Assurez-vous que votre favicon est bien dans public/assets/images/favicon.png */}
+    <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
+    {/* ===================== */}
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+
+    {/* === TITRE CORRIGÉ === */}
+    {/* Titre par défaut de la page */}
+    <title>MDMC Music Ads - Marketing Musical</title>
+    {/* =================== */}
+
+    {/* Vous pouvez ajouter d'autres balises meta ici si nécessaire */}
+
   </head>
   <body>
+    {/* Le conteneur où votre application React sera montée */}
     <div id="root"></div>
+    {/* Le point d'entrée de votre application React */}
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
