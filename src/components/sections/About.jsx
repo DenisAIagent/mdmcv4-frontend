@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+// Assurez-vous que le chemin vers le CSS est correct
 import '../../assets/styles/about.css';
 
 const About = () => {
@@ -8,12 +9,13 @@ const About = () => {
     <section id="about" className="about">
       <div className="container">
         <h2 className="section-title">{t('about.title')}</h2>
-        
+
         <div className="about-content">
           <div className="about-text">
             <h3>{t('about.subtitle')}</h3>
             <p>{t('about.description')}</p>
-            
+
+            {/* Cette liste n'utilise pas d'icônes dans ce code JSX */}
             <ul>
               <li><strong>{t('about.advantages.expertise')}</strong></li>
               <li><strong>{t('about.advantages.campaigns')}</strong></li>
@@ -21,9 +23,11 @@ const About = () => {
               <li><strong>{t('about.advantages.analytics')}</strong></li>
             </ul>
           </div>
-          
+
           <div className="about-image">
-            <img src="/src/assets/images/about-image.jpg" alt="MDMC Team" />
+            {/* === Chemin CORRIGÉ === */}
+            <img src="/assets/images/about-image.jpg" alt="MDMC Team" />
+            {/* ===================== */}
           </div>
         </div>
       </div>
