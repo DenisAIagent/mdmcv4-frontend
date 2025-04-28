@@ -119,9 +119,7 @@ const Contact = () => {
               {/* Carte MHL */}
               <div className="partner-card">
                 <img
-                  // === Chemin CORRIGÉ ===
-                  // (Rappel: renommer "logo mhl.avif" en "logo-mhl.avif" est plus sûr)
-                  src="/assets/images/partner/logo mhl.avif"
+                  src="/assets/images/partner/logo-mhl-agency.png"
                   alt={t('contact.partners.mhl', 'MHL Agency & Co')}
                   loading="lazy"
                   className="partner-logo"
