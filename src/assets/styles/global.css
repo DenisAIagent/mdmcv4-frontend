@@ -15,10 +15,12 @@ html {
 }
 
 body {
-  /* === AJOUTÉ POUR COMPENSER LE HEADER FIXE === */
-  /* Ajustez 80px si la hauteur réelle de votre header est différente */
+  /* === MODIFICATION IMPORTANTE === */
+  /* Ce padding-top décale TOUT le contenu pour laisser la place au header fixe */
+  /* Assurez-vous que 80px correspond bien à la hauteur de votre header */
+  /* Si la hauteur du header change (ex: mobile), ajustez si besoin */
   padding-top: 80px;
-  /* ========================================== */
+  /* ============================== */
 
   font-family: var(--font-body);
   font-size: 1rem; /* Taille de police de base */
@@ -28,6 +30,9 @@ body {
   overflow-x: hidden; /* Empêche le défilement horizontal */
   -webkit-font-smoothing: antialiased; /* Améliore le rendu des polices sur Webkit */
   -moz-osx-font-smoothing: grayscale; /* Améliore le rendu des polices sur Firefox */
+
+  /* !!! IMPORTANT : Si vous trouvez un "display: flex;" appliqué au body ailleurs */
+  /* (index.css, App.css...), supprimez-le ! Il peut causer des problèmes ici. !!! */
 }
 
 h1, h2, h3, h4, h5, h6 {
