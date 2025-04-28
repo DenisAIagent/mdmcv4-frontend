@@ -1,26 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import LanguageSelector from '../common/LanguageSelector';
+// Assurez-vous que le chemin vers le CSS est correct
 import '../../assets/styles/header.css';
 
 const Header = () => {
   const { t } = useTranslation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  
+
   // Gestion du scroll pour changer l'apparence du header
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    
+
     window.addEventListener('scroll', handleScroll);
-    
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
   }, []);
-  
+
   // Fermer le menu mobile lors du clic sur un lien
   const handleNavLinkClick = () => {
     setIsMobileMenuOpen(false);
@@ -31,10 +32,12 @@ const Header = () => {
       <div className="container header-container">
         <div className="logo">
           <a href="#hero" aria-label="MDMC - Retour à l'accueil">
-            <img src="/src/assets/images/logo.png" alt="MDMC Logo" />
+            {/* === Chemin du logo CORRIGÉ === */}
+            <img src="/assets/images/logo.png" alt="MDMC Logo" />
+            {/* ============================== */}
           </a>
         </div>
-        
+
         <nav className="nav-desktop">
           <ul>
             <li><a href="#hero" onClick={handleNavLinkClick}>{t('nav.home')}</a></li>
@@ -45,9 +48,9 @@ const Header = () => {
             <li><LanguageSelector /></li>
           </ul>
         </nav>
-        
-        <button 
-          className={`hamburger-menu ${isMobileMenuOpen ? 'active' : ''}`} 
+
+        <button
+          className={`hamburger-menu ${isMobileMenuOpen ? 'active' : ''}`}
           onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
           aria-expanded={isMobileMenuOpen}
           aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
@@ -56,7 +59,7 @@ const Header = () => {
           <span className="bar"></span>
           <span className="bar"></span>
         </button>
-        
+
         <nav className={`nav-mobile ${isMobileMenuOpen ? 'active' : ''}`}>
           <ul>
             <li><a href="#hero" onClick={handleNavLinkClick}>{t('nav.home')}</a></li>
