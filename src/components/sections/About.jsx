@@ -1,5 +1,4 @@
 import { useTranslation } from 'react-i18next';
-// Assurez-vous que le chemin vers le CSS est correct
 import '../../assets/styles/about.css';
 
 const About = () => {
@@ -24,8 +23,7 @@ const About = () => {
           </div>
 
           <div className="about-image">
-            <img src="/public/assets/images/fans-loyalty.jpg" alt="Illustration section À Propos" />
-            {/* ========================================= */}
+            <img src="/assets/images/fans-loyalty.jpg" alt="Illustration section À Propos" />
           </div>
         </div>
       </div>
