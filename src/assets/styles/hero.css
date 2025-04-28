@@ -1,16 +1,25 @@
-/* src/assets/styles/hero.css */
-
 .hero {
   position: relative;
-  height: 100vh;
-  min-height: 650px;
+  /* height: 100vh; */ /* === LIGNE SUPPRIMÉE === */
+                      /* Cause probable des problèmes sur Safari / mobile / faible hauteur */
+
+  min-height: 650px;   /* Hauteur minimale pour assurer un espace suffisant */
+                      /* Ajustez cette valeur si besoin */
+
   display: flex;
-  align-items: center;
+  /* align-items: center; */ /* Remplacé par du padding vertical */
+  padding-top: 4rem;      /* Espace en haut à l'intérieur de la section Hero */
+                          /* Ajustez cette valeur pour le rendu visuel souhaité */
+  padding-bottom: 4rem;   /* Espace en bas à l'intérieur de la section Hero */
+                          /* Ajustez cette valeur pour le rendu visuel souhaité */
   justify-content: center;
+
   background-image: url('/src/assets/images/concert-hero.jpg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */ /* Dé-commentez pour remettre, mais attention */
+                                     /* aux performances/bugs potentiels sur mobile. */
+                                     /* À tester APRES avoir vérifié si 100vh était le problème */
   overflow: hidden;
   color: var(--color-text);
 }
@@ -30,9 +39,7 @@
   flex-direction: column;
   align-items: flex-start; /* Contenu aligné à gauche */
   gap: 2.5rem;
-  /* === MODIFICATION IMPORTANTE === */
-  /* padding-top: 80px; */ /* Ligne SUPPRIMÉE - Géré par le padding du body */
-  /* ============================== */
+  padding-top: 0; /* IMPORTANT : Doit rester 0 car géré par le padding du body */
   padding-bottom: 2rem;
   width: 100%;
   max-width: 1200px;
@@ -44,7 +51,7 @@
 .hero-content {
   max-width: 800px;
   width: 100%;
-  text-align: left; /* Texte aligné à gauche */
+  text-align: left;
   margin: 0;
 }
 
@@ -87,7 +94,7 @@
 
 .hero-stats {
   display: flex;
-  justify-content: flex-start; /* Stats alignées à gauche sur desktop */
+  justify-content: flex-start;
   gap: 2rem;
   flex-wrap: wrap;
   border-top: 1px solid var(--color-border);
@@ -100,7 +107,7 @@
 .stat-item {
   display: flex;
   flex-direction: column;
-  align-items: center; /* Contenu du stat centré */
+  align-items: center;
   text-align: center;
   flex: 1;
   min-width: 150px;
@@ -122,6 +129,12 @@
 }
 
 @media (max-width: 768px) {
+  .hero {
+    min-height: 500px; /* Hauteur minimale ajustée pour mobile si besoin */
+    padding-top: 3rem;     /* Padding haut ajusté pour mobile */
+    padding-bottom: 3rem;  /* Padding bas ajusté pour mobile */
+  }
+
   .hero-slogan {
     font-size: 2.5rem;
   }
@@ -134,10 +147,3 @@
     justify-content: center; /* Stats centrées sur mobile */
   }
 }
-
-/* === Note sur le centrage === */
-/* Si d'autres éléments que les stats sur mobile doivent être */
-/* centrés, il faudra ajouter/modifier les styles CSS */
-/* (ex: text-align: center; sur .hero-content, ou */
-/* align-items: center; sur .hero-container si TOUT doit être centré). */
-/* Précisez quels éléments sont concernés si besoin. */
