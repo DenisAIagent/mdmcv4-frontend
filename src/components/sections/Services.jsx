@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 // Assurez-vous que le chemin vers le CSS est correct
 import '../../assets/styles/services.css';
+import '../../assets/styles/modal.css';
 
 const Services = () => {
   const { t } = useTranslation();
