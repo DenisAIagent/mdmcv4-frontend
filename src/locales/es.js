@@ -1,217 +1,237 @@
-// src/locales/es.js
-// TODO: Translate all French placeholder text to Spanish.
+// src/locales/es.js - Spanish Translations - REVIEW AND COMPLETE CAREFULLY!
 
 export default {
-  "meta_title": "MDMC Music Ads - Marketing musical que convierte", // Example translation
-  "meta_description": "Agencia especializada en marketing musical. Experiencia en YouTube Ads, Meta Ads, TikTok Ads y estrategia de contenido para artistas y sellos.", // Example translation
+  "meta_title": "MDMC Music Ads - Marketing Musical Que Convierte", // TODO: Translate
+  "meta_description": "Agencia especializada en marketing musical. Experiencia en YouTube Ads, Meta Ads, TikTok Ads y estrategia de contenido para artistas y sellos.", // TODO: Translate
   "language": {
-    "fr": "Francés", // Example translation
-    "en": "Inglés", // Example translation
-    "es": "Español", // Example translation
-    "pt": "Portugués" // Example translation
+    "fr": "Francés", // TODO: Translate
+    "en": "Inglés", // TODO: Translate
+    "es": "Español", // TODO: Translate
+    "pt": "Portugués" // TODO: Translate
   },
   "nav": {
-    "home": "Inicio", // Example translation
-    "services": "Servicios",
-    "about": "Sobre nosotros",
-    "articles": "Artículos",
-    "contact": "Contacto"
+    "home": "Inicio", // TODO: Translate
+    "services": "Servicios", // TODO: Translate
+    "about": "Sobre nosotros", // TODO: Translate
+    "articles": "Artículos", // TODO: Translate
+    "contact": "Contacto" // TODO: Translate
   },
-  "header": {
-    "home": "Inicio",
-    "services": "Servicios",
-    "about": "Sobre nosotros",
-    "contact": "Contacto",
-    "reviews": "Opiniones",
-    "simulator": "Simulador"
+  "header": { // Note: 'header' keys seem redundant if same as 'nav', adjust if needed
+    "home": "Inicio", // TODO: Translate
+    "services": "Servicios", // TODO: Translate
+    "about": "Sobre nosotros", // TODO: Translate
+    "contact": "Contacto", // TODO: Translate
+    "reviews": "Reseñas", // TODO: Translate
+    "simulator": "Simulador" // TODO: Translate
   },
   "hero": {
-    "title": "Impulsa tu música con campañas publicitarias que convierten",
-    "subtitle": "Push. Play. Blow up.",
-    "slogan": "Push. Play. Blow up.",
-    "description": "Experiencia en YouTube Ads, Meta Ads, TikTok Ads y estrategia de contenido para artistas y sellos.",
-    "cta": "Iniciar el simulador",
+    "title": "Impulsa tu música con campañas publicitarias que convierten", // TODO: Translate
+    "subtitle": "Push. Play. Blow up.", // Keep or adapt
+    "slogan": "Push. Play. Blow up.", // Keep or adapt
+    "description": "Experiencia en YouTube Ads, Meta Ads, TikTok Ads y estrategia de contenido para artistas y sellos.", // TODO: Translate
+    "cta": "Iniciar el simulador", // TODO: Translate
     "stats": {
-      "campaigns": "Campañas realizadas",
-      "artists": "Artistas acompañados",
-      "views": "Visualizaciones generadas",
-      "countries": "Países cubiertos"
+      "campaigns": "Campañas completadas", // TODO: Translate
+      "artists": "Artistas apoyados", // TODO: Translate
+      "views": "Vistas generadas", // TODO: Translate
+      "countries": "Países cubiertos" // TODO: Translate
     }
   },
   "simulator": {
-    "title": "Simulador de campaña",
-    "subtitle": "Descubre cuánto podrías ganar",
-    "step1_title": "Paso 1: Elige tu plataforma",
-    "step1_platform_label": "Plataforma publicitaria",
-    "option_select": "-- Seleccionar --",
+    "title": "Simulador de campaña", // TODO: Translate
+    "subtitle": "Descubre cuánto podrías ganar", // TODO: Translate
+    "step1_title": "Paso 1: Elige tu plataforma", // TODO: Translate
+    "step1_platform_label": "Plataforma publicitaria", // TODO: Translate
+    "option_select": "-- Seleccionar --", // Using ES from previous generation
     "platform_youtube": "YouTube Ads",
     "platform_meta": "Meta Ads (Facebook/Instagram)",
     "platform_tiktok": "TikTok Ads",
-    "button_next": "Siguiente",
-    "step1": {
-      "title": "¿Cuál es tu objetivo principal?",
-      "option1": "Aumentar los streams",
-      "option2": "Vender merchandising",
-      "option3": "Promocionar un concierto/evento",
-      "option4": "Desarrollar mi comunidad"
+    "button_next": "Siguiente", // TODO: Translate
+    "step1": { // Used in your EN file structure
+      "title": "¿Cuál es tu objetivo principal?", // TODO: Translate
+      "option1": "Aumentar streams", // TODO: Translate
+      "option2": "Vender merchandising", // TODO: Translate
+      "option3": "Promocionar un concierto/evento", // TODO: Translate
+      "option4": "Hacer crecer mi comunidad" // TODO: Translate
     },
-    "step2": {
-      "title": "¿Cuál es tu presupuesto mensual?",
-      "option1": "500€ - 1000€",
-      "option2": "1000€ - 3000€",
-      "option3": "3000€ - 5000€",
-      "option4": "5000€+"
+    "step2": { // Used in your EN file structure
+      "title": "¿Cuál es tu presupuesto mensual?", // TODO: Translate
+      "option1": "€500 - €1000",
+      "option2": "€1000 - €3000",
+      "option3": "€3000 - €5000",
+      "option4": "€5000+"
     },
-    "step3": {
-      "title": "¿Cuál es tu género musical?",
+    "step3": { // Used in your EN file structure
+      "title": "¿Cuál es tu género musical?", // TODO: Translate
       "option1": "Pop",
       "option2": "Hip-Hop/Rap",
-      "option3": "Electrónica",
+      "option3": "Electrónica", // TODO: Translate
       "option4": "Rock/Metal",
       "option5": "R&B/Soul",
-      "option6": "Otro"
+      "option6": "Otro" // TODO: Translate
     },
-    "step4": {
-      "title": "¿Dónde se encuentra tu audiencia principal?",
-      "option1": "Francia",
-      "option2": "Europa",
-      "option3": "América del Norte",
-      "option4": "Mundial"
+    "step4": { // Used in your EN file structure
+      "title": "¿Dónde se encuentra tu audiencia principal?", // TODO: Translate
+      "option1": "Francia", // TODO: Translate
+      "option2": "Europa", // TODO: Translate
+      "option3": "América del Norte", // TODO: Translate
+      "option4": "Todo el mundo" // TODO: Translate
     },
-    "step5": {
-      "title": "¿Has hecho publicidad online antes?",
-      "option1": "Nunca",
-      "option2": "Algunas campañas",
-      "option3": "Regularmente",
-      "option4": "Experto"
+    "step5": { // Used in your EN file structure
+      "title": "¿Has hecho publicidad online antes?", // TODO: Translate
+      "option1": "Nunca", // TODO: Translate
+      "option2": "Algunas campañas", // TODO: Translate
+      "option3": "Regularmente", // TODO: Translate
+      "option4": "Experto" // TODO: Translate
     },
-    "step6": {
-      "title": "Aquí está tu estimación personalizada",
-      "roi_title": "ROI estimado",
-      "monthly_streams": "Streams mensuales potenciales",
-      "monthly_sales": "Ventas mensuales potenciales",
-      "ticket_sales": "Ventas de entradas potenciales",
-      "followers_growth": "Crecimiento potencial de seguidores",
-      "cta": "Hablar con un experto",
-      "disclaimer": "Estas cifras son estimaciones basadas en nuestros datos históricos y pueden variar según muchos factores."
+    "step6": { // Used in your EN file structure (Results step)
+      "title": "Aquí tienes tu estimación personalizada", // TODO: Translate
+      "roi_title": "ROI Estimado", // TODO: Translate
+      "monthly_streams": "Streams mensuales potenciales", // TODO: Translate
+      "monthly_sales": "Ventas mensuales potenciales", // TODO: Translate
+      "ticket_sales": "Ventas de entradas potenciales", // TODO: Translate
+      "followers_growth": "Crecimiento potencial de seguidores", // TODO: Translate
+      "cta": "Hablar con un experto", // TODO: Translate
+      "disclaimer": "Estas cifras son estimaciones basadas en nuestros datos históricos y pueden variar dependiendo de muchos factores." // TODO: Translate
     },
-    "next": "Siguiente",
-    "previous": "Anterior",
-    "close": "Cerrar"
+    // === Keys ADDED to match JSX/Screenshots ===
+    step2_label: 'Tipo de campaña',
+    step2_placeholder: 'Elige el tipo de campaña',
+    step3_label: 'Presupuesto mensual estimado',
+    step3_budget_placeholder: 'Tu presupuesto',
+    step3_region_label: 'Países objetivo',
+    step4_label: 'País objetivo', // Check plural?
+    step5_label: 'Tus Información',
+    step5_artist_label: 'Nombre del artista / Sello',
+    step5_artist_placeholder: 'nombre del artista',
+    step5_email_label: 'Tu correo electrónico',
+    step5_email_placeholder: 'tu correo electrónico',
+    button_prev: 'anterior',
+    button_show_results: 'ver el resultado',
+    // =======================================
+    "previous": "Anterior", // TODO: Translate
+    "close": "Cerrar" // TODO: Translate
   },
   "services": {
-    "title": "Nuestros Servicios",
-    "subtitle": "Soluciones completas de marketing para la industria musical",
+    "title": "Nuestros Servicios", // TODO: Translate
+    "subtitle": "Soluciones completas de marketing para la industria musical", // TODO: Translate
     "youtube": {
       "title": "YouTube Ads",
-      "description": "Campañas de video dirigidas para maximizar visualizaciones y participación."
+      "description": "Campañas de vídeo específicas para maximizar las visualizaciones y la participación." // TODO: Translate
     },
     "meta": {
       "title": "Meta Ads",
-      "description": "Estrategias de Facebook e Instagram para hacer crecer tu audiencia."
+      "description": "Estrategias de Facebook e Instagram para hacer crecer tu audiencia." // TODO: Translate
     },
     "tiktok": {
       "title": "TikTok Ads",
-      "description": "Campañas virales para llegar a la Generación Z y más allá."
+      "description": "Campañas virales para llegar a la Generación Z y más allá." // TODO: Translate
     },
     "content": {
-      "title": "Estrategia de Contenido",
-      "description": "Creación y optimización de contenido que convierte."
+      "title": "Estrategia de contenido",
+      "description": "Creación y optimización de contenido que convierte." // TODO: Translate
     }
   },
   "about": {
-    "title": "Sobre Nosotros",
-    "subtitle": "Expertos en marketing musical desde 2018",
-    "description": "MDMC es una agencia especializada en marketing digital para la industria musical. Ayudamos a artistas y sellos a alcanzar sus objetivos mediante estrategias publicitarias a medida y campañas optimizadas para maximizar el ROI.",
+    "title": "Sobre Nosotros", // TODO: Translate
+    "subtitle": "Expertos en marketing musical desde 2018", // TODO: Translate
+    "description": "MDMC es una agencia especializada en marketing digital para la industria musical. Ayudamos a artistas y sellos a alcanzar sus objetivos a través de estrategias publicitarias personalizadas y campañas optimizadas para maximizar el ROI.", // TODO: Translate
     "advantages": {
-      "expertise": "Experiencia especializada en la industria musical",
-      "campaigns": "Campañas optimizadas para maximizar el ROI",
-      "targeting": "Segmentación precisa de audiencias relevantes",
-      "analytics": "Análisis detallados e informes transparentes"
+      "expertise": "Experiencia especializada en la industria musical", // TODO: Translate
+      "campaigns": "Campañas optimizadas para maximizar el ROI", // TODO: Translate
+      "targeting": "Segmentación precisa de audiencias relevantes", // TODO: Translate
+      "analytics": "Análisis detallados e informes transparentes" // TODO: Translate
     },
-    "stats": {
-      "artists": "Artistas acompañados",
-      "campaigns": "Campañas realizadas",
-      "streams": "Streams generados",
-      "roi": "ROI promedio"
+    "stats": { // Note: Different stats keys than hero section in your file
+      "artists": "Artistas apoyados", // TODO: Translate
+      "campaigns": "Campañas completadas", // TODO: Translate
+      "streams": "Streams generados", // TODO: Translate
+      "roi": "ROI promedio" // TODO: Translate
     }
   },
   "articles": {
-    "title": "Nuestros últimos artículos", // Example translation
-    "subtitle": "Consejos y noticias sobre marketing musical",
-    "view_all": "Ver todos los artículos",
-    "read_more": "Leer más",
-    "error_loading": "Error al cargar los artículos.",
+    "title": "Nuestros Últimos Artículos", // TODO: Translate
+    "subtitle": "Consejos y noticias sobre marketing musical", // TODO: Translate
+    "view_all": "Ver todos los artículos", // TODO: Translate
+    "read_more": "Leer más", // TODO: Translate
+    "error_loading": "Error al cargar los artículos.", // TODO: Translate
     "categories": {
-      "strategy": "Estrategia",
+      "strategy": "Estrategia", // TODO: Translate
       "youtube": "YouTube",
       "meta": "Meta",
       "tiktok": "TikTok",
-      "default": "Noticias"
+      "default": "Noticias" // TODO: Translate
     }
   },
   "contact": {
-    "title": "Contáctanos",
-    "name": "Nombre",
-    "email": "Email",
-    "message": "Mensaje",
-    "submit": "Enviar",
-    "success": "¡Mensaje enviado con éxito!",
-    "error": "Ocurrió un error. Por favor, inténtalo de nuevo.",
+    "title": "Contáctanos", // TODO: Translate
+    "name": "Nombre", // TODO: Translate
+    "email": "Correo electrónico", // TODO: Translate
+    "message": "Mensaje", // TODO: Translate
+    "submit": "Enviar", // TODO: Translate
+    "success": "¡Mensaje enviado con éxito!", // Top level success
+    "error": "Se ha producido un error. Por favor, inténtalo de nuevo.", // Top level error
     "form": {
-      "platform_label": "Plataforma principal objetivo",
-      "option_select": "-- Seleccionar --",
-      "platform_youtube": "YouTube Ads",
-      "platform_meta": "Meta Ads (Facebook/Instagram)",
-      "platform_tiktok": "TikTok Ads",
-      "name": "Tu nombre",
-      "email": "Tu email",
-      "message": "Tu mensaje",
-      "submit": "Enviar",
-      "submitting": "Enviando...",
-      "book_call": "Reservar una llamada",
-      "success": "¡Mensaje enviado con éxito!",
-      "error": "Ocurrió un error durante el envío. Por favor, inténtalo de nuevo.",
-      "error_fields": "Por favor, rellena todos los campos requeridos.",
-      "error_email": "Por favor, introduce una dirección de correo electrónico válida."
+      "platform_label": 'Plataforma principal objetivo',
+      "option_select": '-- Seleccionar --',
+      "platform_youtube": 'YouTube Ads',
+      "platform_meta": 'Meta Ads (Facebook/Instagram)',
+      "platform_tiktok": 'TikTok Ads',
+      "name": "Tu nombre", // TODO: Translate
+      "email": "Tu correo electrónico", // TODO: Translate
+      "message": "Tu mensaje", // TODO: Translate
+      "submit": "Enviar", // Submit inside form
+      "submitting": 'Enviando...',
+      "book_call": 'hablar con un experto',
+      "success": '¡Mensaje enviado con éxito!', // Success inside form
+      "error": 'Se ha producido un error al enviar. Por favor, inténtalo de nuevo.', // Error inside form
+      "error_fields": "Por favor, rellene todos los campos obligatorios.", // TODO: Translate
+      "error_email": "Por favor, introduzca una dirección de correo electrónico válida." // TODO: Translate
     },
     "partners": {
-      "title": "Nuestros Socios", // Text changed here
-      "fmm": "Fédération des Musiques Métalliques", // Keep proper name?
-      "fmm_description": "Socio oficial para la promoción de artistas de metal",
+      "title": "Nuestros Socios", // TODO: Translate
+      "fmm": "Fédération des Musiques Métalliques", // Proper name kept
+      "fmm_description": "Socio oficial para la promoción de artistas de metal", // TODO: Translate
       "google": "Google Partner",
-      "google_description": "Agencia certificada Google Ads",
-      "google_badge_alt": "Insignia Google Partner",
-      "mhl": "MHL Agency & Co", // Keep proper name?
-      "mhl_description": "Colaboración en campañas internacionales",
-      "algorythme": "Algorythme", // Keep proper name?
-      "algorythme_description": "Socio tecnológico para análisis de datos"
+      "google_description": "Agencia certificada Google Ads", // TODO: Translate
+      "google_badge_alt": "Insignia de Google Partner", // TODO: Translate
+      "mhl": "MHL Agency & Co", // Proper name kept
+      "mhl_description": "Colaboración en campañas internacionales", // TODO: Translate
+      "algorythme": "Algorythme", // Proper name kept
+      "algorythme_description": "Socio tecnológico para el análisis de datos" // TODO: Translate
     }
   },
   "reviews": {
-    "title": "Lo que dicen nuestros clientes",
-    "subtitle": "Testimonios de artistas y sellos",
-    "cta": "Ver todas las opiniones",
-    "leave_review": "Dejar una opinión",
-    "view_all": "Ver todas las opiniones"
+    "title": "Lo que dicen nuestros clientes", // TODO: Translate
+    "subtitle": "Testimonios de artistas y sellos", // TODO: Translate
+    "cta": "Ver todas las reseñas", // Note: Redundant key 'view_all' below
+    "leave_review": "Dejar una reseña", // TODO: Translate
+    "view_all": "Ver todas las reseñas", // TODO: Translate
+    // === Keys ADDED for review form ===
+    form: {
+      title: 'Deja un comentario',
+      name: 'Tu nombre'
+      // Add other keys for review form if needed (rating, comment, etc.)
+    }
+    // ==================================
   },
   "footer": {
-    "rights": "Todos los derechos reservados",
-    "privacy": "Política de Privacidad",
-    "terms": "Términos de Uso",
-    "copyright": "MDMC Music Ads. Todos los derechos reservados.",
-    "logo_p": "Marketing musical que convierte",
-    "nav_title": "Navegación",
-    "nav_home": "Inicio",
-    "resources_title": "Recursos",
-    "resources_blog": "Blog",
-    "resources_simulator": "Simulador",
-    "resources_faq": "FAQ",
-    "resources_glossary": "Glosario",
-    "legal_title": "Avisos Legales",
-    "legal_privacy": "Privacidad",
-    "legal_terms": "Términos",
-    "legal_cookies": "Política de Cookies"
+    "rights": "Todos los derechos reservados", // TODO: Translate
+    "privacy": "Política de privacidad", // TODO: Translate
+    "terms": "Términos de uso", // TODO: Translate
+    "copyright": "MDMC Music Ads. Todos los derechos reservados.", // TODO: Translate
+    "logo_p": "Marketing musical que convierte", // TODO: Translate
+    "nav_title": "Navegación", // TODO: Translate
+    "nav_home": "Inicio", // Redundant nav keys
+    "resources_title": "Recursos", // TODO: Translate
+    "resources_blog": "Blog", // TODO: Translate
+    "resources_simulator": "Simulador", // TODO: Translate
+    "resources_faq": "Preguntas frecuentes", // TODO: Translate
+    "resources_glossary": "Glosario", // TODO: Translate
+    "legal_title": "Menciones legales", // TODO: Translate
+    "legal_privacy": "Privacidad", // TODO: Translate
+    "legal_terms": "Términos", // TODO: Translate
+    "legal_cookies": "Política de cookies" // TODO: Translate
   },
   "admin": { // Keeping admin panel in French for this example, translate if needed
     "dashboard": "Tableau de bord",
@@ -260,52 +280,52 @@ export default {
     "change_password": "Changer le mot de passe",
     "new_password": "Nouveau mot de passe",
     "save_settings": "Enregistrer les paramètres",
-    "chatbot": { // Example translation
-      "title": "Asistente MDMC",
-      "welcome_message": "¡Hola! Soy tu asistente MDMC. ¿Cómo puedo ayudarte hoy?",
-      "help_prompt": "Estos son algunos temas en los que puedo ayudarte:",
-      "suggestion_pixels": "Integración de píxeles de marketing",
-      "suggestion_wordpress": "Conectar WordPress",
-      "suggestion_landing_pages": "Crear una landing page",
-      "general_help": "Puedo ayudarte con las integraciones de marketing, la conexión de WordPress o la creación de landing pages. ¿Qué te gustaría saber?",
-      "google_analytics_help": "Para configurar Google Analytics, necesitas tu ID de medición (G-XXXXXXXX). Puedes encontrarlo en tu cuenta de Google Analytics en Administrar > Propiedad > Información de seguimiento > Código de seguimiento.",
-      "suggestion_ga_id": "¿Dónde encontrar mi ID de Google Analytics?",
-      "suggestion_ga_events": "Configuración de eventos GA",
-      "gtm_help": "Para configurar Google Tag Manager, introduce tu ID de contenedor GTM (GTM-XXXXXXX) en el campo correspondiente. Puedes encontrar este ID en tu cuenta GTM en Administrar > Configuración del contenedor.",
-      "suggestion_gtm_id": "¿Dónde encontrar mi ID de GTM?",
-      "suggestion_gtm_setup": "Configuración avanzada de GTM",
-      "meta_pixel_help": "Para configurar el píxel de Meta (Facebook), introduce tu ID de píxel en el campo correspondiente. Puedes encontrar este ID en tu Administrador de eventos de Meta en Píxeles > Detalles del píxel.",
-      "suggestion_meta_events": "Configuración de eventos Meta",
-      "suggestion_meta_advanced": "Opciones avanzadas del píxel de Meta",
-      "tiktok_pixel_help": "Para configurar el píxel de TikTok, introduce tu ID de píxel en el campo correspondiente. Puedes encontrar este ID en tu TikTok Ads Manager en Biblioteca > Eventos > Píxel del sitio web > Configurar.",
-      "suggestion_tiktok_events": "Configuración de eventos TikTok",
-      "suggestion_tiktok_api": "Uso de la API de TikTok",
-      "pixels_general_help": "Puedes integrar varios píxeles de marketing sin manipular código. Simplemente introduce los IDs correspondientes en los campos provistos.",
+    "chatbot": { // TODO: Translate Chatbot section
+      "title": "MDMC Assistant",
+      "welcome_message": "Hello! I'm your MDMC assistant. How can I help you today?",
+      "help_prompt": "Here are some topics I can help you with:",
+      "suggestion_pixels": "Marketing pixel integration",
+      "suggestion_wordpress": "Connecting WordPress",
+      "suggestion_landing_pages": "Creating a landing page",
+      "general_help": "I can help with marketing integrations, WordPress connection, or landing page creation. What would you like to know?",
+      "google_analytics_help": "To set up Google Analytics, you need your measurement ID (G-XXXXXXXX). You can find it in your Google Analytics account under Admin > Property > Tracking Info > Tracking Code.",
+      "suggestion_ga_id": "Where to find my Google Analytics ID?",
+      "suggestion_ga_events": "GA event configuration",
+      "gtm_help": "To set up Google Tag Manager, enter your GTM container ID (GTM-XXXXXXX) in the corresponding field. You can find this ID in your GTM account under Admin > Container Settings.",
+      "suggestion_gtm_id": "Where to find my GTM ID?",
+      "suggestion_gtm_setup": "Advanced GTM configuration",
+      "meta_pixel_help": "To set up the Meta Pixel (Facebook), enter your pixel ID in the corresponding field. You can find this ID in your Meta Events Manager under Pixels > Pixel Details.",
+      "suggestion_meta_events": "Meta event configuration",
+      "suggestion_meta_advanced": "Advanced Meta Pixel options",
+      "tiktok_pixel_help": "To set up the TikTok Pixel, enter your pixel ID in the corresponding field. You can find this ID in your TikTok Ads Manager under Library > Events > Website Pixel > Setup.",
+      "suggestion_tiktok_events": "TikTok event configuration",
+      "suggestion_tiktok_api": "Using the TikTok API",
+      "pixels_general_help": "You can integrate various marketing pixels without handling code. Just enter the corresponding IDs in the provided fields.",
       "suggestion_google_analytics": "Google Analytics",
-      "suggestion_meta_pixel": "Píxel de Meta (Facebook)",
-      "suggestion_tiktok_pixel": "Píxel de TikTok",
-      "wordpress_setup_help": "Para conectar tu blog de WordPress, necesitarás la URL de tu sitio WordPress y una contraseña de aplicación. Puedes crear una contraseña de aplicación en tu perfil de WordPress en Seguridad > Contraseñas de aplicación.",
-      "suggestion_wp_app_password": "Crear una contraseña de aplicación",
-      "suggestion_wp_sync": "Sincronizar contenido",
-      "wordpress_sync_help": "Puedes sincronizar automáticamente el contenido de tu blog de WordPress con tu sitio MDMC. Selecciona las categorías que deseas sincronizar y establece la frecuencia de sincronización.",
-      "suggestion_wp_categories": "Selección de categorías",
-      "suggestion_wp_frequency": "Frecuencia de sincronización",
-      "wordpress_general_help": "El conector de WordPress te permite integrar fácilmente el contenido de tu blog de WordPress en tu sitio MDMC sin manipular código.",
-      "suggestion_wp_connect": "Cómo conectar WordPress",
-      "suggestion_wp_troubleshoot": "Resolución de problemas",
-      "landing_templates_help": "El generador de landing pages ofrece varias plantillas optimizadas para la industria musical. Selecciona la que mejor se adapte a tus necesidades y personalízala a tu gusto.",
-      "suggestion_landing_customize": "Personalizar una plantilla",
-      "suggestion_landing_sections": "Gestionar secciones",
-      "landing_publish_help": "Una vez creada tu landing page, puedes publicarla con un clic. También puedes integrar tus píxeles de marketing para seguir el rendimiento de tu página.",
-      "suggestion_landing_analytics": "Seguimiento del rendimiento",
-      "suggestion_landing_domain": "Usar un dominio personalizado",
-      "landing_general_help": "El generador de landing pages te permite crear fácilmente páginas de destino profesionales sin codificar. Puedes elegir entre varias plantillas, personalizar el contenido y publicar en pocos clics.",
-      "suggestion_landing_create": "Crear una landing page",
-      "suggestion_landing_publish": "Publicar una landing page",
-      "input_placeholder": "Haz tu pregunta aquí...",
-      "send": "Enviar",
-      "close": "Cerrar",
-      "open": "Abrir asistente"
+      "suggestion_meta_pixel": "Meta Pixel (Facebook)",
+      "suggestion_tiktok_pixel": "TikTok Pixel",
+      "wordpress_setup_help": "To connect your WordPress blog, you'll need your WordPress site URL and an application password. You can create an application password in your WordPress profile under Security > Application Passwords.",
+      "suggestion_wp_app_password": "Create an application password",
+      "suggestion_wp_sync": "Synchronize content",
+      "wordpress_sync_help": "You can automatically synchronize content from your WordPress blog with your MDMC site. Select the categories you want to sync and set the synchronization frequency.",
+      "suggestion_wp_categories": "Selecting categories",
+      "suggestion_wp_frequency": "Synchronization frequency",
+      "wordpress_general_help": "The WordPress connector allows you to easily integrate content from your WordPress blog into your MDMC site without handling code.",
+      "suggestion_wp_connect": "How to connect WordPress",
+      "suggestion_wp_troubleshoot": "Troubleshooting",
+      "landing_templates_help": "The landing page generator offers several templates optimized for the music industry. Select the one that best suits your needs and customize it to your preferences.",
+      "suggestion_landing_customize": "Customize a template",
+      "suggestion_landing_sections": "Manage sections",
+      "landing_publish_help": "Once your landing page is created, you can publish it with one click. You can also integrate your marketing pixels to track page performance.",
+      "suggestion_landing_analytics": "Performance tracking",
+      "suggestion_landing_domain": "Use a custom domain",
+      "landing_general_help": "The landing page generator allows you to easily create professional landing pages without coding. You can choose from several templates, customize the content, and publish in a few clicks.",
+      "suggestion_landing_create": "Create a landing page",
+      "suggestion_landing_publish": "Publish a landing page",
+      "input_placeholder": "Ask your question here...",
+      "send": "Send",
+      "close": "Close",
+      "open": "Open assistant"
     }
   }
 };
