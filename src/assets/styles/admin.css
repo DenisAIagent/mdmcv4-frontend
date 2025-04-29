@@ -1,88 +1,340 @@
-/* Dans ton fichier admin.css */
+/* ===== admin.css ===== */
+
+/* --- Variables CSS (Basées sur ta charte graphique) --- */
+:root {
+  /* === Couleurs de ta charte === */
+  --admin-sidebar-bg: #000000; /* Noir profond (Fond Sidebar) */
+  --admin-sidebar-text: #FFFFFF; /* Blanc pur (Texte Sidebar) */
+  --admin-sidebar-active-bg: #FF0000; /* Rouge vif (Fond Item Actif) */
+  --admin-sidebar-active-text: #FFFFFF; /* Blanc pur (Texte Item Actif) */
+  --admin-content-bg: #f9fafb; /* Fond très clair pour le contenu (pour contraste) */
+  --admin-text-color: #000000; /* Noir profond (Texte principal dans le contenu) */
+  --admin-secondary-text-color: #CCCCCC; /* Gris clair (Texte secondaire) */
+  --admin-primary-color: #FF0000; /* Rouge vif (Boutons primaires, accents) */
+  --admin-border-color: #e5e7eb; /* Gris très clair pour les bordures fines */
+
+  /* === Police (Exemple: Inter - à adapter si tu en as une autre) === */
+  --admin-font-family: 'Inter', sans-serif; /* Assure-toi d'importer cette police si nécessaire */
+}
+
+/* --- Styles Généraux --- */
+.admin-panel {
+  font-family: var(--admin-font-family);
+  display: flex;
+}
 
 /* --- Barre Latérale (Sidebar) --- */
-
-/* Largeur par défaut (quand dépliée) */
 .admin-sidebar {
-  width: 280px; /* Augmente cette valeur (ex: 250px, 280px, 300px) jusqu'à ce que le texte passe */
-  /* Conserve tes autres styles : position, background, transition, etc. */
+  width: 300px; /* <<<< LARGEUR À AJUSTER SI NÉCESSAIRE */
   position: fixed;
   left: 0;
   top: 0;
   height: 100vh;
-  background-color: #2c3e50; /* Exemple */
-  color: #ecf0f1; /* Exemple */
-  transition: width 0.3s ease; /* Pour une transition douce */
-  /* ... autres styles ... */
+  background-color: var(--admin-sidebar-bg);
+  color: var(--admin-sidebar-text);
+  transition: width 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 0;
+  /* Pas d'ombre si le fond est noir */
 }
 
-/* Largeur quand la sidebar est REPLIÉE */
-.admin-panel.sidebar-collapsed .admin-sidebar {
-  width: 80px; /* Garde une largeur réduite pour le mode replié (ajuste si besoin) */
-  /* ... autres styles pour le mode replié ... */
+/* Header Sidebar */
+.admin-sidebar .sidebar-header {
+  padding: 0 15px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.admin-sidebar .admin-logo h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--admin-sidebar-text); /* Texte blanc */
+}
+.admin-sidebar .admin-logo p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--admin-secondary-text-color); /* Gris clair pour "Admin" */
+}
+.admin-sidebar .sidebar-toggle {
+  background: none;
+  border: none;
+  color: var(--admin-sidebar-text);
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 5px;
 }
 
-/* Style pour le texte dans les items de navigation */
+/* Navigation */
+.admin-sidebar .admin-nav {
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+.admin-sidebar .nav-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 20px; /* Espace intérieur */
+  margin: 5px 10px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: var(--admin-sidebar-text);
+  background-color: transparent;
+  border: none;
+  width: calc(100% - 20px);
+  text-align: left;
+}
+
+.admin-sidebar .nav-item:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Blanc très léger au survol */
+}
+
+.admin-sidebar .nav-item.active {
+  background-color: var(--admin-sidebar-active-bg); /* Rouge vif */
+  color: var(--admin-sidebar-active-text); /* Blanc */
+  font-weight: 600;
+}
+/* Appliquer la couleur active aussi à l'icône SVG */
+.admin-sidebar .nav-item.active svg {
+  stroke: var(--admin-sidebar-active-text); /* Ou fill si c'est un fill */
+}
+
+
+.admin-sidebar .nav-item svg {
+  width: 20px;
+  height: 20px;
+  margin-right: 15px;
+  flex-shrink: 0;
+  stroke: var(--admin-sidebar-text); /* Assure que les SVG prennent la couleur du texte */
+}
+
 .admin-sidebar .nav-item .nav-text {
-  /* S'assurer que le texte ne déborde pas si la largeur est juste */
-  white-space: nowrap; /* Empêche le texte de passer à la ligne */
-  overflow: hidden; /* Cache le texte qui dépasse */
-  text-overflow: ellipsis; /* Ajoute "..." si le texte dépasse (optionnel mais propre) */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   opacity: 1;
   transition: opacity 0.3s ease;
+  flex-grow: 1;
 }
 
-/* Cacher le texte quand la sidebar est REPLIÉE */
-.admin-panel.sidebar-collapsed .admin-sidebar .nav-item .nav-text {
-  opacity: 0; /* Rend le texte invisible */
-  width: 0; /* Réduit la largeur pour éviter les problèmes de layout */
-  pointer-events: none; /* Empêche l'interaction avec le texte caché */
+.admin-sidebar .nav-divider {
+    height: 1px;
+    background-color: rgba(255, 255, 255, 0.2); /* Ligne de séparation plus visible sur fond noir */
+    margin: 15px 10px;
 }
+
+/* Logout */
+.admin-sidebar .admin-logout {
+    padding: 0 10px;
+}
+.admin-sidebar .admin-logout button {
+     display: flex;
+     align-items: center;
+     padding: 12px 20px;
+     margin-top: 10px;
+     cursor: pointer;
+     border-radius: 6px;
+     transition: background-color 0.2s ease;
+     color: var(--admin-sidebar-text);
+     background-color: transparent;
+     border: 1px solid transparent; /* Pour la cohérence */
+     width: 100%;
+     text-align: left;
+}
+.admin-sidebar .admin-logout button:hover {
+     background-color: rgba(255, 0, 0, 0.2); /* Rouge léger au survol */
+     border-color: var(--admin-primary-color);
+}
+.admin-sidebar .admin-logout button svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+    flex-shrink: 0;
+    stroke: var(--admin-sidebar-text);
+}
+
+
+/* --- Styles pour la Sidebar REPLIÉE --- */
+.admin-panel.sidebar-collapsed .admin-sidebar {
+  width: 80px; /* Largeur repliée */
+  padding: 15px 0;
+}
+/* ... (Les autres styles pour le mode replié restent similaires à avant) ... */
+.admin-panel.sidebar-collapsed .admin-sidebar .sidebar-header { padding: 0 10px; justify-content: center; }
+.admin-panel.sidebar-collapsed .admin-sidebar .admin-logo { display: none; }
+.admin-panel.sidebar-collapsed .admin-sidebar .nav-item { margin: 5px; padding: 12px; justify-content: center; width: calc(100% - 10px); }
+.admin-panel.sidebar-collapsed .admin-sidebar .nav-item svg { margin-right: 0; }
+.admin-panel.sidebar-collapsed .admin-sidebar .nav-item .nav-text { opacity: 0; width: 0; overflow: hidden; pointer-events: none; }
+.admin-panel.sidebar-collapsed .admin-sidebar .admin-logout button { padding: 12px; justify-content: center; margin: 10px 5px 0 5px; width: calc(100% - 10px); }
+.admin-panel.sidebar-collapsed .admin-sidebar .admin-logout button .nav-text { display: none; }
 
 
 /* --- Contenu Principal --- */
-
-/* Décalage du contenu quand la sidebar est DÉPLIÉE */
 .admin-content-wrapper {
-  margin-left: 280px; /* Cette valeur DOIT correspondre à la largeur de la sidebar dépliée */
-  /* Conserve tes autres styles : padding, transition, etc. */
-  padding: 20px; /* Exemple */
-  transition: margin-left 0.3s ease; /* Pour une transition douce */
-  /* ... autres styles ... */
+  margin-left: 300px; /* <<<< DOIT correspondre à la largeur DÉPLIÉE */
+  padding: 30px; /* Augmente un peu le padding général */
+  width: calc(100% - 300px);
+  transition: margin-left 0.3s ease, width 0.3s ease;
+  background-color: var(--admin-content-bg);
+  min-height: 100vh;
+  color: var(--admin-text-color); /* Texte noir par défaut dans le contenu */
 }
 
-/* Décalage du contenu quand la sidebar est REPLIÉE */
 .admin-panel.sidebar-collapsed .admin-content-wrapper {
-  margin-left: 80px; /* Cette valeur DOIT correspondre à la largeur de la sidebar repliée */
+  margin-left: 80px; /* <<<< DOIT correspondre à la largeur REPLIÉE */
+  width: calc(100% - 80px);
 }
+
+.admin-content {
+  background-color: #ffffff; /* Fond blanc pour les sections */
+  padding: 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08); /* Ombre un peu plus marquée */
+}
+
+/* --- Styles Généraux Admin (Titres, Boutons, etc.) --- */
+.admin-content h2 {
+  color: var(--admin-text-color);
+  margin-top: 0;
+  margin-bottom: 30px;
+  font-size: 1.8rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--admin-border-color);
+  padding-bottom: 15px;
+}
+.admin-content h3 {
+    color: var(--admin-text-color);
+    margin-top: 25px;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+.admin-content p {
+    color: #333; /* Un gris foncé pour les paragraphes */
+    line-height: 1.6;
+}
+
+/* Boutons utilisant la charte */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600; /* Texte en gras */
+    transition: background-color 0.2s ease, transform 0.1s ease;
+    text-decoration: none;
+    display: inline-block;
+    margin-right: 10px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+.btn:active {
+    transform: translateY(1px); /* Petit effet au clic */
+}
+
+.btn-primary {
+    background-color: var(--admin-primary-color); /* Rouge vif */
+    color: white;
+}
+.btn-primary:hover {
+    background-color: #cc0000; /* Rouge un peu plus foncé */
+}
+
+.btn-secondary {
+    background-color: var(--admin-secondary-text-color); /* Gris clair */
+    color: #333; /* Texte gris foncé */
+}
+.btn-secondary:hover {
+    background-color: #b3b3b3; /* Gris un peu plus foncé */
+}
+
+/* Styles spécifiques aux boutons d'avis (si besoin de les différencier) */
+.btn-approve {
+    background-color: #10b981; /* Vert */
+    color: white;
+}
+.btn-approve:hover {
+    background-color: #059669;
+}
+.btn-reject {
+    background-color: #ef4444; /* Rouge (différent du primaire ?) */
+    color: white;
+}
+.btn-reject:hover {
+    background-color: #dc2626;
+}
+
 
 /* --- Media Queries pour Mobile --- */
 @media (max-width: 767px) {
   .admin-sidebar {
-    /* Comportement sur mobile : peut-être la cacher par défaut */
-    width: 250px; /* Largeur quand elle s'ouvre sur mobile */
-    transform: translateX(-100%); /* La cache hors écran par défaut */
-    z-index: 1000; /* S'assurer qu'elle passe au-dessus du contenu */
-    /* La transition doit être sur 'transform' */
-     transition: transform 0.3s ease;
+    width: 280px; /* Largeur mobile */
+    transform: translateX(-100%);
+    position: fixed;
+    z-index: 1000;
+    transition: transform 0.3s ease;
+    box-shadow: 4px 0 10px rgba(0,0,0,0.1);
   }
 
-  .admin-panel:not(.sidebar-collapsed) .admin-sidebar {
-      /* Quand elle doit s'afficher sur mobile (si on utilise une classe ou un état pour l'ouvrir) */
-      /* Ou peut-être que l'état 'sidebarCollapsed' est inversé sur mobile ? */
-      /* Ici, on suppose qu'elle s'affiche quand elle N'EST PAS 'collapsed' */
-       transform: translateX(0);
+  .admin-panel.mobile-sidebar-open .admin-sidebar {
+     transform: translateX(0);
   }
 
-   /* Sur mobile, le contenu prend toute la largeur */
   .admin-content-wrapper {
+    width: 100%;
     margin-left: 0;
-    padding-top: 60px; /* Espace pour le header mobile si besoin */
+    padding: 15px;
+    padding-top: 75px; /* Espace pour header mobile */
   }
 
-  /* Ajustements spécifiques au mode replié sur mobile si nécessaire */
-   .admin-panel.sidebar-collapsed .admin-sidebar {
-       transform: translateX(-100%); /* Assure qu'elle reste cachée si repliée */
+  .admin-panel.sidebar-collapsed .admin-sidebar {
+       transform: translateX(-100%);
+   }
+
+   .admin-header {
+       position: fixed;
+       top: 0;
+       left: 0;
+       width: 100%;
+       height: 60px;
+       background-color: #ffffff;
+       display: flex;
+       align-items: center;
+       justify-content: space-between;
+       padding: 0 15px;
+       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+       z-index: 900;
+   }
+   .mobile-menu-toggle {
+       background: none;
+       border: none;
+       font-size: 1.5rem;
+       cursor: pointer;
+       color: var(--admin-text-color); /* Noir */
+   }
+   .admin-header h1 {
+       font-size: 1.2rem;
+       margin: 0;
+       color: var(--admin-text-color); /* Noir */
+   }
+   .admin-user .user-avatar {
+       width: 35px;
+       height: 35px;
+       background-color: var(--admin-primary-color); /* Rouge */
+       color: white;
+       border-radius: 50%;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+       font-weight: bold;
+   }
+
+   /* Ajuster les boutons sur mobile ? */
+   .btn {
+       padding: 8px 15px;
+       font-size: 0.9rem;
    }
 }
 
