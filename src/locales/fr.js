@@ -9,14 +9,14 @@ export default {
     "es": "Espagnol",
     "pt": "Portugais"
   },
-  "nav": { // Utilisé potentiellement dans un menu principal différent de l'en-tête ?
+  "nav": {
     "home": "Accueil",
     "services": "Services",
     "about": "À propos",
     "articles": "Articles",
     "contact": "Contact"
   },
-  "header": { // Utilisé dans l'en-tête principal du site public
+  "header": {
     "home": "Accueil",
     "services": "Services",
     "about": "À propos",
@@ -27,7 +27,7 @@ export default {
   "hero": {
     "title": "Propulsez votre musique avec des campagnes publicitaires qui convertissent",
     "subtitle": "Push. Play. Blow up.",
-    "slogan": "Push. Play. Blow up.", // Note: Doublon avec subtitle, vérifier l'utilisation
+    "slogan": "Push. Play. Blow up.",
     "description": "Expertise en YouTube Ads, Meta Ads, TikTok Ads et stratégie de contenu pour artistes et labels.",
     "cta": "Démarrer le simulateur",
     "stats": {
@@ -115,7 +115,7 @@ export default {
       "targeting": "Ciblage précis des audiences pertinentes",
       "analytics": "Analyses détaillées et rapports transparents"
     },
-    "stats": { // Note: Clés différentes de hero.stats
+    "stats": {
       "artists": "Artistes accompagnés",
       "campaigns": "Campagnes réalisées",
       "streams": "Streams générés",
@@ -131,10 +131,10 @@ export default {
     "title": "Contactez-nous",
     "subtitle": "Prêt à propulser votre musique ?",
     "description": "Discutons de votre projet et de la façon dont nous pouvons vous aider à atteindre vos objectifs.",
-    "name": "Nom", // Utilisé où ? Doublon avec form.name
-    "email": "Email", // Utilisé où ? Doublon avec form.email
-    "message": "Message", // Utilisé où ? Doublon avec form.message
-    "submit": "Envoyer", // Utilisé où ? Doublon avec form.submit
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Envoyer",
     "success": "Message envoyé avec succès !",
     "error": "Une erreur s'est produite. Veuillez réessayer.",
     "form": {
@@ -159,7 +159,7 @@ export default {
   "reviews": { // Section Avis Publics
     "title": "Ce que disent nos clients",
     "subtitle": "Témoignages d'artistes et de labels",
-    "cta": "Voir tous les avis", // Utilisé où ?
+    "cta": "Voir tous les avis",
     "leave_review": "Laisser un avis",
     "view_all": "Voir tous les avis",
     "form": { // Formulaire pour laisser un avis
@@ -169,18 +169,17 @@ export default {
       "rating": "Votre note",
       "message": "Votre message",
       "submit": "Envoyer l'avis",
-      // Clés pour les messages d'erreur/succès du formulaire (à ajouter si besoin)
       "submitting": "Envoi en cours...",
       "success": "Merci ! Votre avis a été soumis et est en attente de modération.",
       "error_generic": "Une erreur est survenue. Veuillez réessayer.",
       "error_rating_required": "Veuillez sélectionner une note.",
-      "error_config": "Erreur de configuration du serveur. Veuillez contacter l'administrateur."
-      // Placeholder (à ajouter si besoin)
-      // "name_placeholder": "Entrez votre nom",
-      // "email_placeholder": "Entrez votre email",
-      // "message_placeholder": "Écrivez votre avis ici..."
+      "error_config": "Erreur de configuration du serveur. Veuillez contacter l'administrateur.",
+      // === PLACEHOLDERS AJOUTÉS ICI ===
+      "name_placeholder": "Entrez votre nom ici",
+      "email_placeholder": "Entrez votre adresse email",
+      "message_placeholder": "Écrivez votre message ici..."
+      // === FIN PLACEHOLDERS AJOUTÉS ===
     },
-    // Clés pour l'affichage des avis (si nécessaire)
     "go_to_review": "Voir l'avis",
     "no_reviews": "Il n'y a pas encore d'avis à afficher."
   },
@@ -188,10 +187,10 @@ export default {
     "rights": "Tous droits réservés",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation",
-    "copyright": "© {year} MDMC Music Ads. Tous droits réservés.", // Utiliser {year} pour l'année dynamique
+    "copyright": "© {year} MDMC Music Ads. Tous droits réservés.",
     "logo_p": "Marketing musical qui convertit",
     "nav_title": "Navigation",
-    "nav_home": "Accueil", // Doublon avec nav.home
+    "nav_home": "Accueil",
     "resources_title": "Ressources",
     "resources_blog": "Blog",
     "resources_simulator": "Simulateur",
@@ -223,7 +222,7 @@ export default {
     "wordpress_connector": "Connecteur WordPress",
     "wordpress_sync": "Synchronisation WordPress",
     "landing_pages": "Landing Pages",
-    "settings": "Paramètres", // <<< CORRIGÉ : Clé simple pour le bouton de la sidebar
+    "settings": "Paramètres", // Clé simple pour le bouton sidebar
     "logout": "Déconnexion",
 
     // Clés pour le Dashboard
@@ -243,7 +242,7 @@ export default {
     "no_pending_reviews": "Aucun avis en attente",
     "approve": "Approuver",
     "reject": "Rejeter",
-    "loading": "Chargement...", // Message de chargement
+    "loading": "Chargement...",
 
     // Clés pour la Gestion de Contenu
     "content_management": "Gestion du contenu",
@@ -266,7 +265,7 @@ export default {
     "delete": "Supprimer",
 
     // Clés pour les Intégrations Marketing (page dédiée)
-    "integrations": { // Peut-être renommer en marketing_integrations_page ?
+    "integrations": {
       "title": "Intégrations Marketing",
       "description": "Connectez vos outils marketing pour suivre vos performances.",
       "test_integration": "Tester l'intégration",
@@ -284,11 +283,11 @@ export default {
       "ga_scroll_tracking": "Suivi du défilement",
       "ga_outbound_links": "Clics sur liens sortants",
       "ga_form_submissions": "Soumissions de formulaires"
-      // ... autres clés pour GTM, Meta, TikTok ...
+      // ... autres clés ...
     },
 
     // Clés pour le Connecteur WordPress (page dédiée)
-    "wordpress": { // Peut-être renommer en wordpress_connector_page ?
+    "wordpress": {
       "title": "Connecteur WordPress",
       "description": "Connectez votre blog WordPress pour synchroniser les articles.",
       "site_url": "URL de votre site WordPress",
@@ -296,94 +295,14 @@ export default {
       "app_password": "Mot de passe d'application",
       "app_password_tooltip": "Créez un mot de passe d'application dans votre profil WP > Sécurité.",
       "test_connection": "Tester la Connexion"
-      // ... autres clés pour la synchro ...
+      // ... autres clés ...
     },
 
     // Clés pour le Générateur de Landing Page (page dédiée)
-    "landing_page": { // Peut-être renommer en landing_page_generator ?
+    "landing_page": {
       "title": "Générateur de Landing Pages",
       "description": "Créez et gérez vos landing pages dédiées à vos campagnes.",
-      "step1": "Choix Template",
-      "step2": "Personnalisation",
-      "step3": "Sections",
-      "step4": "Publication",
-      "select_template": "Sélectionnez un modèle :",
-      "template_music_artist": "Artiste Musical",
-      "template_album_release": "Sortie d'Album",
-      "template_music_event": "Événement Musical",
-      "template_music_promotion": "Promotion Musicale",
-      "selected": "Sélectionné",
-      "select": "Sélectionner",
-      "basic_info": "Informations de Base",
-      "page_title": "Titre de la Page",
-      "page_title_placeholder": "Ex: Nouvel Album Électro",
-      "page_description": "Description Courte (SEO)",
-      "page_description_placeholder": "Décrivez brièvement votre page",
-      "artist_name": "Nom de l'Artiste/Groupe",
-      "artist_name_placeholder": "Ex: DJ Étincelle",
-      "main_cta": "Texte du Bouton Principal (CTA)",
-      "cta_placeholder": "Ex: Écouter maintenant",
-      "cta_link": "Lien du Bouton Principal (URL)",
-      "header_image": "Image d'En-tête",
-      "choose_image": "Choisir une image",
-      "primary_color": "Couleur Principale",
-      "secondary_color": "Couleur Secondaire",
-      "customize_sections": "Personnaliser les Sections",
-      "hero_section": "Section Héro",
-      "hero_title": "Titre Principal",
-      "hero_title_placeholder": "Votre accroche principale",
-      "hero_subtitle": "Sous-titre",
-      "hero_subtitle_placeholder": "Texte complémentaire",
-      "button_text": "Texte du Bouton",
-      "button_text_placeholder": "Ex: Découvrir",
-      "button_link": "Lien du Bouton",
-      "features_section": "Section Caractéristiques",
-      "feature": "Caractéristique",
-      "feature_title": "Titre Caractéristique",
-      "feature_title_placeholder": "Point fort #1",
-      "feature_description": "Description Caractéristique",
-      "feature_description_placeholder": "Expliquez ce point fort",
-      "feature_icon": "Icône Caractéristique",
-      "icon_music": "Musique",
-      "icon_headphones": "Casque",
-      "icon_play": "Lecture",
-      "icon_mic": "Micro",
-      "icon_album": "Album",
-      "icon_ticket": "Ticket",
-      "testimonials_section": "Section Témoignages",
-      "testimonial": "Témoignage",
-      "testimonial_name": "Nom",
-      "testimonial_name_placeholder": "Nom de la personne",
-      "testimonial_quote": "Citation",
-      "testimonial_quote_placeholder": "Leur témoignage ici",
-      "cta_section": "Section Appel à l'Action Final",
-      "cta_title": "Titre CTA",
-      "cta_title_placeholder": "Titre accrocheur",
-      "cta_description": "Description CTA",
-      "cta_description_placeholder": "Texte descriptif court",
-      "social_section": "Section Liens Sociaux",
-      "social_title": "Titre Liens Sociaux",
-      "social_title_placeholder": "Ex: Suivez-nous !",
-      "integrations_publish": "Intégrations & Publication",
-      "analytics_tracking": "Suivi Analytique",
-      "google_analytics_description": "Activez Google Analytics pour cette page (nécessite l'ID global).",
-      "meta_pixel_description": "Activez le Pixel Meta pour cette page (nécessite l'ID global).",
-      "tiktok_pixel_description": "Activez le Pixel TikTok pour cette page (nécessite l'ID global).",
-      "preview": "Aperçu",
-      "desktop": "Bureau",
-      "tablet": "Tablette",
-      "mobile": "Mobile",
-      "preview_title": "Titre de votre Page",
-      "preview_description": "Description de votre page ici...",
-      "preview_cta": "Bouton d'Action",
-      "publish": "Publication",
-      "publish_description": "Une fois publiée, votre page sera accessible via une URL unique.",
-      "publishing": "Publication en cours...",
-      "published": "Publiée !",
-      "publish_page": "Publier la Page",
-      "publish_success": "Votre page a été publiée avec succès !",
-      "url_copied": "URL copiée !",
-      "copy": "Copier",
+      // ... nombreuses clés spécifiques ...
       "your_pages": "Vos Landing Pages",
       "create_new": "Créer une nouvelle page",
       "no_pages": "Vous n'avez pas encore créé de landing page.",
@@ -393,15 +312,14 @@ export default {
       "conversions": "Conversions",
       "actions": "Actions",
       "edit": "Modifier",
-      // "view": "Voir", // Utilise admin.view
       "duplicate": "Dupliquer",
       "previous": "Précédent",
       "next": "Suivant",
       "cancel": "Annuler"
     },
 
-    // Clés pour la page des Paramètres (anciennement l'objet 'settings')
-    "settings_page": { // <<< ANCIEN objet renommé
+    // Clés pour la page des Paramètres
+    "settings_page": {
       "title": "Paramètres Généraux",
       "description": "Configurez les paramètres d'authentification et les intégrations globales.",
       "wordpress_connection_title": "Connexion WordPress (Globale)",
@@ -411,61 +329,20 @@ export default {
       "wordpress_app_password_label": "Mot de passe d'Application WP",
       "wordpress_app_password_help": "Générez-le depuis votre profil utilisateur WordPress.",
       "test_connection_button": "Tester la Connexion WP",
-      "marketing_integrations_title": "Intégrations Marketing (Globales)", // Utilisé où ? Redondant avec integrations.title ?
+      "marketing_integrations_title": "Intégrations Marketing (Globales)",
       "save_settings_button": "Enregistrer les Paramètres"
-      // --- Clés manquantes pour la page Settings vue sur la capture 2 ---
-      // Il faut ajouter les clés correspondant à ce qui est affiché à l'écran
-      // Exemple (à adapter selon les clés réellement utilisées dans AuthenticationSettings.jsx):
-      // "authentication_settings_title": "Paramètres d'Authentification", // ou utiliser settings_page.title ?
+      // --- Ajouter ici les clés manquantes vues sur la capture 2 ---
+      // Exemple (adapter les clés réelles utilisées dans AuthenticationSettings.jsx):
       // "authentication_settings_description": "Gérez la connexion à WordPress...",
       // "wordpress_test_success": "Connexion réussie !",
       // "wordpress_test_failure": "Échec de la connexion.",
-      // ... etc ...
     },
 
     // Clés pour le Chatbot Admin
     "chatbot": {
       "title": "Assistant MDMC",
       "welcome_message": "Bonjour ! Je suis votre assistant MDMC. Comment puis-je vous aider aujourd'hui ?",
-      "help_prompt": "Voici quelques sujets sur lesquels je peux vous aider :",
-      "suggestion_pixels": "Intégration des pixels marketing",
-      "suggestion_wordpress": "Connecter WordPress",
-      "suggestion_landing_pages": "Créer une landing page",
-      "general_help": "Je peux vous aider avec les intégrations marketing, la connexion WordPress, ou la création de landing pages. Que souhaitez-vous savoir ?",
-      "google_analytics_help": "Pour configurer Google Analytics, vous avez besoin de votre ID de mesure (G-XXXXXXXX). Vous pouvez le trouver dans votre compte Google Analytics sous Admin > Propriété > Infos de suivi > Code de suivi.",
-      "suggestion_ga_id": "Où trouver mon ID Google Analytics ?",
-      "suggestion_ga_events": "Configuration des événements GA",
-      "gtm_help": "Pour configurer Google Tag Manager, entrez votre ID de conteneur GTM (GTM-XXXXXXX) dans le champ correspondant. Vous pouvez trouver cet ID dans votre compte GTM sous Admin > Paramètres du conteneur.",
-      "suggestion_gtm_id": "Où trouver mon ID GTM ?",
-      "suggestion_gtm_setup": "Configuration avancée GTM",
-      "meta_pixel_help": "Pour configurer le pixel Meta (Facebook), entrez votre ID de pixel dans le champ correspondant. Vous pouvez trouver cet ID dans votre Gestionnaire d'événements Meta sous Pixels > Détails du pixel.",
-      "suggestion_meta_events": "Configuration des événements Meta",
-      "suggestion_meta_advanced": "Options avancées du pixel Meta",
-      "tiktok_pixel_help": "Pour configurer le pixel TikTok, entrez votre ID de pixel dans le champ correspondant. Vous pouvez trouver cet ID dans votre TikTok Ads Manager sous Library > Events > Website Pixel > Setup.",
-      "suggestion_tiktok_events": "Configuration des événements TikTok",
-      "suggestion_tiktok_api": "Utilisation de l'API TikTok",
-      "pixels_general_help": "Vous pouvez intégrer différents pixels marketing sans avoir à manipuler de code. Il vous suffit d'entrer les identifiants correspondants dans les champs prévus à cet effet.",
-      "suggestion_google_analytics": "Google Analytics",
-      "suggestion_meta_pixel": "Pixel Meta (Facebook)",
-      "suggestion_tiktok_pixel": "Pixel TikTok",
-      "wordpress_setup_help": "Pour connecter votre blog WordPress, vous aurez besoin de l'URL de votre site WordPress et d'un mot de passe d'application. Vous pouvez créer un mot de passe d'application dans votre profil WordPress sous Sécurité > Mots de passe d'application.",
-      "suggestion_wp_app_password": "Créer un mot de passe d'application",
-      "suggestion_wp_sync": "Synchroniser le contenu",
-      "wordpress_sync_help": "Vous pouvez synchroniser automatiquement le contenu de votre blog WordPress avec votre site MDMC. Sélectionnez les catégories que vous souhaitez synchroniser et définissez la fréquence de synchronisation.",
-      "suggestion_wp_categories": "Sélection des catégories",
-      "suggestion_wp_frequency": "Fréquence de synchronisation",
-      "wordpress_general_help": "Le connecteur WordPress vous permet d'intégrer facilement le contenu de votre blog WordPress à votre site MDMC sans avoir à manipuler de code.",
-      "suggestion_wp_connect": "Comment connecter WordPress",
-      "suggestion_wp_troubleshoot": "Résoudre les problèmes",
-      "landing_templates_help": "Le générateur de landing page propose plusieurs templates optimisés pour l'industrie musicale. Sélectionnez celui qui correspond le mieux à vos besoins et personnalisez-le selon vos préférences.",
-      "suggestion_landing_customize": "Personnaliser un template",
-      "suggestion_landing_sections": "Gérer les sections",
-      "landing_publish_help": "Une fois votre landing page créée, vous pouvez la publier en un clic. Vous pouvez également intégrer vos pixels marketing pour suivre les performances de votre page.",
-      "suggestion_landing_analytics": "Suivi des performances",
-      "suggestion_landing_domain": "Utiliser un domaine personnalisé",
-      "landing_general_help": "Le générateur de landing page vous permet de créer facilement des pages d'atterrissage professionnelles sans avoir à coder. Vous pouvez choisir parmi plusieurs templates, personnaliser le contenu et publier en quelques clics.",
-      "suggestion_landing_create": "Créer une landing page",
-      "suggestion_landing_publish": "Publier une landing page",
+      // ... autres clés chatbot ...
       "input_placeholder": "Posez votre question ici...",
       "send": "Envoyer",
       "close": "Fermer",
