@@ -1,806 +1,88 @@
-.admin-panel {
-  display: flex;
-  min-height: 100vh;
-  background-color: #f5f5f5;
-  color: #333;
-  font-family: var(--font-text);
-  position: relative;
-  transition: all 0.3s ease;
-}
+/* Dans ton fichier admin.css */
 
-/* Sidebar */
+/* --- Barre Latérale (Sidebar) --- */
+
+/* Largeur par défaut (quand dépliée) */
 .admin-sidebar {
-  width: 250px;
-  background-color: #1e1e1e;
-  color: #fff;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
+  width: 280px; /* Augmente cette valeur (ex: 250px, 280px, 300px) jusqu'à ce que le texte passe */
+  /* Conserve tes autres styles : position, background, transition, etc. */
   position: fixed;
-  height: 100vh;
-  overflow-y: auto;
-  transition: all 0.3s ease;
-  z-index: 100;
-}
-
-.sidebar-collapsed .admin-sidebar {
-  width: 70px;
-}
-
-.sidebar-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1.5rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.admin-logo {
-  display: flex;
-  align-items: center;
-  transition: all 0.3s ease;
-}
-
-.sidebar-collapsed .admin-logo {
-  justify-content: center;
-}
-
-.admin-logo h1 {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: var(--color-primary);
-  margin: 0;
-  transition: all 0.3s ease;
-}
-
-.admin-logo p {
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 0 0 0 0.5rem;
-  transition: all 0.3s ease;
-}
-
-.sidebar-collapsed .admin-logo p {
-  display: none;
-}
-
-.sidebar-toggle {
-  background: none;
-  border: none;
-  color: rgba(255, 255, 255, 0.7);
-  cursor: pointer;
-  width: 30px;
-  height: 30px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 4px;
-  transition: all 0.3s ease;
-}
-
-.sidebar-toggle:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
-}
-
-.admin-nav {
-  flex: 1;
-  padding: 1rem 0;
-  overflow-y: auto;
-}
-
-.nav-item {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 0.8rem 1.5rem;
-  background: transparent;
-  border: none;
-  color: rgba(255, 255, 255, 0.7);
-  text-align: left;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  position: relative;
-}
-
-.nav-item:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #fff;
-}
-
-.nav-item.active {
-  background-color: var(--color-primary);
-  color: #fff;
-  border-left: 4px solid #fff;
-}
-
-.nav-item svg {
-  margin-right: 1rem;
-  min-width: 24px;
-  transition: all 0.3s ease;
-}
-
-.sidebar-collapsed .nav-item svg {
-  margin-right: 0;
-}
-
-.nav-text {
-  white-space: nowrap;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-}
-
-.sidebar-collapsed .nav-text {
-  opacity: 0;
-  width: 0;
-  overflow: hidden;
-}
-
-.badge {
-  background-color: #f44336;
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.7rem;
-  margin-left: 0.5rem;
-}
-
-.sidebar-collapsed .badge {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 16px;
-  height: 16px;
-  font-size: 0.6rem;
-}
-
-.nav-divider {
-  height: 1px;
-  background-color: rgba(255, 255, 255, 0.1);
-  margin: 0.8rem 1.5rem;
-}
-
-.sidebar-collapsed .nav-divider {
-  margin: 0.8rem 0.5rem;
-}
-
-.admin-logout {
-  padding: 1rem 1.5rem;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.sidebar-collapsed .admin-logout {
-  padding: 1rem 0.5rem;
-}
-
-.admin-logout button {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  padding: 0.8rem 1.5rem;
-  background: rgba(255, 255, 255, 0.1);
-  border: none;
-  border-radius: 4px;
-  color: #fff;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.sidebar-collapsed .admin-logout button {
-  padding: 0.8rem;
-  justify-content: center;
-}
-
-.admin-logout button:hover {
-  background-color: rgba(255, 0, 0, 0.2);
-}
-
-.admin-logout button svg {
-  margin-right: 1rem;
-  min-width: 24px;
-}
-
-.sidebar-collapsed .admin-logout button svg {
-  margin-right: 0;
-}
-
-/* Content */
-.admin-content-wrapper {
-  flex: 1;
-  margin-left: 250px;
-  transition: all 0.3s ease;
-  width: calc(100% - 250px);
-}
-
-.sidebar-collapsed .admin-content-wrapper {
-  margin-left: 70px;
-  width: calc(100% - 70px);
-}
-
-.admin-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 1.5rem;
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  position: sticky;
+  left: 0;
   top: 0;
-  z-index: 10;
+  height: 100vh;
+  background-color: #2c3e50; /* Exemple */
+  color: #ecf0f1; /* Exemple */
+  transition: width 0.3s ease; /* Pour une transition douce */
+  /* ... autres styles ... */
 }
 
-.header-left {
-  display: flex;
-  align-items: center;
+/* Largeur quand la sidebar est REPLIÉE */
+.admin-panel.sidebar-collapsed .admin-sidebar {
+  width: 80px; /* Garde une largeur réduite pour le mode replié (ajuste si besoin) */
+  /* ... autres styles pour le mode replié ... */
 }
 
-.mobile-menu-toggle {
-  display: none;
-  background: none;
-  border: none;
-  margin-right: 1rem;
-  cursor: pointer;
-  color: #555;
+/* Style pour le texte dans les items de navigation */
+.admin-sidebar .nav-item .nav-text {
+  /* S'assurer que le texte ne déborde pas si la largeur est juste */
+  white-space: nowrap; /* Empêche le texte de passer à la ligne */
+  overflow: hidden; /* Cache le texte qui dépasse */
+  text-overflow: ellipsis; /* Ajoute "..." si le texte dépasse (optionnel mais propre) */
+  opacity: 1;
+  transition: opacity 0.3s ease;
 }
 
-.admin-header h1 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #333;
-  margin: 0;
+/* Cacher le texte quand la sidebar est REPLIÉE */
+.admin-panel.sidebar-collapsed .admin-sidebar .nav-item .nav-text {
+  opacity: 0; /* Rend le texte invisible */
+  width: 0; /* Réduit la largeur pour éviter les problèmes de layout */
+  pointer-events: none; /* Empêche l'interaction avec le texte caché */
 }
 
-.admin-user {
-  display: flex;
-  align-items: center;
-}
-
-.user-name {
-  margin-right: 1rem;
-  font-weight: 500;
-}
-
-.user-avatar {
-  width: 40px;
-  height: 40px;
-  background-color: var(--color-primary);
-  color: #fff;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-}
-
-.admin-content {
-  padding: 1.5rem;
-}
-
-/* Dashboard */
-.dashboard-stats {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
-
-.stat-card {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.stat-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.stat-card h3 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: var(--color-primary);
-  margin-bottom: 0.5rem;
-}
-
-.stat-card p {
-  color: #555;
-  font-size: 1rem;
-}
-
-.recent-activity {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.recent-activity h3 {
-  margin-bottom: 1rem;
-  color: #555;
-  font-size: 1.2rem;
-  font-weight: 600;
-}
-
-.recent-activity ul {
-  list-style: none;
-  padding: 0;
-}
-
-.recent-activity li {
-  padding: 1rem 0;
-  border-bottom: 1px solid #eee;
-  display: flex;
-  align-items: center;
-}
-
-.recent-activity li:last-child {
-  border-bottom: none;
-}
-
-.activity-time {
-  font-size: 0.9rem;
-  color: #999;
-  margin-right: 1rem;
-  min-width: 50px;
-}
-
-.activity-text {
-  color: #333;
-}
-
-/* Content Manager */
-.admin-content-section h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.content-editor {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.language-selector, .section-selector {
-  margin-bottom: 1.5rem;
-}
-
-.language-selector label, .section-selector label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #555;
-}
-
-.language-selector select, .section-selector select {
-  width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-}
-
-.content-fields {
-  margin-top: 2rem;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  margin-bottom: 0.5rem;
-  font-weight: 500;
-  color: #555;
-}
-
-.form-group input[type="text"],
-.form-group input[type="email"],
-.form-group input[type="password"],
-.form-group textarea {
-  width: 100%;
-  padding: 0.8rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-}
-
-.form-group input[type="text"]:focus,
-.form-group input[type="email"]:focus,
-.form-group input[type="password"]:focus,
-.form-group textarea:focus {
-  border-color: var(--color-primary);
-  box-shadow: 0 0 0 2px rgba(var(--color-primary-rgb), 0.1);
-  outline: none;
-}
-
-.btn {
-  padding: 0.8rem 1.5rem;
-  border: none;
-  border-radius: 8px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.btn-primary {
-  background-color: var(--color-primary);
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background-color: var(--color-primary-dark);
-}
-
-/* Media Manager */
-.media-uploader {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.upload-zone {
-  border: 2px dashed #ddd;
-  border-radius: 8px;
-  padding: 2rem;
-  text-align: center;
-  margin-bottom: 2rem;
-  transition: all 0.3s ease;
-}
-
-.upload-zone:hover {
-  border-color: var(--color-primary);
-  background-color: rgba(var(--color-primary-rgb), 0.05);
-}
-
-.upload-label {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  cursor: pointer;
-}
-
-.upload-label svg {
-  margin-bottom: 1rem;
-  color: #999;
-}
-
-.upload-label span {
-  color: #555;
-  font-weight: 500;
-}
-
-.media-gallery h3 {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #555;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 1.5rem;
-}
-
-.media-item {
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-  transition: all 0.3s ease;
-}
-
-.media-item:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-}
-
-.media-item img {
-  width: 100%;
-  height: 150px;
-  object-fit: cover;
-}
-
-.media-actions {
-  display: flex;
-  border-top: 1px solid #eee;
-}
-
-.btn-icon {
-  flex: 1;
-  padding: 0.8rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  color: #555;
-}
-
-.btn-icon:hover {
-  background-color: #f0f0f0;
-}
-
-.btn-icon:first-child {
-  border-right: 1px solid #eee;
-}
-
-/* Reviews */
-.admin-reviews h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #333;
-}
-
-.review-actions {
-  margin-bottom: 2rem;
-}
-
-.admin-reviews h3 {
-  margin-bottom: 1rem;
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #555;
-}
-
-.loading-spinner {
-  text-align: center;
-  padding: 2rem;
-  color: #999;
-}
-
-.no-reviews {
-  text-align: center;
-  padding: 2rem;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  color: #777;
-}
-
-.reviews-list {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-
-.review-item {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-
-.review-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
-}
-
-.review-header h4 {
-  font-size: 1.2rem;
-  font-weight: 500;
-  color: #333;
-}
-
-.review-rating {
-  color: #f9a825;
-}
-
-.star {
-  font-size: 1.2rem;
-}
-
-.star.filled {
-  color: #f9a825;
-}
-
-.star.empty {
-  color: #ddd;
-}
-
-.review-email {
-  color: #777;
-  margin-bottom: 1rem;
-  font-size: 0.9rem;
-}
-
-.review-message {
-  color: #555;
-  margin-bottom: 1.5rem;
-  line-height: 1.5;
-}
-
-.review-actions {
-  display: flex;
-  gap: 1rem;
-}
-
-.btn-approve {
-  background-color: #4caf50;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-approve:hover {
-  background-color: #43a047;
-}
-
-.btn-reject {
-  background-color: #f44336;
-  color: white;
-  padding: 0.6rem 1.2rem;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.btn-reject:hover {
-  background-color: #e53935;
-}
 
-/* Settings */
-.admin-settings h2 {
-  margin-bottom: 1.5rem;
-  font-size: 1.8rem;
-  font-weight: 600;
-  color: #333;
-}
+/* --- Contenu Principal --- */
 
-.settings-form {
-  background-color: #fff;
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+/* Décalage du contenu quand la sidebar est DÉPLIÉE */
+.admin-content-wrapper {
+  margin-left: 280px; /* Cette valeur DOIT correspondre à la largeur de la sidebar dépliée */
+  /* Conserve tes autres styles : padding, transition, etc. */
+  padding: 20px; /* Exemple */
+  transition: margin-left 0.3s ease; /* Pour une transition douce */
+  /* ... autres styles ... */
 }
 
-/* Responsive */
-@media (max-width: 1200px) {
-  .dashboard-stats {
-    grid-template-columns: repeat(2, 1fr);
-  }
+/* Décalage du contenu quand la sidebar est REPLIÉE */
+.admin-panel.sidebar-collapsed .admin-content-wrapper {
+  margin-left: 80px; /* Cette valeur DOIT correspondre à la largeur de la sidebar repliée */
 }
 
-@media (max-width: 992px) {
+/* --- Media Queries pour Mobile --- */
+@media (max-width: 767px) {
   .admin-sidebar {
-    width: 200px;
+    /* Comportement sur mobile : peut-être la cacher par défaut */
+    width: 250px; /* Largeur quand elle s'ouvre sur mobile */
+    transform: translateX(-100%); /* La cache hors écran par défaut */
+    z-index: 1000; /* S'assurer qu'elle passe au-dessus du contenu */
+    /* La transition doit être sur 'transform' */
+     transition: transform 0.3s ease;
   }
-  
-  .sidebar-collapsed .admin-sidebar {
-    width: 60px;
-  }
-  
-  .admin-content-wrapper {
-    margin-left: 200px;
-    width: calc(100% - 200px);
-  }
-  
-  .sidebar-collapsed .admin-content-wrapper {
-    margin-left: 60px;
-    width: calc(100% - 60px);
-  }
-}
 
-@media (max-width: 768px) {
-  .admin-panel {
-    flex-direction: column;
+  .admin-panel:not(.sidebar-collapsed) .admin-sidebar {
+      /* Quand elle doit s'afficher sur mobile (si on utilise une classe ou un état pour l'ouvrir) */
+      /* Ou peut-être que l'état 'sidebarCollapsed' est inversé sur mobile ? */
+      /* Ici, on suppose qu'elle s'affiche quand elle N'EST PAS 'collapsed' */
+       transform: translateX(0);
   }
-  
-  .admin-sidebar {
-    width: 100%;
-    height: auto;
-    position: fixed;
-    top: 0;
-    left: 0;
-    transform: translateY(-100%);
-    z-index: 1000;
-    padding-bottom: 1rem;
-  }
-  
-  .admin-panel.sidebar-collapsed .admin-sidebar {
-    transform: translateY(0);
-    height: 100vh;
-    width: 250px;
-    left: 0;
-  }
-  
+
+   /* Sur mobile, le contenu prend toute la largeur */
   .admin-content-wrapper {
     margin-left: 0;
-    width: 100%;
-    margin-top: 60px; /* Pour l'en-tête mobile */
+    padding-top: 60px; /* Espace pour le header mobile si besoin */
   }
-  
-  .sidebar-collapsed .admin-content-wrapper {
-    margin-left: 0;
-    width: 100%;
-  }
-  
-  .mobile-menu-toggle {
-    display: block;
-  }
-  
-  .sidebar-header {
-    padding: 1rem;
-  }
-  
-  .admin-nav {
-    padding: 0.5rem 0;
-  }
-  
-  .nav-item {
-    padding: 0.6rem 1rem;
-  }
-  
-  .dashboard-stats {
-    grid-template-columns: 1fr;
-  }
-  
-  .gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  }
-  
-  .admin-header {
-    padding: 0.8rem 1rem;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 99;
-  }
-  
-  .admin-content {
-    padding: 1rem;
-  }
+
+  /* Ajustements spécifiques au mode replié sur mobile si nécessaire */
+   .admin-panel.sidebar-collapsed .admin-sidebar {
+       transform: translateX(-100%); /* Assure qu'elle reste cachée si repliée */
+   }
 }
 
-/* Animations */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.admin-content > div {
-  animation: fadeIn 0.3s ease;
-}
-
-/* Ajustements pour les écrans de bureau */
-@media (min-width: 1400px) {
-  .admin-content {
-    max-width: 1200px;
-    margin: 0 auto;
-  }
-  
-  .dashboard-stats {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  
-  .gallery-grid {
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  }
-  
-  .stat-card h3 {
-    font-size: 3rem;
-  }
-}
