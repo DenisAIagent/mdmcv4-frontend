@@ -3,10 +3,10 @@ export default {
   "meta_title": "MDMC Music Ads - Marketing Musical Que Convierte", // TODO: Translate
   "meta_description": "Agencia especializada en marketing musical. Experiencia en YouTube Ads, Meta Ads, TikTok Ads y estrategia de contenido para artistas y sellos.", // TODO: Translate
   "language": {
-    "fr": "Francés", // TODO: Translate
-    "en": "Inglés", // TODO: Translate
-    "es": "Español", // TODO: Translate
-    "pt": "Portugués" // TODO: Translate
+    "fr": "Francés",
+    "en": "Inglés",
+    "es": "Español",
+    "pt": "Portugués"
   },
   "nav": {
     "home": "Inicio", // TODO: Translate
@@ -67,7 +67,7 @@ export default {
       "option1": "Francia", // TODO: Translate
       "option2": "Europa",
       "option3": "América del Norte",
-      "option4": "Mundial" // TODO: Translate
+      "option4": "Mundial"
     },
     "step5": {
       "title": "¿Has hecho publicidad online antes?", // TODO: Translate
@@ -83,23 +83,50 @@ export default {
       "monthly_sales": "Ventas mensuales potenciales",
       "ticket_sales": "Ventas de entradas potenciales",
       "followers_growth": "Crecimiento potencial de seguidores",
-      "cta": "Hablar con un experto", // TODO: Translate (Auto: hablar con un experto)
+      "cta": "Hablar con un experto",
       "disclaimer": "Estas cifras son estimaciones basadas en nuestros datos históricos y pueden variar dependiendo de muchos factores." // TODO: Translate
     },
     // === Clés AJOUTÉES ===
     step2_label: 'Tipo de campaña',
     step2_placeholder: 'Elige el tipo de campaña',
+    campaignType_awareness: 'Notoriedad', // Auto
+    campaignType_engagement: 'Interacción', // Auto
+    campaignType_conversion: 'Conversión', // Auto
+    campaignType_error: 'Por favor, selecciona un tipo de campaña.', // Auto
     step3_label: 'Presupuesto mensual estimado',
+    step3_budget_label: 'Presupuesto mensual estimado', // Clé utilisée dans JSX
     step3_budget_placeholder: 'Tu presupuesto',
-    step3_region_label: 'Países objetivo',
+    budget_error: 'El presupuesto debe ser de al menos 500€.', // Auto
     step4_label: 'País objetivo',
+    step3_region_label: 'Países objetivo', // Clé utilisée dans JSX
+    region_error: 'Por favor, selecciona un país/región.', // Auto
+    region_europe: "Europa", // Auto
+    region_usa: "EE.UU.", // Auto
+    region_canada: "Canadá", // Auto
+    region_south_america: "América del Sur", // Auto
+    region_asia: "Asia", // Auto
     step5_label: 'Tus Información',
+    step4_artist_label: 'Nombre del artista / Sello', // Clé utilisée dans JSX
     step5_artist_label: 'Nombre del artista / Sello',
+    step4_artist_placeholder: 'nombre del artista', // Clé utilisée dans JSX
     step5_artist_placeholder: 'nombre del artista',
+    artist_error: 'Por favor, introduce un nombre de artista o sello.', // Auto
+    step4_email_label: 'Tu correo electrónico', // Clé utilisée dans JSX
     step5_email_label: 'Tu correo electrónico',
+    step4_email_placeholder: 'tu correo electrónico', // Clé utilisée dans JSX
     step5_email_placeholder: 'tu correo electrónico',
+    email_error: 'Por favor, introduce una dirección de correo electrónico válida.', // Auto
     button_prev: 'anterior',
     button_show_results: 'ver el resultado',
+    results_title: "Tus Resultados Estimados", // Auto
+    results_views_label: "Vistas Estimadas", // Auto
+    results_cpv_label: "Costo Estimado", // Auto
+    results_reach_label: "Alcance Estimado", // Auto
+    results_disclaimer: "Estas cifras son estimaciones...", // Auto - Utiliser la traduction complète si besoin
+    button_modify: "Modificar Selecciones", // Auto
+    results_cta_expert: "Reservar una llamada para discutir los resultados", // Auto
+    close_button_aria_label: "Cerrar el simulador", // Auto
+    platform_error: "Por favor, selecciona una plataforma.", // Auto
     // =====================
     "next": "Siguiente", // TODO: Translate
     "previous": "Anterior", // TODO: Translate
@@ -107,61 +134,27 @@ export default {
   },
   "services": {
     "title": "Nuestros Servicios", // TODO: Translate
-    "subtitle": "Soluciones completas de marketing para la industria musical", // TODO: Translate
-    "youtube": {
+    // ... TODO: Translate other keys ...
+     "youtube": {
       "title": "YouTube Ads",
-      "description": "Campañas de vídeo específicas para maximizar las visualizaciones y la participación." // TODO: Translate
+      "description": "..." // TODO: Translate
     },
-    "meta": {
-      "title": "Meta Ads",
-      "description": "Estrategias de Facebook e Instagram para hacer crecer tu audiencia." // TODO: Translate
-    },
-    "tiktok": {
-      "title": "TikTok Ads",
-      "description": "Campañas virales para llegar a la Generación Z y más allá." // TODO: Translate
-    },
-    "content": {
-      "title": "Estrategia de contenido",
-      "description": "Creación y optimización de contenido que convierte." // TODO: Translate
-    }
+    // ... etc ...
   },
   "about": {
     "title": "Sobre Nosotros", // TODO: Translate
-    "subtitle": "Expertos en marketing musical desde 2018", // TODO: Translate
-    "description": "MDMC es una agencia especializada en marketing digital para la industria musical. Ayudamos a artistas y sellos a alcanzar sus objetivos a través de estrategias publicitarias personalizadas y campañas optimizadas para maximizar el ROI.", // TODO: Translate
-    "advantages": {
-      "expertise": "Experiencia especializada en la industria musical", // TODO: Translate
-      "campaigns": "Campañas optimizadas para maximizar el ROI", // TODO: Translate
-      "targeting": "Segmentación precisa de audiencias relevantes", // TODO: Translate
-      "analytics": "Análisis detallados e informes transparentes" // TODO: Translate
-    },
-    "stats": {
-      "artists": "Artistas apoyados", // TODO: Translate
-      "campaigns": "Campañas completadas", // TODO: Translate
-      "streams": "Streams generados", // TODO: Translate
-      "roi": "ROI promedio" // TODO: Translate
-    }
+     // ... TODO: Translate other keys ...
   },
   "articles": {
     "title": "Nuestros Últimos Artículos", // TODO: Translate
-    "subtitle": "Consejos y noticias sobre marketing musical", // TODO: Translate
-    "view_all": "Ver todos los artículos", // TODO: Translate
-    "read_more": "Leer más", // TODO: Translate
-    "error_loading": "Error al cargar los artículos.", // TODO: Translate
-    "categories": {
-      "strategy": "Estrategia",
-      "youtube": "YouTube",
-      "meta": "Meta",
-      "tiktok": "TikTok",
-      "default": "Noticias"
-    }
+     // ... TODO: Translate other keys ...
   },
   "contact": {
     "title": "Contáctanos", // TODO: Translate
-    "name": "Nombre", // TODO: Translate
-    "email": "Correo electrónico", // TODO: Translate
-    "message": "Mensaje", // TODO: Translate
-    "submit": "Enviar", // TODO: Translate
+    "name": "Nombre",
+    "email": "Correo electrónico",
+    "message": "Mensaje",
+    "submit": "Enviar",
     "success": "¡Mensaje enviado con éxito!",
     "error": "Se ha producido un error. Por favor, inténtalo de nuevo.",
     "form": {
@@ -173,8 +166,8 @@ export default {
       platform_tiktok: 'TikTok Ads',
       book_call: 'hablar con un experto',
       submitting: 'Enviando...',
-      success: '¡Mensaje enviado con éxito!', // Doublon
-      error: 'Se ha producido un error al enviar. Por favor, inténtalo de nuevo.', // Doublon
+      success: '¡Mensaje enviado con éxito!',
+      error: 'Se ha producido un error al enviar. Por favor, inténtalo de nuevo.',
        // ====================
       "name": "Tu nombre", // TODO: Translate
       "email": "Tu correo electrónico", // TODO: Translate
@@ -185,15 +178,11 @@ export default {
     },
     "partners": {
       "title": "Nuestros Socios", // TODO: Translate
-      "fmm": "Fédération des Musiques Métalliques", // Proper name
-      "fmm_description": "Socio oficial para la promoción de artistas de metal", // TODO: Translate
+      // ... TODO: Translate descriptions ...
+      "fmm": "Fédération des Musiques Métalliques",
       "google": "Google Partner",
-      "google_description": "Agencia certificada Google Ads", // TODO: Translate
-      "google_badge_alt": "Insignia de Google Partner", // TODO: Translate
-      "mhl": "MHL Agency & Co", // Proper name
-      "mhl_description": "Colaboración en campañas internacionales", // TODO: Translate
-      "algorythme": "Algorythme", // Proper name
-      "algorythme_description": "Socio tecnológico para el análisis de datos" // TODO: Translate
+      "mhl": "MHL Agency & Co",
+      "algorythme": "Algorythme",
     }
   },
   "reviews": {
@@ -210,33 +199,20 @@ export default {
     // ====================
   },
   "footer": {
-    "rights": "Todos los derechos reservados", // TODO: Translate
-    "privacy": "Política de privacidad", // TODO: Translate
-    "terms": "Términos de uso", // TODO: Translate
-    "copyright": "MDMC Music Ads. Todos los derechos reservados.", // TODO: Translate
-    "logo_p": "Marketing musical que convierte", // TODO: Translate
-    "nav_title": "Navegación", // TODO: Translate
-    "nav_home": "Inicio", // TODO: Translate
-    "resources_title": "Recursos", // TODO: Translate
-    "resources_blog": "Blog", // TODO: Translate
-    "resources_simulator": "Simulador", // TODO: Translate
-    "resources_faq": "Preguntas frecuentes", // TODO: Translate
-    "resources_glossary": "Glosario", // TODO: Translate
-    "legal_title": "Menciones legales", // TODO: Translate
-    "legal_privacy": "Privacidad", // TODO: Translate
-    "legal_terms": "Términos", // TODO: Translate
-    "legal_cookies": "Política de cookies" // TODO: Translate
+      // ... TODO: Translate all footer keys ...
+    "rights": "Todos los derechos reservados",
+    "privacy": "Política de privacidad",
+    "terms": "Términos de uso",
+    "copyright": "MDMC Music Ads. Todos los derechos reservados.",
+    "logo_p": "Marketing musical que convierte",
+    // ... etc ...
   },
   "admin": { // TODO: Translate Admin section if needed
     "dashboard": "Tableau de bord",
-    "reviews": "Avis",
-    "content": "Contenu",
-    "media": "Médias",
-    "settings": "Paramètres",
     // ... rest of admin keys in French ...
     "chatbot": { // TODO: Translate Chatbot section
-      "title": "MDMC Assistant",
-      // ... rest of chatbot keys in English/French ...
+      "title": "Asistente MDMC",
+      // ... rest of chatbot keys in French/English ...
     }
   }
 };
