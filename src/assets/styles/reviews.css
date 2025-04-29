@@ -2,12 +2,11 @@
 
 .reviews-section {
   padding: 6rem 0;
-  background-color: #0a0a0a; /* Fond sombre */
+  background-color: #0a0a0a;
   position: relative;
   overflow: hidden;
 }
 
-/* Effet de fond radial (optionnel) */
 .reviews-section::before {
   content: '';
   position: absolute;
@@ -15,7 +14,6 @@
   left: 0;
   width: 100%;
   height: 100%;
-  /* Adapte --color-primary-rgb si tu utilises des variables CSS */
   background: radial-gradient(circle at 30% 30%, rgba(var(--color-primary-rgb, 255, 0, 0), 0.1) 0%, transparent 70%);
   z-index: 0;
 }
@@ -25,24 +23,22 @@
   z-index: 1;
 }
 
-/* Titres de la section */
 .reviews-section .section-title {
   text-align: center;
   margin-bottom: 1rem;
   font-size: 2.5rem;
-  color: #fff; /* Texte blanc */
+  color: #fff;
 }
 
 .reviews-section .section-subtitle {
   text-align: center;
   margin-bottom: 3rem;
-  color: rgba(255, 255, 255, 0.8); /* Légèrement plus opaque */
+  color: rgba(255, 255, 255, 0.8);
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
 
-/* Conteneur du carrousel */
 .reviews-container {
   max-width: 900px;
   margin: 0 auto 3rem;
@@ -55,28 +51,29 @@
   overflow: hidden;
 }
 
-/* Carte d'avis individuelle */
 .review-card {
   position: absolute;
   width: 100%;
   height: 100%;
   padding: 2rem;
-  background: rgba(30, 30, 30, 0.7); /* Fond sombre semi-transparent */
+  /* === Fond moins transparent === */
+  background: rgba(25, 25, 25, 0.85); /* Gris très foncé, plus opaque */
   border-radius: 16px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(8px); /* Léger flou */
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.15); /* Bordure un peu plus visible */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Ombre plus marquée */
   transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease;
   opacity: 0;
-  color: #FFFFFF; /* <<< Couleur de texte par défaut pour la carte */
+  color: #FFFFFF; /* Texte blanc par défaut */
+  /* === Ajout ombre texte subtile === */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
 .review-card.active {
   opacity: 1;
 }
 
-/* En-tête de la carte (avatar + infos) */
 .review-header {
   display: flex;
   align-items: center;
@@ -89,8 +86,8 @@
   border-radius: 50%;
   overflow: hidden;
   margin-right: 1.5rem;
-  border: 3px solid var(--color-primary, #FF0000); /* Utilise la couleur primaire */
-  flex-shrink: 0; /* Empêche l'avatar de rétrécir */
+  border: 3px solid var(--color-primary, #FF0000);
+  flex-shrink: 0;
 }
 
 .review-avatar img {
@@ -103,18 +100,19 @@
   flex: 1;
 }
 
-/* --- Styles Texte Modifiés --- */
+/* --- Styles Texte (encore plus contrastés) --- */
 .review-name {
-  font-size: 1.2rem;
-  font-weight: 700; /* <<< Mis en gras */
-  margin-bottom: 0.2rem;
-  color: #FFFFFF; /* <<< Blanc pur */
+  font-size: 1.3rem; /* <<< Légèrement plus grand */
+  font-weight: 700; /* Gras */
+  margin-bottom: 0.3rem; /* Un peu plus d'espace */
+  color: #FFFFFF;
 }
 
 .review-role {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.85); /* <<< Opacité augmentée */
+  color: rgba(255, 255, 255, 0.9); /* <<< Presque opaque */
   margin-bottom: 0.5rem;
+  font-weight: 500; /* <<< Un peu plus épais */
 }
 
 .review-rating {
@@ -128,31 +126,32 @@
 }
 
 .star.filled {
-  color: var(--color-primary, #FFD700); /* Utilise la couleur primaire ou un jaune doré */
+  color: var(--color-primary, #FFD700);
 }
 
 .star.empty {
-  color: rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.4); /* <<< Étoiles vides un peu plus visibles */
 }
 
 .review-content {
-  /* Pas besoin de couleur ici si les éléments enfants l'ont */
+  /* Pas de style spécifique nécessaire ici */
 }
 
 .review-text {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  font-style: italic;
+  font-size: 1.15rem; /* <<< Légèrement plus grand */
+  line-height: 1.7; /* <<< Plus d'interligne */
+  font-style: normal; /* <<< Enlevé italique pour voir si ça aide */
   margin-bottom: 1rem;
-  color: #FFFFFF; /* <<< Blanc pur */
+  color: #FFFFFF;
+  font-weight: 400; /* Normal */
 }
 
 .review-date {
   text-align: right;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7); /* <<< Opacité augmentée */
+  color: rgba(255, 255, 255, 0.75); /* <<< Plus opaque */
 }
-/* --- Fin Styles Texte Modifiés --- */
+/* --- Fin Styles Texte --- */
 
 
 /* Navigation par points */
@@ -162,7 +161,6 @@
   gap: 0.8rem;
   margin-top: 2rem;
 }
-
 .nav-dot {
   width: 12px;
   height: 12px;
@@ -172,9 +170,8 @@
   cursor: pointer;
   transition: all 0.3s ease;
 }
-
 .nav-dot.active {
-  background-color: var(--color-primary, #FF0000); /* Utilise la couleur primaire */
+  background-color: var(--color-primary, #FF0000);
   transform: scale(1.2);
 }
 
@@ -185,36 +182,29 @@
   gap: 1.5rem;
   margin-top: 2rem;
 }
-
-/* Styles généraux des boutons (peuvent être partagés avec d'autres CSS) */
 .reviews-actions .btn {
   padding: 0.8rem 1.5rem;
   border-radius: 8px;
   font-weight: 500;
   transition: all 0.3s ease;
-  text-decoration: none; /* Pour les liens */
-  display: inline-block; /* Pour les liens */
-  border: none; /* Assure qu'il n'y a pas de bordure par défaut */
+  text-decoration: none;
+  display: inline-block;
+  border: none;
 }
-
 .reviews-actions .btn-primary {
-  background-color: var(--color-primary, #FF0000); /* Utilise la couleur primaire */
+  background-color: var(--color-primary, #FF0000);
   color: #fff;
 }
-
 .reviews-actions .btn-primary:hover {
-  /* Définit une couleur au survol si --color-primary-dark n'existe pas */
   background-color: var(--color-primary-dark, #cc0000);
   transform: translateY(-3px);
   box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
 }
-
 .reviews-actions .btn-secondary {
   background-color: transparent;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
-
 .reviews-actions .btn-secondary:hover {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.5);
@@ -223,55 +213,14 @@
 
 /* Responsive pour mobile */
 @media (max-width: 768px) {
-  .reviews-section {
-    padding: 4rem 0;
-  }
-
-  .reviews-carousel {
-    height: auto; /* Hauteur auto pour s'adapter au contenu */
-     min-height: 350px; /* Hauteur minimale pour éviter l'effondrement */
-  }
-
-  .review-card {
-      padding: 1.5rem; /* Moins de padding */
-      /* On pourrait envisager d'enlever le backdrop-filter sur mobile si performances */
-  }
-
-  .review-header {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .review-avatar {
-    margin-right: 0;
-    margin-bottom: 1rem;
-    width: 60px; /* Plus petit avatar */
-    height: 60px;
-  }
-
-  .review-rating {
-    justify-content: center; /* Centre les étoiles */
-  }
-
-  .review-text {
-      font-size: 1rem; /* Texte légèrement plus petit */
-  }
-
-  .review-date {
-      text-align: center; /* Centre la date */
-      margin-top: 1rem;
-  }
-
-  .reviews-actions {
-    flex-direction: column;
-    align-items: center;
-    gap: 1rem;
-  }
-
-  .reviews-actions .btn {
-    width: 100%;
-    max-width: 300px;
-    text-align: center;
-  }
+  .reviews-section { padding: 4rem 0; }
+  .reviews-carousel { height: auto; min-height: 350px; }
+  .review-card { padding: 1.5rem; backdrop-filter: blur(5px); /* Moins de flou sur mobile */ }
+  .review-header { flex-direction: column; text-align: center; }
+  .review-avatar { margin-right: 0; margin-bottom: 1rem; width: 60px; height: 60px; }
+  .review-rating { justify-content: center; }
+  .review-text { font-size: 1rem; }
+  .review-date { text-align: center; margin-top: 1rem; }
+  .reviews-actions { flex-direction: column; align-items: center; gap: 1rem; }
+  .reviews-actions .btn { width: 100%; max-width: 300px; text-align: center; }
 }
-
