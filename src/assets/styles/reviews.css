@@ -1,10 +1,13 @@
+/* ===== reviews.css ===== */
+
 .reviews-section {
   padding: 6rem 0;
-  background-color: #0a0a0a;
+  background-color: #0a0a0a; /* Fond sombre */
   position: relative;
   overflow: hidden;
 }
 
+/* Effet de fond radial (optionnel) */
 .reviews-section::before {
   content: '';
   position: absolute;
@@ -12,7 +15,8 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: radial-gradient(circle at 30% 30%, rgba(var(--color-primary-rgb), 0.1) 0%, transparent 70%);
+  /* Adapte --color-primary-rgb si tu utilises des variables CSS */
+  background: radial-gradient(circle at 30% 30%, rgba(var(--color-primary-rgb, 255, 0, 0), 0.1) 0%, transparent 70%);
   z-index: 0;
 }
 
@@ -21,22 +25,24 @@
   z-index: 1;
 }
 
+/* Titres de la section */
 .reviews-section .section-title {
   text-align: center;
   margin-bottom: 1rem;
   font-size: 2.5rem;
-  color: #fff;
+  color: #fff; /* Texte blanc */
 }
 
 .reviews-section .section-subtitle {
   text-align: center;
   margin-bottom: 3rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.8); /* Légèrement plus opaque */
   max-width: 700px;
   margin-left: auto;
   margin-right: auto;
 }
 
+/* Conteneur du carrousel */
 .reviews-container {
   max-width: 900px;
   margin: 0 auto 3rem;
@@ -45,16 +51,17 @@
 
 .reviews-carousel {
   position: relative;
-  height: 300px;
+  height: 300px; /* Ajuste si nécessaire */
   overflow: hidden;
 }
 
+/* Carte d'avis individuelle */
 .review-card {
   position: absolute;
   width: 100%;
   height: 100%;
   padding: 2rem;
-  background: rgba(30, 30, 30, 0.7);
+  background: rgba(30, 30, 30, 0.7); /* Fond sombre semi-transparent */
   border-radius: 16px;
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
@@ -62,12 +69,14 @@
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
   transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease;
   opacity: 0;
+  color: #FFFFFF; /* <<< Couleur de texte par défaut pour la carte */
 }
 
 .review-card.active {
   opacity: 1;
 }
 
+/* En-tête de la carte (avatar + infos) */
 .review-header {
   display: flex;
   align-items: center;
@@ -80,7 +89,8 @@
   border-radius: 50%;
   overflow: hidden;
   margin-right: 1.5rem;
-  border: 3px solid var(--color-primary);
+  border: 3px solid var(--color-primary, #FF0000); /* Utilise la couleur primaire */
+  flex-shrink: 0; /* Empêche l'avatar de rétrécir */
 }
 
 .review-avatar img {
@@ -93,16 +103,17 @@
   flex: 1;
 }
 
+/* --- Styles Texte Modifiés --- */
 .review-name {
   font-size: 1.2rem;
-  font-weight: 600;
+  font-weight: 700; /* <<< Mis en gras */
   margin-bottom: 0.2rem;
-  color: #fff;
+  color: #FFFFFF; /* <<< Blanc pur */
 }
 
 .review-role {
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(255, 255, 255, 0.85); /* <<< Opacité augmentée */
   margin-bottom: 0.5rem;
 }
 
@@ -117,7 +128,7 @@
 }
 
 .star.filled {
-  color: var(--color-primary);
+  color: var(--color-primary, #FFD700); /* Utilise la couleur primaire ou un jaune doré */
 }
 
 .star.empty {
@@ -125,7 +136,7 @@
 }
 
 .review-content {
-  color: rgba(255, 255, 255, 0.9);
+  /* Pas besoin de couleur ici si les éléments enfants l'ont */
 }
 
 .review-text {
@@ -133,14 +144,18 @@
   line-height: 1.6;
   font-style: italic;
   margin-bottom: 1rem;
+  color: #FFFFFF; /* <<< Blanc pur */
 }
 
 .review-date {
   text-align: right;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(255, 255, 255, 0.7); /* <<< Opacité augmentée */
 }
+/* --- Fin Styles Texte Modifiés --- */
 
+
+/* Navigation par points */
 .reviews-navigation {
   display: flex;
   justify-content: center;
@@ -159,10 +174,11 @@
 }
 
 .nav-dot.active {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary, #FF0000); /* Utilise la couleur primaire */
   transform: scale(1.2);
 }
 
+/* Boutons d'action sous le carrousel */
 .reviews-actions {
   display: flex;
   justify-content: center;
@@ -170,21 +186,25 @@
   margin-top: 2rem;
 }
 
+/* Styles généraux des boutons (peuvent être partagés avec d'autres CSS) */
 .reviews-actions .btn {
   padding: 0.8rem 1.5rem;
   border-radius: 8px;
   font-weight: 500;
   transition: all 0.3s ease;
+  text-decoration: none; /* Pour les liens */
+  display: inline-block; /* Pour les liens */
+  border: none; /* Assure qu'il n'y a pas de bordure par défaut */
 }
 
 .reviews-actions .btn-primary {
-  background-color: var(--color-primary);
+  background-color: var(--color-primary, #FF0000); /* Utilise la couleur primaire */
   color: #fff;
-  border: none;
 }
 
 .reviews-actions .btn-primary:hover {
-  background-color: var(--color-primary-dark);
+  /* Définit une couleur au survol si --color-primary-dark n'existe pas */
+  background-color: var(--color-primary-dark, #cc0000);
   transform: translateY(-3px);
   box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
 }
@@ -193,7 +213,6 @@
   background-color: transparent;
   color: #fff;
   border: 1px solid rgba(255, 255, 255, 0.3);
-  text-decoration: none;
 }
 
 .reviews-actions .btn-secondary:hover {
@@ -202,38 +221,57 @@
   transform: translateY(-3px);
 }
 
+/* Responsive pour mobile */
 @media (max-width: 768px) {
   .reviews-section {
     padding: 4rem 0;
   }
-  
+
   .reviews-carousel {
-    height: 380px;
+    height: auto; /* Hauteur auto pour s'adapter au contenu */
+     min-height: 350px; /* Hauteur minimale pour éviter l'effondrement */
   }
-  
+
+  .review-card {
+      padding: 1.5rem; /* Moins de padding */
+      /* On pourrait envisager d'enlever le backdrop-filter sur mobile si performances */
+  }
+
   .review-header {
     flex-direction: column;
     text-align: center;
   }
-  
+
   .review-avatar {
     margin-right: 0;
     margin-bottom: 1rem;
+    width: 60px; /* Plus petit avatar */
+    height: 60px;
   }
-  
+
   .review-rating {
-    justify-content: center;
+    justify-content: center; /* Centre les étoiles */
   }
-  
+
+  .review-text {
+      font-size: 1rem; /* Texte légèrement plus petit */
+  }
+
+  .review-date {
+      text-align: center; /* Centre la date */
+      margin-top: 1rem;
+  }
+
   .reviews-actions {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
   }
-  
+
   .reviews-actions .btn {
     width: 100%;
     max-width: 300px;
     text-align: center;
   }
 }
+
