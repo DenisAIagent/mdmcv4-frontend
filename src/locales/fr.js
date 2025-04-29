@@ -35,8 +35,7 @@ export default {
       "countries": "Pays couverts"
     }
   },
-  // --- Section Simulator MÀJ (basée sur le code Simulator.jsx harmonisé) ---
-  "simulator": {
+  "simulator": { // Section Simulator (inchangée depuis la correction précédente)
     "title": "Simulateur de campagne publicitaire",
     "close_button_aria_label": "Fermer le simulateur",
     "option_select": "-- Sélectionner --",
@@ -84,8 +83,7 @@ export default {
     "results_disclaimer": "Ces chiffres sont des estimations basées sur des moyennes. Les résultats réels peuvent varier.",
     "results_cta_expert": "Discutez de ces estimations avec un expert"
   },
-  // --- Fin Section Simulator MÀJ ---
-  "services": {
+  "services": { // Section Services (inchangée)
     "title": "Nos services",
     "subtitle": "Solutions marketing complètes pour l'industrie musicale",
     "youtube": {
@@ -105,7 +103,7 @@ export default {
       "description": "Création et optimisation de contenu qui convertit."
     }
   },
-  "about": {
+  "about": { // Section About (inchangée)
     "title": "À propos de nous",
     "subtitle": "Experts en marketing musical depuis 2018",
     "description": "MDMC est une agence spécialisée dans le marketing digital pour l'industrie musicale. Nous aidons les artistes et labels à atteindre leurs objectifs grâce à des stratégies publicitaires sur mesure et des campagnes optimisées pour maximiser le ROI.",
@@ -122,12 +120,12 @@ export default {
       "roi": "ROI moyen"
     }
   },
-  "articles": {
+  "articles": { // Section Articles (inchangée)
     "title": "Articles récents",
     "subtitle": "Conseils et actualités du marketing musical",
     "view_all": "Voir tous les articles"
   },
-  "contact": {
+  "contact": { // Section Contact (inchangée)
     "title": "Contactez-nous",
     "subtitle": "Prêt à propulser votre musique ?",
     "description": "Discutons de votre projet et de la façon dont nous pouvons vous aider à atteindre vos objectifs.",
@@ -156,14 +154,14 @@ export default {
       "algorythme_description": "Partenaire technologique pour l'analyse de données"
     }
   },
-  "reviews": {
+  "reviews": { // Section Reviews (inchangée)
     "title": "Ce que disent nos clients",
     "subtitle": "Témoignages d'artistes et de labels",
     "cta": "Voir tous les avis",
     "leave_review": "Laisser un avis",
     "view_all": "Voir tous les avis"
   },
-  "footer": {
+  "footer": { // Section Footer (inchangée)
     "rights": "Tous droits réservés",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation",
@@ -181,88 +179,83 @@ export default {
     "legal_terms": "Conditions",
     "legal_cookies": "Cookies"
   },
-  // --- Section Admin MÀJ (basée sur AdminLogin.jsx et AdminPanel.jsx) ---
+  // --- Section Admin CORRIGÉE ---
   "admin": {
     // --- Connexion ---
     "login": {
-      "title": "Connexion Administrateur",
-      "subtitle": "Accédez à votre tableau de bord",
-      "username": "Nom d'utilisateur",
-      "password": "Mot de passe",
-      "login_button": "Se connecter",
-      "logging_in": "Connexion en cours...", // Clé ajoutée
-      "error": "Nom d'utilisateur ou mot de passe incorrect." // Clé ajoutée
+      "title": "Connexion Administrateur", // Utilisé par t('admin.login') dans AdminLogin
+      "subtitle": "Accédez à votre tableau de bord", // Utilisé par t('admin.login_subtitle')
+      "username": "Nom d'utilisateur", // Utilisé par t('admin.username')
+      "password": "Mot de passe", // Utilisé par t('admin.password')
+      "login_button": "Se connecter", // Utilisé par t('admin.login_button')
+      "logging_in": "Connexion en cours...", // Utilisé par t('admin.logging_in')
+      "error": "Nom d'utilisateur ou mot de passe incorrect." // Utilisé par t('admin.login_error')
     },
 
-    // --- Barre Latérale (Sidebar) ---
-    "sidebar": {
-      "home_link": "Accueil MDMC", // Clé ajoutée implicitement depuis le code AdminLogin
-      "admin_title": "Admin", // Clé ajoutée implicitement depuis le code AdminPanel
-      "back_arrow": "←", // Clé ajoutée implicitement depuis le code AdminPanel (peut être remplacé par icône)
-      "dashboard": "Tableau de bord",
-      "reviews": "Avis",
-      "content": "Contenu",
-      "media": "Médias",
-      "marketing_integrations": "Intégrations Marketing",
-      "wordpress_connector": "Connecteur WordPress",
-      "wordpress_sync": "Synchronisation WordPress",
-      "landing_pages": "Landing Pages",
-      "settings": "Paramètres",
-      "logout": "Déconnexion"
+    // --- Barre Latérale (Sidebar) & Titres Généraux ---
+    "sidebar": { // Regroupement des clés de la sidebar pour clarté future, mais utilisées directement sous 'admin' dans le code actuel
+      "home_link": "Accueil MDMC", // Texte du lien "Retour à l'accueil"
+      "admin_title": "Admin", // Texte sous le logo MDMC
+      "back_arrow": "←", // Utilisé pour le bouton toggle
+      // Note: Les clés ci-dessous sont utilisées directement t('admin.dashboard'), t('admin.reviews') etc. dans AdminPanel
     },
+    "dashboard": "Tableau de bord", // Utilisé par t('admin.dashboard')
+    "reviews": "Avis", // Utilisé par t('admin.reviews')
+    "content": "Contenu", // Utilisé par t('admin.content')
+    "media": "Médias", // Utilisé par t('admin.media')
+    "marketing_integrations": "Intégrations Marketing", // Utilisé par t('admin.marketing_integrations')
+    "wordpress_connector": "Connecteur WordPress", // Utilisé par t('admin.wordpress_connector')
+    "wordpress_sync": "Synchronisation WordPress", // Utilisé par t('admin.wordpress_sync')
+    "landing_pages": "Landing Pages", // Utilisé par t('admin.landing_pages')
+    "settings": "Paramètres", // Utilisé par t('admin.settings')
+    "logout": "Déconnexion", // Utilisé par t('admin.logout')
 
-    // --- Tableau de Bord ---
-    "dashboard": {
-      "title": "Tableau de bord", // Ajout pour cohérence si nécessaire
-      "pending_reviews": "Avis en attente",
-      "approved_reviews": "Avis approuvés",
-      "active_campaigns": "Campagnes actives",
-      "total_campaigns": "Campagnes totales", // Clé ajoutée
-      "recent_activity": "Activité récente"
-    },
+    // --- Contenu spécifique Tableau de Bord ---
+    "pending_reviews": "Avis en attente", // Utilisé par t('admin.pending_reviews')
+    "approved_reviews": "Avis approuvés", // Utilisé par t('admin.approved_reviews')
+    "active_campaigns": "Campagnes actives", // Utilisé par t('admin.active_campaigns')
+    "total_campaigns": "Campagnes totales", // Utilisé par t('admin.total_campaigns')
+    "recent_activity": "Activité récente", // Utilisé par t('admin.recent_activity')
+    "new_review_received": "Nouvel avis reçu", // Utilisé par t('admin.new_review_received')
+    "content_updated": "Contenu mis à jour", // Utilisé par t('admin.content_updated')
+    "campaign_started": "Campagne démarrée", // Utilisé par t('admin.campaign_started')
 
-    // --- Gestion des Avis ---
-    "reviews_management": {
-      "title": "Gestion des avis", // Ajout pour cohérence
-      "generate_review_link": "Générer un lien d'avis",
-      "link_copied": "Lien copié dans le presse-papiers !",
-      "no_pending_reviews": "Aucun avis en attente",
-      "approve": "Approuver",
-      "reject": "Rejeter"
-    },
+    // --- Contenu spécifique Gestion des Avis ---
+    "reviews_management": "Gestion des avis", // Utilisé par t('admin.reviews_management')
+    "generate_review_link": "Générer un lien d'avis", // Utilisé par t('admin.generate_review_link')
+    "link_copied": "Lien copié dans le presse-papiers !", // Utilisé par t('admin.link_copied')
+    "no_pending_reviews": "Aucun avis en attente", // Utilisé par t('admin.no_pending_reviews')
+    "approve": "Approuver", // Utilisé par t('admin.approve')
+    "reject": "Rejeter", // Utilisé par t('admin.reject')
 
-    // --- Gestion de Contenu ---
-    "content_management": {
-       "title": "Gestion du contenu", // Ajout pour cohérence
-       "select_language": "Sélectionner une langue",
-       "select_section": "Sélectionner une section",
-       "section_hero": "Section Héro",
-       "section_services": "Section Services",
-       "section_about": "Section À propos",
-       "section_contact": "Section Contact",
-       "field_title": "Titre",
-       "field_subtitle": "Sous-titre",
-       "field_description": "Description",
-       "save_changes": "Enregistrer les modifications"
-    },
+    // --- Contenu spécifique Gestion de Contenu ---
+    "content_management": "Gestion du contenu", // Utilisé par t('admin.content_management')
+    "select_language": "Sélectionner une langue", // Utilisé par t('admin.select_language')
+    "select_section": "Sélectionner une section", // Utilisé par t('admin.select_section')
+    "section_hero": "Section Héro", // Utilisé par t('admin.section_hero')
+    "section_services": "Section Services", // Utilisé par t('admin.section_services')
+    "section_about": "Section À propos", // Utilisé par t('admin.section_about')
+    "section_contact": "Section Contact", // Utilisé par t('admin.section_contact')
+    "field_title": "Titre", // Utilisé par t('admin.field_title')
+    "field_subtitle": "Sous-titre", // Utilisé par t('admin.field_subtitle')
+    "field_description": "Description", // Utilisé par t('admin.field_description')
+    "save_changes": "Enregistrer les modifications", // Utilisé par t('admin.save_changes')
 
-     // --- Gestion des Médias ---
-    "media_management": {
-      "title": "Gestion des médias", // Ajout pour cohérence
-      "drop_files": "Déposez vos fichiers ici ou cliquez pour parcourir",
-      "recent_uploads": "Téléchargements récents",
-      "view": "Voir",
-      "delete": "Supprimer"
-    },
+     // --- Contenu spécifique Gestion des Médias ---
+    "media_management": "Gestion des médias", // Utilisé par t('admin.media_management')
+    "drop_files": "Déposez vos fichiers ici ou cliquez pour parcourir", // Utilisé par t('admin.drop_files')
+    "recent_uploads": "Téléchargements récents", // Utilisé par t('admin.recent_uploads')
+    "view": "Voir", // Utilisé par t('admin.view')
+    "delete": "Supprimer", // Utilisé par t('admin.delete')
 
-    // --- Intégrations Marketing ---
-    "integrations": {
-      "title": "Intégrations Marketing",
-      "description": "Connectez vos outils marketing pour suivre vos performances.",
-      "test_integration": "Tester l'intégration",
-      "save_all": "Enregistrer Tout",
+    // --- Contenu spécifique Intégrations Marketing ---
+    "integrations": { // Gardé en objet car les sous-clés sont spécifiques
+      "title": "Intégrations Marketing", // Texte principal de la page
+      "description": "Connectez vos outils marketing pour suivre vos performances.", // Description de la page
+      "test_integration": "Tester l'intégration", // Bouton
+      "save_all": "Enregistrer Tout", // Bouton
 
-      "google_analytics": {
+      "google_analytics": { // Clés spécifiques à GA
          "title": "Google Analytics",
          "description": "Suivez le trafic et le comportement des utilisateurs sur votre site.",
          "ga_id": "ID de Mesure Google Analytics (G-XXXXXXXX)",
@@ -275,25 +268,21 @@ export default {
       },
       "gtm": {
         "title": "Google Tag Manager (GTM)"
-        // Ajouter d'autres clés pour GTM si nécessaire (description, ID, etc.)
       },
       "google_ads": {
         "title": "Google Ads"
-         // Ajouter d'autres clés pour Google Ads si nécessaire
       },
       "meta_pixel": {
         "title": "Pixel Meta (Facebook)"
-         // Ajouter d'autres clés pour Meta Pixel si nécessaire
       },
       "tiktok_pixel": {
         "title": "Pixel TikTok"
-         // Ajouter d'autres clés pour TikTok Pixel si nécessaire
       }
     },
 
-     // --- Paramètres (Settings) ---
-     "settings_page": { // Renommé pour éviter conflit avec sidebar.settings
-        "title": "Paramètres", // Ajout pour cohérence
+     // --- Contenu spécifique Paramètres ---
+     "settings_page": { // Renommé car t('admin.settings') est utilisé pour la sidebar
+        "title": "Paramètres", // Titre de la page Settings (si nécessaire)
         "site_title": "Titre du site",
         "admin_email": "Email administrateur",
         "default_language": "Langue par défaut",
@@ -302,17 +291,14 @@ export default {
         "save_settings": "Enregistrer les paramètres"
      },
 
-    // --- Clés diverses générales ---
-    "loading": "Chargement...",
-    "new_review_received": "Nouvel avis reçu", // Utilisé dans recent_activity
-    "content_updated": "Contenu mis à jour", // Utilisé dans recent_activity
-    "campaign_started": "Campagne démarrée", // Utilisé dans recent_activity
+    // --- Clés générales Admin ---
+    "loading": "Chargement...", // Utilisé par t('admin.loading')
 
-    // --- Chatbot (inchangé depuis la version précédente) ---
+    // --- Chatbot (Traductions principales ajoutées) ---
     "chatbot": {
-      "title": "Assistant MDMC",
-      "welcome_message": "Bonjour ! Je suis votre assistant MDMC. Comment puis-je vous aider aujourd'hui ?",
-      "help_prompt": "Voici quelques sujets sur lesquels je peux vous aider :",
+      "title": "Assistant MDMC", // Traduit
+      "welcome_message": "Bonjour ! Je suis votre assistant MDMC. Comment puis-je vous aider aujourd'hui ?", // Traduit
+      "help_prompt": "Voici quelques sujets sur lesquels je peux vous aider :", // Traduit
       "suggestion_pixels": "Intégration des pixels marketing",
       "suggestion_wordpress": "Connecter WordPress",
       "suggestion_landing_pages": "Créer une landing page",
@@ -351,11 +337,11 @@ export default {
       "landing_general_help": "Le générateur de landing page vous permet de créer facilement des pages d'atterrissage professionnelles sans avoir à coder. Vous pouvez choisir parmi plusieurs templates, personnaliser le contenu et publier en quelques clics.",
       "suggestion_landing_create": "Créer une landing page",
       "suggestion_landing_publish": "Publier une landing page",
-      "input_placeholder": "Posez votre question ici...",
-      "send": "Envoyer",
-      "close": "Fermer",
-      "open": "Ouvrir l'assistant"
+      "input_placeholder": "Posez votre question ici...", // Traduit
+      "send": "Envoyer", // Traduit
+      "close": "Fermer", // Traduit
+      "open": "Ouvrir l'assistant" // Traduit
     }
   }
-  // --- Fin Section Admin MÀJ ---
+  // --- Fin Section Admin CORRIGÉE ---
 }
