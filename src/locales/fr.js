@@ -35,7 +35,7 @@ export default {
       "countries": "Pays couverts"
     }
   },
-  "simulator": { // Section Simulator (inchangée depuis la correction précédente)
+  "simulator": { // Section Simulator (inchangée depuis la dernière correction)
     "title": "Simulateur de campagne publicitaire",
     "close_button_aria_label": "Fermer le simulateur",
     "option_select": "-- Sélectionner --",
@@ -179,110 +179,103 @@ export default {
     "legal_terms": "Conditions",
     "legal_cookies": "Cookies"
   },
-  // --- Section Admin CORRIGÉE ---
+  // --- Section Admin RE-RE-CORRIGÉE (Intégrations aplaties) ---
   "admin": {
     // --- Connexion ---
     "login": {
-      "title": "Connexion Administrateur", // Utilisé par t('admin.login') dans AdminLogin
-      "subtitle": "Accédez à votre tableau de bord", // Utilisé par t('admin.login_subtitle')
-      "username": "Nom d'utilisateur", // Utilisé par t('admin.username')
-      "password": "Mot de passe", // Utilisé par t('admin.password')
-      "login_button": "Se connecter", // Utilisé par t('admin.login_button')
-      "logging_in": "Connexion en cours...", // Utilisé par t('admin.logging_in')
-      "error": "Nom d'utilisateur ou mot de passe incorrect." // Utilisé par t('admin.login_error')
+      "title": "Connexion Administrateur",
+      "subtitle": "Accédez à votre tableau de bord",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "login_button": "Se connecter",
+      "logging_in": "Connexion en cours...",
+      "error": "Nom d'utilisateur ou mot de passe incorrect."
     },
 
     // --- Barre Latérale (Sidebar) & Titres Généraux ---
-    "sidebar": { // Regroupement des clés de la sidebar pour clarté future, mais utilisées directement sous 'admin' dans le code actuel
-      "home_link": "Accueil MDMC", // Texte du lien "Retour à l'accueil"
-      "admin_title": "Admin", // Texte sous le logo MDMC
-      "back_arrow": "←", // Utilisé pour le bouton toggle
-      // Note: Les clés ci-dessous sont utilisées directement t('admin.dashboard'), t('admin.reviews') etc. dans AdminPanel
-    },
-    "dashboard": "Tableau de bord", // Utilisé par t('admin.dashboard')
-    "reviews": "Avis", // Utilisé par t('admin.reviews')
-    "content": "Contenu", // Utilisé par t('admin.content')
-    "media": "Médias", // Utilisé par t('admin.media')
-    "marketing_integrations": "Intégrations Marketing", // Utilisé par t('admin.marketing_integrations')
-    "wordpress_connector": "Connecteur WordPress", // Utilisé par t('admin.wordpress_connector')
-    "wordpress_sync": "Synchronisation WordPress", // Utilisé par t('admin.wordpress_sync')
-    "landing_pages": "Landing Pages", // Utilisé par t('admin.landing_pages')
-    "settings": "Paramètres", // Utilisé par t('admin.settings')
-    "logout": "Déconnexion", // Utilisé par t('admin.logout')
+    // Note: Les clés ci-dessous sont utilisées directement t('admin.dashboard'), t('admin.reviews') etc. dans AdminPanel
+    "dashboard": "Tableau de bord",
+    "reviews": "Avis",
+    "content": "Contenu",
+    "media": "Médias",
+    "marketing_integrations": "Intégrations Marketing", // Utilisé pour le lien sidebar ET titre principal de la page Intégrations
+    "wordpress_connector": "Connecteur WordPress",
+    "wordpress_sync": "Synchronisation WordPress",
+    "landing_pages": "Landing Pages",
+    "settings": "Paramètres",
+    "logout": "Déconnexion",
 
     // --- Contenu spécifique Tableau de Bord ---
-    "pending_reviews": "Avis en attente", // Utilisé par t('admin.pending_reviews')
-    "approved_reviews": "Avis approuvés", // Utilisé par t('admin.approved_reviews')
-    "active_campaigns": "Campagnes actives", // Utilisé par t('admin.active_campaigns')
-    "total_campaigns": "Campagnes totales", // Utilisé par t('admin.total_campaigns')
-    "recent_activity": "Activité récente", // Utilisé par t('admin.recent_activity')
-    "new_review_received": "Nouvel avis reçu", // Utilisé par t('admin.new_review_received')
-    "content_updated": "Contenu mis à jour", // Utilisé par t('admin.content_updated')
-    "campaign_started": "Campagne démarrée", // Utilisé par t('admin.campaign_started')
+    "pending_reviews": "Avis en attente",
+    "approved_reviews": "Avis approuvés",
+    "active_campaigns": "Campagnes actives",
+    "total_campaigns": "Campagnes totales",
+    "recent_activity": "Activité récente",
+    "new_review_received": "Nouvel avis reçu",
+    "content_updated": "Contenu mis à jour",
+    "campaign_started": "Campagne démarrée",
 
     // --- Contenu spécifique Gestion des Avis ---
-    "reviews_management": "Gestion des avis", // Utilisé par t('admin.reviews_management')
-    "generate_review_link": "Générer un lien d'avis", // Utilisé par t('admin.generate_review_link')
-    "link_copied": "Lien copié dans le presse-papiers !", // Utilisé par t('admin.link_copied')
-    "no_pending_reviews": "Aucun avis en attente", // Utilisé par t('admin.no_pending_reviews')
-    "approve": "Approuver", // Utilisé par t('admin.approve')
-    "reject": "Rejeter", // Utilisé par t('admin.reject')
+    "reviews_management": "Gestion des avis",
+    "generate_review_link": "Générer un lien d'avis",
+    "link_copied": "Lien copié dans le presse-papiers !",
+    "no_pending_reviews": "Aucun avis en attente",
+    "approve": "Approuver",
+    "reject": "Rejeter",
 
     // --- Contenu spécifique Gestion de Contenu ---
-    "content_management": "Gestion du contenu", // Utilisé par t('admin.content_management')
-    "select_language": "Sélectionner une langue", // Utilisé par t('admin.select_language')
-    "select_section": "Sélectionner une section", // Utilisé par t('admin.select_section')
-    "section_hero": "Section Héro", // Utilisé par t('admin.section_hero')
-    "section_services": "Section Services", // Utilisé par t('admin.section_services')
-    "section_about": "Section À propos", // Utilisé par t('admin.section_about')
-    "section_contact": "Section Contact", // Utilisé par t('admin.section_contact')
-    "field_title": "Titre", // Utilisé par t('admin.field_title')
-    "field_subtitle": "Sous-titre", // Utilisé par t('admin.field_subtitle')
-    "field_description": "Description", // Utilisé par t('admin.field_description')
-    "save_changes": "Enregistrer les modifications", // Utilisé par t('admin.save_changes')
+    "content_management": "Gestion du contenu",
+    "select_language": "Sélectionner une langue",
+    "select_section": "Sélectionner une section",
+    "section_hero": "Section Héro",
+    "section_services": "Section Services",
+    "section_about": "Section À propos",
+    "section_contact": "Section Contact",
+    "field_title": "Titre",
+    "field_subtitle": "Sous-titre",
+    "field_description": "Description",
+    "save_changes": "Enregistrer les modifications",
 
      // --- Contenu spécifique Gestion des Médias ---
-    "media_management": "Gestion des médias", // Utilisé par t('admin.media_management')
-    "drop_files": "Déposez vos fichiers ici ou cliquez pour parcourir", // Utilisé par t('admin.drop_files')
-    "recent_uploads": "Téléchargements récents", // Utilisé par t('admin.recent_uploads')
-    "view": "Voir", // Utilisé par t('admin.view')
-    "delete": "Supprimer", // Utilisé par t('admin.delete')
+    "media_management": "Gestion des médias",
+    "drop_files": "Déposez vos fichiers ici ou cliquez pour parcourir",
+    "recent_uploads": "Téléchargements récents",
+    "view": "Voir",
+    "delete": "Supprimer",
 
-    // --- Contenu spécifique Intégrations Marketing ---
-    "integrations": { // Gardé en objet car les sous-clés sont spécifiques
-      "title": "Intégrations Marketing", // Texte principal de la page
-      "description": "Connectez vos outils marketing pour suivre vos performances.", // Description de la page
-      "test_integration": "Tester l'intégration", // Bouton
-      "save_all": "Enregistrer Tout", // Bouton
-
-      "google_analytics": { // Clés spécifiques à GA
-         "title": "Google Analytics",
-         "description": "Suivez le trafic et le comportement des utilisateurs sur votre site.",
-         "ga_id": "ID de Mesure Google Analytics (G-XXXXXXXX)",
-         "ga_id_tooltip": "Trouvez cet ID dans votre compte GA > Admin > Flux de données.",
-         "ga_events_title": "Événements à Suivre",
-         "page_views": "Vues de page",
-         "scroll_tracking": "Suivi du défilement",
-         "outbound_links": "Clics sur liens sortants",
-         "form_submissions": "Soumissions de formulaires"
-      },
-      "gtm": {
-        "title": "Google Tag Manager (GTM)"
-      },
-      "google_ads": {
-        "title": "Google Ads"
-      },
-      "meta_pixel": {
-        "title": "Pixel Meta (Facebook)"
-      },
-      "tiktok_pixel": {
-        "title": "Pixel TikTok"
-      }
+    // --- Contenu spécifique Intégrations Marketing (Structure APLATIE) ---
+    "integrations": { // Gardé pour contenir les clés communes à la page
+        "description": "Connectez vos outils marketing pour suivre vos performances.", // Description sous le titre principal
+        "test_integration": "Tester l'intégration", // Bouton
+        "save_all": "Enregistrer Tout" // Bouton
+        // Le titre principal "Intégrations Marketing" utilise maintenant la clé "admin.marketing_integrations"
     },
+    // Clés APLATIES pour chaque section d'intégration
+    "integrations_google_analytics_title": "Google Analytics", // Utilisé par t('admin.integrations_google_analytics_title')
+    "integrations_ga_description": "Suivez le trafic et le comportement des utilisateurs sur votre site.", // Utilisé par t('admin.integrations_ga_description')
+    "integrations_ga_id": "ID de Mesure Google Analytics (G-XXXXXXXX)", // Utilisé par t('admin.integrations_ga_id')
+    "integrations_ga_id_tooltip": "Trouvez cet ID dans votre compte GA > Admin > Flux de données.", // Utilisé par t('admin.integrations_ga_id_tooltip')
+    "integrations_ga_events_title": "Événements à Suivre", // Utilisé par t('admin.integrations_ga_events_title')
+    "integrations_ga_page_views": "Vues de page", // Utilisé par t('admin.integrations_ga_page_views')
+    "integrations_ga_scroll_tracking": "Suivi du défilement", // Utilisé par t('admin.integrations_ga_scroll_tracking')
+    "integrations_ga_outbound_links": "Clics sur liens sortants", // Utilisé par t('admin.integrations_ga_outbound_links')
+    "integrations_ga_form_submissions": "Soumissions de formulaires", // Utilisé par t('admin.integrations_ga_form_submissions')
+
+    "integrations_gtm_title": "Google Tag Manager (GTM)", // Utilisé par t('admin.integrations_gtm_title')
+    // Ajouter ici d'autres clés plates pour GTM si nécessaire (ex: "integrations_gtm_id": "ID Conteneur GTM")
+
+    "integrations_google_ads_title": "Google Ads", // Utilisé par t('admin.integrations_google_ads_title')
+    // Ajouter ici d'autres clés plates pour Google Ads
+
+    "integrations_meta_pixel_title": "Pixel Meta (Facebook)", // Utilisé par t('admin.integrations_meta_pixel_title')
+    // Ajouter ici d'autres clés plates pour Meta Pixel
+
+    "integrations_tiktok_pixel_title": "Pixel TikTok", // Utilisé par t('admin.integrations_tiktok_pixel_title')
+    // Ajouter ici d'autres clés plates pour TikTok Pixel
 
      // --- Contenu spécifique Paramètres ---
-     "settings_page": { // Renommé car t('admin.settings') est utilisé pour la sidebar
-        "title": "Paramètres", // Titre de la page Settings (si nécessaire)
+     "settings_page": { // Gardé en objet car les clés sont spécifiques à cette page
+        "title": "Paramètres", // Titre de la page Settings
         "site_title": "Titre du site",
         "admin_email": "Email administrateur",
         "default_language": "Langue par défaut",
@@ -292,7 +285,7 @@ export default {
      },
 
     // --- Clés générales Admin ---
-    "loading": "Chargement...", // Utilisé par t('admin.loading')
+    "loading": "Chargement...",
 
     // --- Chatbot (Traductions principales ajoutées) ---
     "chatbot": {
@@ -343,5 +336,5 @@ export default {
       "open": "Ouvrir l'assistant" // Traduit
     }
   }
-  // --- Fin Section Admin CORRIGÉE ---
+  // --- Fin Section Admin RE-RE-CORRIGÉE ---
 }
