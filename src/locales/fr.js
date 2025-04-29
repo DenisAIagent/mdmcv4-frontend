@@ -35,7 +35,7 @@ export default {
       "countries": "Pays couverts"
     }
   },
-  "simulator": { // Section Simulator (inchangée depuis la dernière correction)
+  "simulator": { // Section Simulator (inchangée)
     "title": "Simulateur de campagne publicitaire",
     "close_button_aria_label": "Fermer le simulateur",
     "option_select": "-- Sélectionner --",
@@ -179,7 +179,7 @@ export default {
     "legal_terms": "Conditions",
     "legal_cookies": "Cookies"
   },
-  // --- Section Admin RE-RE-CORRIGÉE (Intégrations aplaties) ---
+  // --- Section Admin - Mise à jour avec WP Connector, Landing Pages, Settings ---
   "admin": {
     // --- Connexion ---
     "login": {
@@ -193,16 +193,15 @@ export default {
     },
 
     // --- Barre Latérale (Sidebar) & Titres Généraux ---
-    // Note: Les clés ci-dessous sont utilisées directement t('admin.dashboard'), t('admin.reviews') etc. dans AdminPanel
     "dashboard": "Tableau de bord",
     "reviews": "Avis",
     "content": "Contenu",
     "media": "Médias",
-    "marketing_integrations": "Intégrations Marketing", // Utilisé pour le lien sidebar ET titre principal de la page Intégrations
-    "wordpress_connector": "Connecteur WordPress",
+    "marketing_integrations": "Intégrations Marketing",
+    "wordpress_connector": "Connecteur WordPress", // Utilisé par t('admin.wordpress_connector') sidebar
     "wordpress_sync": "Synchronisation WordPress",
-    "landing_pages": "Landing Pages",
-    "settings": "Paramètres",
+    "landing_pages": "Landing Pages", // Utilisé par t('admin.landing_pages') sidebar
+    "settings": "Paramètres", // Utilisé par t('admin.settings') sidebar
     "logout": "Déconnexion",
 
     // --- Contenu spécifique Tableau de Bord ---
@@ -243,55 +242,86 @@ export default {
     "view": "Voir",
     "delete": "Supprimer",
 
-    // --- Contenu spécifique Intégrations Marketing (Structure APLATIE) ---
-    "integrations": { // Gardé pour contenir les clés communes à la page
-        "description": "Connectez vos outils marketing pour suivre vos performances.", // Description sous le titre principal
-        "test_integration": "Tester l'intégration", // Bouton
-        "save_all": "Enregistrer Tout" // Bouton
-        // Le titre principal "Intégrations Marketing" utilise maintenant la clé "admin.marketing_integrations"
+    // --- Section Intégrations Marketing ---
+    "integrations": {
+        "title": "Intégrations Marketing",
+        "description": "Connectez vos outils marketing pour suivre vos performances.",
+        "test_integration": "Tester l'intégration",
+        "save_all": "Enregistrer Tout",
+        "google_analytics": "Google Analytics", // Nom utilisé pour titre/onglet
+        "gtm": "Google Tag Manager (GTM)", // Nom utilisé pour titre/onglet
+        "google_ads": "Google Ads", // Nom utilisé pour titre/onglet
+        "meta_pixel": "Pixel Meta (Facebook)", // Nom utilisé pour titre/onglet
+        "tiktok_pixel": "Pixel TikTok", // Nom utilisé pour titre/onglet
+        // Détails GA (plats)
+        "ga_description": "Suivez le trafic et le comportement des utilisateurs sur votre site.",
+        "ga_id": "ID de Mesure Google Analytics (G-XXXXXXXX)",
+        "ga_id_tooltip": "Trouvez cet ID dans votre compte GA > Admin > Flux de données.",
+        "ga_events_title": "Événements à Suivre",
+        "ga_page_views": "Vues de page",
+        "ga_scroll_tracking": "Suivi du défilement",
+        "ga_outbound_links": "Clics sur liens sortants",
+        "ga_form_submissions": "Soumissions de formulaires"
+        // Ajouter ici d'autres clés plates préfixées si nécessaire pour GTM, Google Ads, etc.
     },
-    // Clés APLATIES pour chaque section d'intégration
-    "integrations_google_analytics_title": "Google Analytics", // Utilisé par t('admin.integrations_google_analytics_title')
-    "integrations_ga_description": "Suivez le trafic et le comportement des utilisateurs sur votre site.", // Utilisé par t('admin.integrations_ga_description')
-    "integrations_ga_id": "ID de Mesure Google Analytics (G-XXXXXXXX)", // Utilisé par t('admin.integrations_ga_id')
-    "integrations_ga_id_tooltip": "Trouvez cet ID dans votre compte GA > Admin > Flux de données.", // Utilisé par t('admin.integrations_ga_id_tooltip')
-    "integrations_ga_events_title": "Événements à Suivre", // Utilisé par t('admin.integrations_ga_events_title')
-    "integrations_ga_page_views": "Vues de page", // Utilisé par t('admin.integrations_ga_page_views')
-    "integrations_ga_scroll_tracking": "Suivi du défilement", // Utilisé par t('admin.integrations_ga_scroll_tracking')
-    "integrations_ga_outbound_links": "Clics sur liens sortants", // Utilisé par t('admin.integrations_ga_outbound_links')
-    "integrations_ga_form_submissions": "Soumissions de formulaires", // Utilisé par t('admin.integrations_ga_form_submissions')
 
-    "integrations_gtm_title": "Google Tag Manager (GTM)", // Utilisé par t('admin.integrations_gtm_title')
-    // Ajouter ici d'autres clés plates pour GTM si nécessaire (ex: "integrations_gtm_id": "ID Conteneur GTM")
+    // --- Section Connecteur WordPress (Nouvelle) ---
+    "wordpress": {
+        "title": "Connecteur WordPress", // Utilisé par t('admin.wordpress.title')
+        "description": "Connectez votre blog WordPress pour synchroniser les articles.", // Utilisé par t('admin.wordpress.description')
+        "site_url": "URL de votre site WordPress", // Utilisé par t('admin.wordpress.site_url')
+        "username": "Nom d'utilisateur WordPress", // Utilisé par t('admin.wordpress.username')
+        "app_password": "Mot de passe d'application", // Utilisé par t('admin.wordpress.app_password')
+        "app_password_tooltip": "Créez un mot de passe d'application dans votre profil WP > Sécurité.", // Pour le '?'
+        "test_connection": "Tester la Connexion" // Utilisé par t('admin.wordpress.test_connection')
+    },
 
-    "integrations_google_ads_title": "Google Ads", // Utilisé par t('admin.integrations_google_ads_title')
-    // Ajouter ici d'autres clés plates pour Google Ads
+    // --- Section Landing Pages (Nouvelle) ---
+    "landing_page": {
+        "title": "Générateur de Landing Pages", // Utilisé par t('admin.landing_page.title')
+        "description": "Créez et gérez vos landing pages dédiées à vos campagnes.", // Utilisé par t('admin.landing_page.description')
+        "step1": "Choix Template", // Utilisé par t('admin.landing_page.step1')
+        "step2": "Personnalisation", // Utilisé par t('admin.landing_page.step2')
+        "step3": "Configuration", // Utilisé par t('admin.landing_page.step3')
+        "step4": "Publication", // Utilisé par t('admin.landing_page.step4')
+        "select_template": "Sélectionnez un modèle :", // Utilisé par t('admin.landing_page.select_template')
+        "template_music_artist": "Artiste Musical", // Utilisé par t('admin.landing_page.template_music_artist')
+        "selected": "Sélectionné", // Utilisé par t('admin.landing_page.selected')
+        "template_album_release": "Sortie d'Album", // Utilisé par t('admin.landing_page.template_album_release')
+        "select": "Sélectionner", // Utilisé par t('admin.landing_page.select')
+        "template_music_event": "Événement Musical", // Utilisé par t('admin.landing_page.template_music_event')
+        "template_music_promotion": "Promotion Musicale", // Utilisé par t('admin.landing_page.template_music_promotion')
+        "cancel": "Annuler", // Utilisé par t('admin.landing_page.cancel')
+        "next": "Suivant" // Utilisé par t('admin.landing_page.next')
+    },
 
-    "integrations_meta_pixel_title": "Pixel Meta (Facebook)", // Utilisé par t('admin.integrations_meta_pixel_title')
-    // Ajouter ici d'autres clés plates pour Meta Pixel
+     // --- Section Paramètres (Mise à jour) ---
+     "settings": { // Renommé de settings_page pour correspondre à la sidebar
+        "title": "Paramètres Généraux", // Utilisé par t('admin.settings.title')
+        "description": "Configurez les paramètres d'authentification et les intégrations globales.", // Utilisé par t('admin.settings.description')
 
-    "integrations_tiktok_pixel_title": "Pixel TikTok", // Utilisé par t('admin.integrations_tiktok_pixel_title')
-    // Ajouter ici d'autres clés plates pour TikTok Pixel
+        "wordpress_connection_title": "Connexion WordPress (Globale)", // Utilisé par t('admin.settings.wordpress_connection_title')
+        "wordpress_url_label": "URL WordPress", // Utilisé par t('admin.settings.wordpress_url_label')
+        "wordpress_url_help": "L'URL principale de votre site WordPress.", // Utilisé par t('admin.settings.wordpress_url_help')
+        "wordpress_username_label": "Nom d'utilisateur WP", // Utilisé par t('admin.settings.wordpress_username_label')
+        "wordpress_app_password_label": "Mot de passe d'Application WP", // Utilisé par t('admin.settings.wordpress_app_password_label')
+        "wordpress_app_password_help": "Générez-le depuis votre profil utilisateur WordPress.", // Utilisé par t('admin.settings.wordpress_app_password_help')
+        "test_connection_button": "Tester la Connexion WP", // Utilisé par t('admin.settings.test_connection_button')
 
-     // --- Contenu spécifique Paramètres ---
-     "settings_page": { // Gardé en objet car les clés sont spécifiques à cette page
-        "title": "Paramètres", // Titre de la page Settings
-        "site_title": "Titre du site",
-        "admin_email": "Email administrateur",
-        "default_language": "Langue par défaut",
-        "change_password": "Changer le mot de passe",
-        "new_password": "Nouveau mot de passe",
-        "save_settings": "Enregistrer les paramètres"
+        "marketing_integrations_title": "Intégrations Marketing (Globales)", // Utilisé par t('admin.settings.marketing_integrations_title')
+        // Les noms (Google Analytics, GTM...) ici utilisent les clés de la section "integrations" (ex: t('admin.integrations.google_analytics'))
+
+        "save_settings_button": "Enregistrer les Paramètres" // Utilisé par t('admin.settings.save_settings_button')
      },
 
     // --- Clés générales Admin ---
     "loading": "Chargement...",
 
-    // --- Chatbot (Traductions principales ajoutées) ---
+    // --- Chatbot (inchangé depuis la dernière correction) ---
     "chatbot": {
-      "title": "Assistant MDMC", // Traduit
-      "welcome_message": "Bonjour ! Je suis votre assistant MDMC. Comment puis-je vous aider aujourd'hui ?", // Traduit
-      "help_prompt": "Voici quelques sujets sur lesquels je peux vous aider :", // Traduit
+      "title": "Assistant MDMC",
+      "welcome_message": "Bonjour ! Je suis votre assistant MDMC. Comment puis-je vous aider aujourd'hui ?",
+      "help_prompt": "Voici quelques sujets sur lesquels je peux vous aider :",
       "suggestion_pixels": "Intégration des pixels marketing",
       "suggestion_wordpress": "Connecter WordPress",
       "suggestion_landing_pages": "Créer une landing page",
@@ -330,11 +360,11 @@ export default {
       "landing_general_help": "Le générateur de landing page vous permet de créer facilement des pages d'atterrissage professionnelles sans avoir à coder. Vous pouvez choisir parmi plusieurs templates, personnaliser le contenu et publier en quelques clics.",
       "suggestion_landing_create": "Créer une landing page",
       "suggestion_landing_publish": "Publier une landing page",
-      "input_placeholder": "Posez votre question ici...", // Traduit
-      "send": "Envoyer", // Traduit
-      "close": "Fermer", // Traduit
-      "open": "Ouvrir l'assistant" // Traduit
+      "input_placeholder": "Posez votre question ici...",
+      "send": "Envoyer",
+      "close": "Fermer",
+      "open": "Ouvrir l'assistant"
     }
   }
-  // --- Fin Section Admin RE-RE-CORRIGÉE ---
+  // --- Fin Section Admin - Correction Finale ---
 }
