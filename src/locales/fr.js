@@ -92,8 +92,8 @@ export default {
     option_select: "-- Sélectionner --", // Pour select
     platform_youtube: "YouTube Ads", // Pour select
     platform_meta: "Meta Ads (Facebook/Instagram)", // Pour select
-    platform_tiktok": "TikTok Ads", // Pour select
-    platform_error": "Veuillez sélectionner une plateforme.", // Pour validation
+    platform_tiktok: "TikTok Ads", // Pour select
+    platform_error: "Veuillez sélectionner une plateforme.", // Pour validation
 
     step2_title: "Étape 2 : Type de Campagne", // Pour H3 Étape 2
     step2_label: "Choisissez le type de campagne", // Pour label Étape 2
