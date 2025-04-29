@@ -1,880 +1,458 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import '../../assets/styles/landing-page-generator.css';
-
-const LandingPageGenerator = () => {
-  const { t } = useTranslation();
-  const [activeStep, setActiveStep] = useState(1);
-  const [landingPages, setLandingPages] = useState([]);
-  const [currentTemplate, setCurrentTemplate] = useState('music-artist');
-  const [pageTitle, setPageTitle] = useState('');
-  const [pageDescription, setPageDescription] = useState('');
-  const [primaryColor, setPrimaryColor] = useState('#ff3366');
-  const [secondaryColor, setSecondaryColor] = useState('#333333');
-  const [headerImage, setHeaderImage] = useState(null);
-  const [headerImagePreview, setHeaderImagePreview] = useState('');
-  const [artistName, setArtistName] = useState('');
-  const [ctaText, setCtaText] = useState('');
-  const [ctaLink, setCtaLink] = useState('');
-  const [sections, setSections] = useState([
-    { type: 'hero', enabled: true, title: '', subtitle: '', buttonText: '', buttonLink: '' },
-    { type: 'features', enabled: true, items: [
-      { title: '', description: '', icon: 'music' },
-      { title: '', description: '', icon: 'headphones' },
-      { title: '', description: '', icon: 'play' }
-    ]},
-    { type: 'testimonials', enabled: true, items: [
-      { name: '', quote: '', image: '' },
-      { name: '', quote: '', image: '' }
-    ]},
-    { type: 'cta', enabled: true, title: '', description: '', buttonText: '', buttonLink: '' },
-    { type: 'social', enabled: true, title: '', links: [
-      { platform: 'spotify', url: '' },
-      { platform: 'youtube', url: '' },
-      { platform: 'instagram', url: '' },
-      { platform: 'tiktok', url: '' }
-    ]}
-  ]);
-  const [previewMode, setPreviewMode] = useState('desktop');
-  const [isPublishing, setIsPublishing] = useState(false);
-  const [publishSuccess, setPublishSuccess] = useState(false);
-  const [publishedUrl, setPublishedUrl] = useState('');
-  const [analyticsIntegration, setAnalyticsIntegration] = useState(false);
-  const [pixelIntegration, setPixelIntegration] = useState(false);
-  const [tiktokPixelIntegration, setTiktokPixelIntegration] = useState(false);
-
-  // Templates disponibles
-  const templates = [
-    { id: 'music-artist', name: t('admin.landing_page.template_music_artist'), image: '/src/assets/images/template-artist.jpg' },
-    { id: 'album-release', name: t('admin.landing_page.template_album_release'), image: '/src/assets/images/template-album.jpg' },
-    { id: 'music-event', name: t('admin.landing_page.template_music_event'), image: '/src/assets/images/template-event.jpg' },
-    { id: 'music-promotion', name: t('admin.landing_page.template_music_promotion'), image: '/src/assets/images/template-promotion.jpg' }
-  ];
-
-  // Simuler le chargement des landing pages existantes
-  useEffect(() => {
-    // Dans une version réelle, cela ferait une requête API
-    setLandingPages([
-      { 
-        id: 1, 
-        title: 'Nouvel Album - Étoiles Filantes', 
-        template: 'album-release', 
-        created: '2025-04-20T14:30:00', 
-        url: 'https://mdmc-music.com/landing/etoiles-filantes',
-        visits: 1245,
-        conversions: 89
-      },
-      { 
-        id: 2, 
-        title: 'Concert Live - Paris 2025', 
-        template: 'music-event', 
-        created: '2025-04-15T10:15:00', 
-        url: 'https://mdmc-music.com/landing/paris-2025',
-        visits: 3782,
-        conversions: 412
-      }
-    ]);
-  }, []);
-
-  // Gérer le changement d'image d'en-tête
-  const handleHeaderImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setHeaderImage(file);
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setHeaderImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
+export default {
+  "meta_title": "MDMC Music Ads - Marketing musical qui convertit",
+  "meta_description": "Agence spécialisée en marketing musical. Expertise en YouTube Ads, Meta Ads, TikTok Ads et stratégie de contenu pour artistes et labels.",
+  "language": {
+    "fr": "Français",
+    "en": "Anglais",
+    "es": "Espagnol",
+    "pt": "Portugais"
+  },
+  "nav": {
+    "home": "Accueil",
+    "services": "Services",
+    "about": "À propos",
+    "articles": "Articles",
+    "contact": "Contact"
+  },
+  "header": {
+    "home": "Accueil",
+    "services": "Services",
+    "about": "À propos",
+    "contact": "Contact",
+    "reviews": "Avis",
+    "simulator": "Simulateur"
+  },
+  "hero": {
+    "title": "Propulsez votre musique avec des campagnes publicitaires qui convertissent",
+    "subtitle": "Push. Play. Blow up.",
+    "slogan": "Push. Play. Blow up.",
+    "description": "Expertise en YouTube Ads, Meta Ads, TikTok Ads et stratégie de contenu pour artistes et labels.",
+    "cta": "Démarrer le simulateur",
+    "stats": {
+      "campaigns": "Campagnes réalisées",
+      "artists": "Artistes accompagnés",
+      "views": "Vues générées",
+      "countries": "Pays couverts"
     }
-  };
+  },
+  "simulator": { // Section Simulator (inchangée)
+    "title": "Simulateur de campagne publicitaire",
+    "close_button_aria_label": "Fermer le simulateur",
+    "option_select": "-- Sélectionner --",
+    "step1_title": "Étape 1 : Choisissez votre plateforme",
+    "step1_platform_label": "Plateforme publicitaire",
+    "platform_youtube": "YouTube Ads",
+    "platform_meta": "Meta Ads (Facebook/Instagram)",
+    "platform_tiktok": "TikTok Ads",
+    "platform_error": "Veuillez sélectionner une plateforme.",
+    "step2_title": "Étape 2 : Type de Campagne",
+    "step2_campaignType_label": "Choisissez le type de campagne",
+    "campaignType_awareness": "Awareness (Notoriété)",
+    "campaignType_engagement": "Engagement",
+    "campaignType_conversion": "Conversion",
+    "campaignType_error": "Veuillez sélectionner un type de campagne.",
+    "step3_title": "Étape 3 : Budget Mensuel Estimé",
+    "step3_budget_label": "Votre budget mensuel (minimum 500€)",
+    "step3_budget_placeholder": "Ex: 1500",
+    "budget_error": "Veuillez entrer un budget d'au moins 500€.",
+    "step4_title": "Étape 4 : Pays Cible",
+    "step4_region_label": "Choisissez la région principale ciblée",
+    "region_europe": "Europe",
+    "region_usa": "USA",
+    "region_canada": "Canada",
+    "region_south_america": "Amérique du Sud",
+    "region_asia": "Asie",
+    "region_error": "Veuillez sélectionner une région cible.",
+    "step5_title": "Étape 5 : Vos Informations",
+    "step5_artist_label": "Nom d'artiste ou de projet",
+    "step5_artist_placeholder": "Votre nom d'artiste",
+    "artist_error": "Veuillez entrer votre nom d'artiste.",
+    "step5_email_label": "Votre adresse email",
+    "step5_email_placeholder": "vous@email.com",
+    "email_error": "Veuillez entrer une adresse email valide.",
+    "button_next": "Suivant", // Clé générique, peut être surchargée par contexte admin
+    "button_prev": "Précédent", // Clé générique, peut être surchargée par contexte admin
+    "button_show_results": "Voir les résultats",
+    "submitting_text": "Calcul en cours...",
+    "button_modify": "Modifier les infos",
+    "cta_expert_button": "Parler avec un expert",
+    "results_title": "Résultats Estimés",
+    "results_views_label": "Vues / Impressions Potentielles",
+    "results_cpv_label": "Coût Estimé (CPV/CPM)",
+    "results_reach_label": "Portée Estimée (Reach)",
+    "results_disclaimer": "Ces chiffres sont des estimations basées sur des moyennes. Les résultats réels peuvent varier.",
+    "results_cta_expert": "Discutez de ces estimations avec un expert"
+  },
+  "services": { // Section Services (inchangée)
+    "title": "Nos services",
+    "subtitle": "Solutions marketing complètes pour l'industrie musicale",
+    "youtube": {
+      "title": "YouTube Ads",
+      "description": "Campagnes vidéo ciblées pour maximiser les vues et l'engagement."
+    },
+    "meta": {
+      "title": "Meta Ads",
+      "description": "Stratégies Facebook et Instagram pour développer votre audience."
+    },
+    "tiktok": {
+      "title": "TikTok Ads",
+      "description": "Campagnes virales pour toucher la génération Z et au-delà."
+    },
+    "content": {
+      "title": "Stratégie de contenu",
+      "description": "Création et optimisation de contenu qui convertit."
+    }
+  },
+  "about": { // Section About (inchangée)
+    "title": "À propos de nous",
+    "subtitle": "Experts en marketing musical depuis 2018",
+    "description": "MDMC est une agence spécialisée dans le marketing digital pour l'industrie musicale. Nous aidons les artistes et labels à atteindre leurs objectifs grâce à des stratégies publicitaires sur mesure et des campagnes optimisées pour maximiser le ROI.",
+    "advantages": {
+      "expertise": "Expertise spécialisée dans l'industrie musicale",
+      "campaigns": "Campagnes optimisées pour maximiser le ROI",
+      "targeting": "Ciblage précis des audiences pertinentes",
+      "analytics": "Analyses détaillées et rapports transparents"
+    },
+    "stats": {
+      "artists": "Artistes accompagnés",
+      "campaigns": "Campagnes réalisées",
+      "streams": "Streams générés",
+      "roi": "ROI moyen"
+    }
+  },
+  "articles": { // Section Articles (inchangée)
+    "title": "Articles récents",
+    "subtitle": "Conseils et actualités du marketing musical",
+    "view_all": "Voir tous les articles"
+  },
+  "contact": { // Section Contact (inchangée)
+    "title": "Contactez-nous",
+    "subtitle": "Prêt à propulser votre musique ?",
+    "description": "Discutons de votre projet et de la façon dont nous pouvons vous aider à atteindre vos objectifs.",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Envoyer",
+    "success": "Message envoyé avec succès !",
+    "error": "Une erreur s'est produite. Veuillez réessayer.",
+    "form": {
+      "name": "Votre nom",
+      "email": "Votre email",
+      "message": "Votre message",
+      "submit": "Envoyer"
+    },
+    "partners": {
+      "title": "Ils nous font confiance",
+      "fmm": "Fédération des Musiques Métalliques",
+      "fmm_description": "Partenaire officiel pour la promotion des artistes métal",
+      "google": "Google Partner",
+      "google_description": "Agence certifiée Google Ads",
+      "google_badge_alt": "Badge Google Partner",
+      "mhl": "MHL Agency & Co",
+      "mhl_description": "Collaboration sur les campagnes internationales",
+      "algorythme": "Algorythme",
+      "algorythme_description": "Partenaire technologique pour l'analyse de données"
+    }
+  },
+  "reviews": { // Section Reviews (inchangée)
+    "title": "Ce que disent nos clients",
+    "subtitle": "Témoignages d'artistes et de labels",
+    "cta": "Voir tous les avis",
+    "leave_review": "Laisser un avis",
+    "view_all": "Voir tous les avis"
+  },
+  "footer": { // Section Footer (inchangée)
+    "rights": "Tous droits réservés",
+    "privacy": "Politique de confidentialité",
+    "terms": "Conditions d'utilisation",
+    "copyright": "MDMC Music Ads. Tous droits réservés.",
+    "logo_p": "Marketing musical qui convertit",
+    "nav_title": "Navigation",
+    "nav_home": "Accueil",
+    "resources_title": "Ressources",
+    "resources_blog": "Blog",
+    "resources_simulator": "Simulateur",
+    "resources_faq": "FAQ",
+    "resources_glossary": "Glossaire",
+    "legal_title": "Mentions légales",
+    "legal_privacy": "Confidentialité",
+    "legal_terms": "Conditions",
+    "legal_cookies": "Cookies"
+  },
+  // --- Section Admin - Mise à jour Finale et Complète ---
+  "admin": {
+    // --- Connexion ---
+    "login": {
+      "title": "Connexion Administrateur",
+      "subtitle": "Accédez à votre tableau de bord",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "login_button": "Se connecter",
+      "logging_in": "Connexion en cours...",
+      "error": "Nom d'utilisateur ou mot de passe incorrect."
+    },
 
-  // Mettre à jour une section
-  const updateSection = (index, updates) => {
-    const updatedSections = [...sections];
-    updatedSections[index] = { ...updatedSections[index], ...updates };
-    setSections(updatedSections);
-  };
+    // --- Barre Latérale (Sidebar) & Titres Généraux ---
+    "dashboard": "Tableau de bord",
+    "reviews": "Avis",
+    "content": "Contenu",
+    "media": "Médias",
+    "marketing_integrations": "Intégrations Marketing",
+    "wordpress_connector": "Connecteur WordPress",
+    "wordpress_sync": "Synchronisation WordPress",
+    "landing_pages": "Landing Pages",
+    "settings": "Paramètres",
+    "logout": "Déconnexion",
 
-  // Mettre à jour un élément dans une section
-  const updateSectionItem = (sectionIndex, itemIndex, updates) => {
-    const updatedSections = [...sections];
-    updatedSections[sectionIndex].items[itemIndex] = { 
-      ...updatedSections[sectionIndex].items[itemIndex], 
-      ...updates 
-    };
-    setSections(updatedSections);
-  };
+    // --- Contenu spécifique Tableau de Bord ---
+    "pending_reviews": "Avis en attente",
+    "approved_reviews": "Avis approuvés",
+    "active_campaigns": "Campagnes actives",
+    "total_campaigns": "Campagnes totales",
+    "recent_activity": "Activité récente",
+    "new_review_received": "Nouvel avis reçu",
+    "content_updated": "Contenu mis à jour",
+    "campaign_started": "Campagne démarrée",
 
-  // Publier la landing page
-  const publishLandingPage = () => {
-    setIsPublishing(true);
-    
-    // Simuler une publication
-    setTimeout(() => {
-      setIsPublishing(false);
-      setPublishSuccess(true);
-      setPublishedUrl(`https://mdmc-music.com/landing/${pageTitle.toLowerCase().replace(/\s+/g, '-')}`);
-      
-      // Ajouter la nouvelle landing page à la liste
-      const newLandingPage = {
-        id: landingPages.length + 1,
-        title: pageTitle,
-        template: currentTemplate,
-        created: new Date().toISOString(),
-        url: `https://mdmc-music.com/landing/${pageTitle.toLowerCase().replace(/\s+/g, '-')}`,
-        visits: 0,
-        conversions: 0
-      };
-      
-      setLandingPages([newLandingPage, ...landingPages]);
-      
-      // Réinitialiser le formulaire après 3 secondes
-      setTimeout(() => {
-        setPublishSuccess(false);
-        setActiveStep(1);
-        setPageTitle('');
-        setPageDescription('');
-        setPrimaryColor('#ff3366');
-        setSecondaryColor('#333333');
-        setHeaderImage(null);
-        setHeaderImagePreview('');
-        setArtistName('');
-        setCtaText('');
-        setCtaLink('');
-      }, 3000);
-    }, 2000);
-  };
+    // --- Contenu spécifique Gestion des Avis ---
+    "reviews_management": "Gestion des avis",
+    "generate_review_link": "Générer un lien d'avis",
+    "link_copied": "Lien copié dans le presse-papiers !",
+    "no_pending_reviews": "Aucun avis en attente",
+    "approve": "Approuver",
+    "reject": "Rejeter",
 
-  // Rendu de l'étape 1 : Sélection du template
-  const renderTemplateSelection = () => {
-    return (
-      <div className="template-selection">
-        <h3>{t('admin.landing_page.select_template')}</h3>
-        <div className="templates-grid">
-          {templates.map(template => (
-            <div 
-              key={template.id}
-              className={`template-card ${currentTemplate === template.id ? 'selected' : ''}`}
-              onClick={() => setCurrentTemplate(template.id)}
-            >
-              <div className="template-image">
-                <img src={template.image} alt={template.name} />
-              </div>
-              <div className="template-info">
-                <h4>{template.name}</h4>
-                <button className="select-template-button">
-                  {currentTemplate === template.id 
-                    ? t('admin.landing_page.selected') 
-                    : t('admin.landing_page.select')}
-                </button>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    );
-  };
+    // --- Contenu spécifique Gestion de Contenu ---
+    "content_management": "Gestion du contenu",
+    "select_language": "Sélectionner une langue",
+    "select_section": "Sélectionner une section",
+    "section_hero": "Section Héro",
+    "section_services": "Section Services",
+    "section_about": "Section À propos",
+    "section_contact": "Section Contact",
+    "field_title": "Titre",
+    "field_subtitle": "Sous-titre",
+    "field_description": "Description",
+    "save_changes": "Enregistrer les modifications",
 
-  // Rendu de l'étape 2 : Informations de base
-  const renderBasicInfo = () => {
-    return (
-      <div className="basic-info">
-        <h3>{t('admin.landing_page.basic_info')}</h3>
-        
-        <div className="form-group">
-          <label htmlFor="page-title">{t('admin.landing_page.page_title')}</label>
-          <input
-            type="text"
-            id="page-title"
-            value={pageTitle}
-            onChange={(e) => setPageTitle(e.target.value)}
-            placeholder={t('admin.landing_page.page_title_placeholder')}
-          />
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="page-description">{t('admin.landing_page.page_description')}</label>
-          <textarea
-            id="page-description"
-            value={pageDescription}
-            onChange={(e) => setPageDescription(e.target.value)}
-            placeholder={t('admin.landing_page.page_description_placeholder')}
-            rows="3"
-          />
-        </div>
-        
-        <div className="form-row">
-          <div className="form-group">
-            <label htmlFor="artist-name">{t('admin.landing_page.artist_name')}</label>
-            <input
-              type="text"
-              id="artist-name"
-              value={artistName}
-              onChange={(e) => setArtistName(e.target.value)}
-              placeholder={t('admin.landing_page.artist_name_placeholder')}
-            />
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="cta-text">{t('admin.landing_page.main_cta')}</label>
-            <input
-              type="text"
-              id="cta-text"
-              value={ctaText}
-              onChange={(e) => setCtaText(e.target.value)}
-              placeholder={t('admin.landing_page.cta_placeholder')}
-            />
-          </div>
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="cta-link">{t('admin.landing_page.cta_link')}</label>
-          <input
-            type="url"
-            id="cta-link"
-            value={ctaLink}
-            onChange={(e) => setCtaLink(e.target.value)}
-            placeholder="https://"
-          />
-        </div>
-        
-        <div className="form-group">
-          <label htmlFor="header-image">{t('admin.landing_page.header_image')}</label>
-          <div className="image-upload">
-            <input
-              type="file"
-              id="header-image"
-              accept="image/*"
-              onChange={handleHeaderImageChange}
-              className="file-input"
-            />
-            <label htmlFor="header-image" className="file-label">
-              <span className="upload-icon">+</span>
-              <span>{t('admin.landing_page.choose_image')}</span>
-            </label>
-            
-            {headerImagePreview && (
-              <div className="image-preview">
-                <img src={headerImagePreview} alt="Header preview" />
-                <button 
-                  className="remove-image"
-                  onClick={() => {
-                    setHeaderImage(null);
-                    setHeaderImagePreview('');
-                  }}
-                >
-                  ×
-                </button>
-              </div>
-            )}
-          </div>
-        </div>
-        
-        <div className="form-row">
-          <div className="form-group">
-            <label htmlFor="primary-color">{t('admin.landing_page.primary_color')}</label>
-            <div className="color-picker">
-              <input
-                type="color"
-                id="primary-color"
-                value={primaryColor}
-                onChange={(e) => setPrimaryColor(e.target.value)}
-              />
-              <input
-                type="text"
-                value={primaryColor}
-                onChange={(e) => setPrimaryColor(e.target.value)}
-              />
-            </div>
-          </div>
-          
-          <div className="form-group">
-            <label htmlFor="secondary-color">{t('admin.landing_page.secondary_color')}</label>
-            <div className="color-picker">
-              <input
-                type="color"
-                id="secondary-color"
-                value={secondaryColor}
-                onChange={(e) => setSecondaryColor(e.target.value)}
-              />
-              <input
-                type="text"
-                value={secondaryColor}
-                onChange={(e) => setSecondaryColor(e.target.value)}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+     // --- Contenu spécifique Gestion des Médias ---
+    "media_management": "Gestion des médias",
+    "drop_files": "Déposez vos fichiers ici ou cliquez pour parcourir",
+    "recent_uploads": "Téléchargements récents",
+    "view": "Voir",
+    "delete": "Supprimer",
 
-  // Rendu de l'étape 3 : Personnalisation des sections
-  const renderSectionCustomization = () => {
-    return (
-      <div className="section-customization">
-        <h3>{t('admin.landing_page.customize_sections')}</h3>
-        
-        <div className="sections-accordion">
-          {/* Section Héro */}
-          <div className="section-item">
-            <div className="section-header">
-              <div className="section-toggle">
-                <input
-                  type="checkbox"
-                  id="hero-toggle"
-                  checked={sections[0].enabled}
-                  onChange={(e) => updateSection(0, { enabled: e.target.checked })}
-                />
-                <label htmlFor="hero-toggle"></label>
-              </div>
-              <h4>{t('admin.landing_page.hero_section')}</h4>
-              <button className="section-expand">▼</button>
-            </div>
-            
-            <div className="section-content">
-              <div className="form-group">
-                <label>{t('admin.landing_page.hero_title')}</label>
-                <input
-                  type="text"
-                  value={sections[0].title}
-                  onChange={(e) => updateSection(0, { title: e.target.value })}
-                  placeholder={t('admin.landing_page.hero_title_placeholder')}
-                />
-              </div>
-              
-              <div className="form-group">
-                <label>{t('admin.landing_page.hero_subtitle')}</label>
-                <input
-                  type="text"
-                  value={sections[0].subtitle}
-                  onChange={(e) => updateSection(0, { subtitle: e.target.value })}
-                  placeholder={t('admin.landing_page.hero_subtitle_placeholder')}
-                />
-              </div>
-              
-              <div className="form-row">
-                <div className="form-group">
-                  <label>{t('admin.landing_page.button_text')}</label>
-                  <input
-                    type="text"
-                    value={sections[0].buttonText}
-                    onChange={(e) => updateSection(0, { buttonText: e.target.value })}
-                    placeholder={t('admin.landing_page.button_text_placeholder')}
-                  />
-                </div>
-                
-                <div className="form-group">
-                  <label>{t('admin.landing_page.button_link')}</label>
-                  <input
-                    type="url"
-                    value={sections[0].buttonLink}
-                    onChange={(e) => updateSection(0, { buttonLink: e.target.value })}
-                    placeholder="https://"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Section Caractéristiques */}
-          <div className="section-item">
-            <div className="section-header">
-              <div className="section-toggle">
-                <input
-                  type="checkbox"
-                  id="features-toggle"
-                  checked={sections[1].enabled}
-                  onChange={(e) => updateSection(1, { enabled: e.target.checked })}
-                />
-                <label htmlFor="features-toggle"></label>
-              </div>
-              <h4>{t('admin.landing_page.features_section')}</h4>
-              <button className="section-expand">▼</button>
-            </div>
-            
-            <div className="section-content">
-              {sections[1].items.map((item, index) => (
-                <div key={index} className="feature-item">
-                  <h5>{t('admin.landing_page.feature')} {index + 1}</h5>
-                  
-                  <div className="form-group">
-                    <label>{t('admin.landing_page.feature_title')}</label>
-                    <input
-                      type="text"
-                      value={item.title}
-                      onChange={(e) => updateSectionItem(1, index, { title: e.target.value })}
-                      placeholder={t('admin.landing_page.feature_title_placeholder')}
-                    />
-                  </div>
-                  
-                  <div className="form-group">
-                    <label>{t('admin.landing_page.feature_description')}</label>
-                    <textarea
-                      value={item.description}
-                      onChange={(e) => updateSectionItem(1, index, { description: e.target.value })}
-                      placeholder={t('admin.landing_page.feature_description_placeholder')}
-                      rows="2"
-                    />
-                  </div>
-                  
-                  <div className="form-group">
-                    <label>{t('admin.landing_page.feature_icon')}</label>
-                    <select
-                      value={item.icon}
-                      onChange={(e) => updateSectionItem(1, index, { icon: e.target.value })}
-                    >
-                      <option value="music">{t('admin.landing_page.icon_music')}</option>
-                      <option value="headphones">{t('admin.landing_page.icon_headphones')}</option>
-                      <option value="play">{t('admin.landing_page.icon_play')}</option>
-                      <option value="mic">{t('admin.landing_page.icon_mic')}</option>
-                      <option value="album">{t('admin.landing_page.icon_album')}</option>
-                      <option value="ticket">{t('admin.landing_page.icon_ticket')}</option>
-                    </select>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Section Témoignages */}
-          <div className="section-item">
-            <div className="section-header">
-              <div className="section-toggle">
-                <input
-                  type="checkbox"
-                  id="testimonials-toggle"
-                  checked={sections[2].enabled}
-                  onChange={(e) => updateSection(2, { enabled: e.target.checked })}
-                />
-                <label htmlFor="testimonials-toggle"></label>
-              </div>
-              <h4>{t('admin.landing_page.testimonials_section')}</h4>
-              <button className="section-expand">▼</button>
-            </div>
-            
-            <div className="section-content">
-              {sections[2].items.map((item, index) => (
-                <div key={index} className="testimonial-item">
-                  <h5>{t('admin.landing_page.testimonial')} {index + 1}</h5>
-                  
-                  <div className="form-group">
-                    <label>{t('admin.landing_page.testimonial_name')}</label>
-                    <input
-                      type="text"
-                      value={item.name}
-                      onChange={(e) => updateSectionItem(2, index, { name: e.target.value })}
-                      placeholder={t('admin.landing_page.testimonial_name_placeholder')}
-                    />
-                  </div>
-                  
-                  <div className="form-group">
-                    <label>{t('admin.landing_page.testimonial_quote')}</label>
-                    <textarea
-                      value={item.quote}
-                      onChange={(e) => updateSectionItem(2, index, { quote: e.target.value })}
-                      placeholder={t('admin.landing_page.testimonial_quote_placeholder')}
-                      rows="3"
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          
-          {/* Section CTA */}
-          <div className="section-item">
-            <div className="section-header">
-              <div className="section-toggle">
-                <input
-                  type="checkbox"
-                  id="cta-toggle"
-                  checked={sections[3].enabled}
-                  onChange={(e) => updateSection(3, { enabled: e.target.checked })}
-                />
-                <label htmlFor="cta-toggle"></label>
-              </div>
-              <h4>{t('admin.landing_page.cta_section')}</h4>
-              <button className="section-expand">▼</button>
-            </div>
-            
-            <div className="section-content">
-              <div className="form-group">
-                <label>{t('admin.landing_page.cta_title')}</label>
-                <input
-                  type="text"
-                  value={sections[3].title}
-                  onChange={(e) => updateSection(3, { title: e.target.value })}
-                  placeholder={t('admin.landing_page.cta_title_placeholder')}
-                />
-              </div>
-              
-              <div className="form-group">
-                <label>{t('admin.landing_page.cta_description')}</label>
-                <textarea
-                  value={sections[3].description}
-                  onChange={(e) => updateSection(3, { description: e.target.value })}
-                  placeholder={t('admin.landing_page.cta_description_placeholder')}
-                  rows="2"
-                />
-              </div>
-              
-              <div className="form-row">
-                <div className="form-group">
-                  <label>{t('admin.landing_page.button_text')}</label>
-                  <input
-                    type="text"
-                    value={sections[3].buttonText}
-                    onChange={(e) => updateSection(3, { buttonText: e.target.value })}
-                    placeholder={t('admin.landing_page.button_text_placeholder')}
-                  />
-                </div>
-                
-                <div className="form-group">
-                  <label>{t('admin.landing_page.button_link')}</label>
-                  <input
-                    type="url"
-                    value={sections[3].buttonLink}
-                    onChange={(e) => updateSection(3, { buttonLink: e.target.value })}
-                    placeholder="https://"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Section Réseaux Sociaux */}
-          <div className="section-item">
-            <div className="section-header">
-              <div className="section-toggle">
-                <input
-                  type="checkbox"
-                  id="social-toggle"
-                  checked={sections[4].enabled}
-                  onChange={(e) => updateSection(4, { enabled: e.target.checked })}
-                />
-                <label htmlFor="social-toggle"></label>
-              </div>
-              <h4>{t('admin.landing_page.social_section')}</h4>
-              <button className="section-expand">▼</button>
-            </div>
-            
-            <div className="section-content">
-              <div className="form-group">
-                <label>{t('admin.landing_page.social_title')}</label>
-                <input
-                  type="text"
-                  value={sections[4].title}
-                  onChange={(e) => updateSection(4, { title: e.target.value })}
-                  placeholder={t('admin.landing_page.social_title_placeholder')}
-                />
-              </div>
-              
-              {sections[4].links.map((link, index) => (
-                <div key={index} className="social-item">
-                  <div className="form-row">
-                    <div className="form-group platform-icon">
-                      <span className={`social-icon ${link.platform}`}></span>
-                      <span className="platform-name">{link.platform}</span>
-                    </div>
-                    
-                    <div className="form-group">
-                      <input
-                        type="url"
-                        value={link.url}
-                        onChange={(e) => {
-                          const updatedLinks = [...sections[4].links];
-                          updatedLinks[index].url = e.target.value;
-                          updateSection(4, { links: updatedLinks });
-                        }}
-                        placeholder={`https://${link.platform}.com/...`}
-                      />
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  };
+    // --- Section Intégrations Marketing ---
+    "integrations": {
+        "title": "Intégrations Marketing",
+        "description": "Connectez vos outils marketing pour suivre vos performances.",
+        "test_integration": "Tester l'intégration",
+        "save_all": "Enregistrer Tout",
+        "google_analytics": "Google Analytics",
+        "gtm": "Google Tag Manager (GTM)",
+        "google_ads": "Google Ads",
+        "meta_pixel": "Pixel Meta (Facebook)",
+        "tiktok_pixel": "Pixel TikTok",
+        // Détails GA (plats)
+        "ga_description": "Suivez le trafic et le comportement des utilisateurs sur votre site.",
+        "ga_id": "ID de Mesure Google Analytics (G-XXXXXXXX)",
+        "ga_id_tooltip": "Trouvez cet ID dans votre compte GA > Admin > Flux de données.",
+        "ga_events_title": "Événements à Suivre",
+        "ga_page_views": "Vues de page",
+        "ga_scroll_tracking": "Suivi du défilement",
+        "ga_outbound_links": "Clics sur liens sortants",
+        "ga_form_submissions": "Soumissions de formulaires"
+    },
 
-  // Rendu de l'étape 4 : Intégrations et publication
-  const renderIntegrationsAndPublish = () => {
-    return (
-      <div className="integrations-publish">
-        <h3>{t('admin.landing_page.integrations_publish')}</h3>
-        
-        <div className="integrations-section">
-          <h4>{t('admin.landing_page.analytics_tracking')}</h4>
-          
-          <div className="form-group">
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={analyticsIntegration}
-                onChange={(e) => setAnalyticsIntegration(e.target.checked)}
-              />
-              {t('admin.landing_page.google_analytics')}
-            </label>
-            <p className="integration-description">
-              {t('admin.landing_page.google_analytics_description')}
-            </p>
-          </div>
-          
-          <div className="form-group">
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={pixelIntegration}
-                onChange={(e) => setPixelIntegration(e.target.checked)}
-              />
-              {t('admin.landing_page.meta_pixel')}
-            </label>
-            <p className="integration-description">
-              {t('admin.landing_page.meta_pixel_description')}
-            </p>
-          </div>
-          
-          <div className="form-group">
-            <label className="checkbox-label">
-              <input
-                type="checkbox"
-                checked={tiktokPixelIntegration}
-                onChange={(e) => setTiktokPixelIntegration(e.target.checked)}
-              />
-              {t('admin.landing_page.tiktok_pixel')}
-            </label>
-            <p className="integration-description">
-              {t('admin.landing_page.tiktok_pixel_description')}
-            </p>
-          </div>
-        </div>
-        
-        <div className="preview-section">
-          <h4>{t('admin.landing_page.preview')}</h4>
-          
-          <div className="preview-controls">
-            <button 
-              className={`preview-button ${previewMode === 'desktop' ? 'active' : ''}`}
-              onClick={() => setPreviewMode('desktop')}
-            >
-              <span className="preview-icon desktop"></span>
-              {t('admin.landing_page.desktop')}
-            </button>
-            
-            <button 
-              className={`preview-button ${previewMode === 'tablet' ? 'active' : ''}`}
-              onClick={() => setPreviewMode('tablet')}
-            >
-              <span className="preview-icon tablet"></span>
-              {t('admin.landing_page.tablet')}
-            </button>
-            
-            <button 
-              className={`preview-button ${previewMode === 'mobile' ? 'active' : ''}`}
-              onClick={() => setPreviewMode('mobile')}
-            >
-              <span className="preview-icon mobile"></span>
-              {t('admin.landing_page.mobile')}
-            </button>
-          </div>
-          
-          <div className={`preview-frame ${previewMode}`}>
-            <div className="preview-content">
-              <div className="preview-placeholder">
-                <h3>{pageTitle || t('admin.landing_page.preview_title')}</h3>
-                <p>{pageDescription || t('admin.landing_page.preview_description')}</p>
-                <div className="preview-cta">
-                  {ctaText || t('admin.landing_page.preview_cta')}
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div className="publish-section">
-          <h4>{t('admin.landing_page.publish')}</h4>
-          <p>{t('admin.landing_page.publish_description')}</p>
-          
-          <button 
-            className={`publish-button ${isPublishing ? 'publishing' : ''} ${publishSuccess ? 'success' : ''}`}
-            onClick={publishLandingPage}
-            disabled={isPublishing || publishSuccess}
-          >
-            {isPublishing 
-              ? t('admin.landing_page.publishing') 
-              : publishSuccess
-                ? t('admin.landing_page.published')
-                : t('admin.landing_page.publish_page')}
-          </button>
-          
-          {publishSuccess && (
-            <div className="publish-success">
-              <p>{t('admin.landing_page.publish_success')}</p>
-              <div className="published-url">
-                <input type="text" value={publishedUrl} readOnly />
-                <button 
-                  className="copy-url-button"
-                  onClick={() => {
-                    navigator.clipboard.writeText(publishedUrl);
-                    alert(t('admin.landing_page.url_copied'));
-                  }}
-                >
-                  {t('admin.landing_page.copy')}
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  };
+    // --- Section Connecteur WordPress ---
+    "wordpress": {
+        "title": "Connecteur WordPress",
+        "description": "Connectez votre blog WordPress pour synchroniser les articles.",
+        "site_url": "URL de votre site WordPress",
+        "username": "Nom d'utilisateur WordPress",
+        "app_password": "Mot de passe d'application",
+        "app_password_tooltip": "Créez un mot de passe d'application dans votre profil WP > Sécurité.",
+        "test_connection": "Tester la Connexion"
+    },
 
-  // Rendu de la liste des landing pages existantes
-  const renderLandingPagesList = () => {
-    return (
-      <div className="landing-pages-list">
-        <div className="list-header">
-          <h3>{t('admin.landing_page.your_pages')}</h3>
-          <button 
-            className="create-new-button"
-            onClick={() => setActiveStep(1)}
-          >
-            + {t('admin.landing_page.create_new')}
-          </button>
-        </div>
-        
-        {landingPages.length === 0 ? (
-          <p className="no-pages">{t('admin.landing_page.no_pages')}</p>
-        ) : (
-          <div className="pages-table">
-            <div className="table-header">
-              <div className="table-cell">{t('admin.landing_page.title')}</div>
-              <div className="table-cell">{t('admin.landing_page.template')}</div>
-              <div className="table-cell">{t('admin.landing_page.created')}</div>
-              <div className="table-cell">{t('admin.landing_page.visits')}</div>
-              <div className="table-cell">{t('admin.landing_page.conversions')}</div>
-              <div className="table-cell">{t('admin.landing_page.actions')}</div>
-            </div>
-            
-            {landingPages.map(page => (
-              <div key={page.id} className="table-row">
-                <div className="table-cell page-title">
-                  <a href={page.url} target="_blank" rel="noopener noreferrer">
-                    {page.title}
-                  </a>
-                </div>
-                <div className="table-cell">
-                  {templates.find(t => t.id === page.template)?.name || page.template}
-                </div>
-                <div className="table-cell">
-                  {new Date(page.created).toLocaleDateString()}
-                </div>
-                <div className="table-cell">
-                  {page.visits.toLocaleString()}
-                </div>
-                <div className="table-cell">
-                  {page.conversions.toLocaleString()} 
-                  <span className="conversion-rate">
-                    ({Math.round((page.conversions / page.visits) * 100)}%)
-                  </span>
-                </div>
-                <div className="table-cell actions">
-                  <button className="action-button edit">
-                    {t('admin.landing_page.edit')}
-                  </button>
-                  <button className="action-button view">
-                    {t('admin.landing_page.view')}
-                  </button>
-                  <button className="action-button duplicate">
-                    {t('admin.landing_page.duplicate')}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
-    );
-  };
+    // --- Section Landing Pages (Complétée avec toutes les étapes) ---
+    "landing_page": {
+        // Général & Header
+        "title": "Générateur de Landing Pages",
+        "description": "Créez et gérez vos landing pages dédiées à vos campagnes.",
+        // Étapes Indicateur
+        "step1": "Choix Template",
+        "step2": "Personnalisation",
+        "step3": "Sections",
+        "step4": "Publication",
+        // Étape 1: Template
+        "select_template": "Sélectionnez un modèle :",
+        "template_music_artist": "Artiste Musical",
+        "template_album_release": "Sortie d'Album",
+        "template_music_event": "Événement Musical",
+        "template_music_promotion": "Promotion Musicale",
+        "selected": "Sélectionné",
+        "select": "Sélectionner",
+        // Étape 2: Infos de Base
+        "basic_info": "Informations de Base",
+        "page_title": "Titre de la Page",
+        "page_title_placeholder": "Ex: Nouvel Album Électro",
+        "page_description": "Description Courte (SEO)",
+        "page_description_placeholder": "Décrivez brièvement votre page",
+        "artist_name": "Nom de l'Artiste/Groupe",
+        "artist_name_placeholder": "Ex: DJ Étincelle",
+        "main_cta": "Texte du Bouton Principal (CTA)",
+        "cta_placeholder": "Ex: Écouter maintenant",
+        "cta_link": "Lien du Bouton Principal (URL)",
+        "header_image": "Image d'En-tête",
+        "choose_image": "Choisir une image",
+        "primary_color": "Couleur Principale",
+        "secondary_color": "Couleur Secondaire",
+         // Étape 3: Sections
+        "customize_sections": "Personnaliser les Sections",
+        "hero_section": "Section Héro",
+        "hero_title": "Titre Principal",
+        "hero_title_placeholder": "Votre accroche principale",
+        "hero_subtitle": "Sous-titre",
+        "hero_subtitle_placeholder": "Texte complémentaire",
+        "button_text": "Texte du Bouton", // Utilisé dans Hero et CTA
+        "button_text_placeholder": "Ex: Découvrir",
+        "button_link": "Lien du Bouton", // Utilisé dans Hero et CTA
+        "features_section": "Section Caractéristiques",
+        "feature": "Caractéristique",
+        "feature_title": "Titre Caractéristique",
+        "feature_title_placeholder": "Point fort #1",
+        "feature_description": "Description Caractéristique",
+        "feature_description_placeholder": "Expliquez ce point fort",
+        "feature_icon": "Icône Caractéristique",
+        "icon_music": "Musique",
+        "icon_headphones": "Casque",
+        "icon_play": "Lecture",
+        "icon_mic": "Micro",
+        "icon_album": "Album",
+        "icon_ticket": "Ticket",
+        "testimonials_section": "Section Témoignages",
+        "testimonial": "Témoignage",
+        "testimonial_name": "Nom",
+        "testimonial_name_placeholder": "Nom de la personne",
+        "testimonial_quote": "Citation",
+        "testimonial_quote_placeholder": "Leur témoignage ici",
+        "cta_section": "Section Appel à l'Action Final",
+        "cta_title": "Titre CTA",
+        "cta_title_placeholder": "Titre accrocheur",
+        "cta_description": "Description CTA",
+        "cta_description_placeholder": "Texte descriptif court",
+        "social_section": "Section Liens Sociaux",
+        "social_title": "Titre Liens Sociaux",
+        "social_title_placeholder": "Ex: Suivez-nous !",
+        // Étape 4: Intégrations & Publication
+        "integrations_publish": "Intégrations & Publication",
+        "analytics_tracking": "Suivi Analytique",
+        "google_analytics": "Google Analytics", // Réutilisation clé admin.integrations.google_analytics
+        "google_analytics_description": "Activez Google Analytics pour cette page (nécessite l'ID global).",
+        "meta_pixel": "Pixel Meta (Facebook)", // Réutilisation clé admin.integrations.meta_pixel
+        "meta_pixel_description": "Activez le Pixel Meta pour cette page (nécessite l'ID global).",
+        "tiktok_pixel": "Pixel TikTok", // Réutilisation clé admin.integrations.tiktok_pixel
+        "tiktok_pixel_description": "Activez le Pixel TikTok pour cette page (nécessite l'ID global).",
+        "preview": "Aperçu",
+        "desktop": "Bureau",
+        "tablet": "Tablette",
+        "mobile": "Mobile",
+        "preview_title": "Titre de votre Page",
+        "preview_description": "Description de votre page ici...",
+        "preview_cta": "Bouton d'Action",
+        "publish": "Publication",
+        "publish_description": "Une fois publiée, votre page sera accessible via une URL unique.",
+        "publishing": "Publication en cours...",
+        "published": "Publiée !",
+        "publish_page": "Publier la Page",
+        "publish_success": "Votre page a été publiée avec succès !",
+        "url_copied": "URL copiée !",
+        "copy": "Copier",
+         // Liste des Pages Existantes (rendu initial step === 0)
+        "your_pages": "Vos Landing Pages",
+        "create_new": "Créer une nouvelle page",
+        "no_pages": "Vous n'avez pas encore créé de landing page.",
+        "template": "Template", // En-tête tableau (aussi utilisé en étape 1)
+        "created": "Créée le", // En-tête tableau
+        "visits": "Visites", // En-tête tableau
+        "conversions": "Conversions", // En-tête tableau
+        "actions": "Actions", // En-tête tableau
+        "edit": "Modifier", // Bouton action
+        "view": "Voir", // Bouton action (réutilise admin.view ?)
+        "duplicate": "Dupliquer", // Bouton action
+        // Navigation Étapes (Boutons)
+        "button_previous": "Précédent",
+        "button_next": "Suivant",
+        "button_cancel": "Annuler"
+    },
 
-  // Rendu principal
-  return (
-    <div className="landing-page-generator">
-      <div className="generator-header">
-        <h2>{t('admin.landing_page.title')}</h2>
-        <p>{t('admin.landing_page.description')}</p>
-      </div>
-      
-      {/* Afficher la liste des landing pages ou le générateur */}
-      {activeStep === 0 ? (
-        renderLandingPagesList()
-      ) : (
-        <div className="generator-content">
-          <div className="steps-indicator">
-            <div className={`step ${activeStep >= 1 ? 'active' : ''}`}>
-              <div className="step-number">1</div>
-              <div className="step-label">{t('admin.landing_page.step1')}</div>
-            </div>
-            <div className="step-connector"></div>
-            <div className={`step ${activeStep >= 2 ? 'active' : ''}`}>
-              <div className="step-number">2</div>
-              <div className="step-label">{t('admin.landing_page.step2')}</div>
-            </div>
-            <div className="step-connector"></div>
-            <div className={`step ${activeStep >= 3 ? 'active' : ''}`}>
-              <div className="step-number">3</div>
-              <div className="step-label">{t('admin.landing_page.step3')}</div>
-            </div>
-            <div className="step-connector"></div>
-            <div className={`step ${activeStep >= 4 ? 'active' : ''}`}>
-              <div className="step-number">4</div>
-              <div className="step-label">{t('admin.landing_page.step4')}</div>
-            </div>
-          </div>
-          
-          <div className="step-content">
-            {activeStep === 1 && renderTemplateSelection()}
-            {activeStep === 2 && renderBasicInfo()}
-            {activeStep === 3 && renderSectionCustomization()}
-            {activeStep === 4 && renderIntegrationsAndPublish()}
-          </div>
-          
-          <div className="step-navigation">
-            {activeStep > 1 && (
-              <button 
-                className="prev-step-button"
-                onClick={() => setActiveStep(activeStep - 1)}
-              >
-                {t('admin.landing_page.previous')}
-              </button>
-            )}
-            
-            {activeStep === 1 && (
-              <button 
-                className="cancel-button"
-                onClick={() => setActiveStep(0)}
-              >
-                {t('admin.landing_page.cancel')}
-              </button>
-            )}
-            
-            {activeStep < 4 && (
-              <button 
-                className="next-step-button"
-                onClick={() => setActiveStep(activeStep + 1)}
-              >
-                {t('admin.landing_page.next')}
-              </button>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
-  );
-};
+     // --- Section Paramètres ---
+     "settings": {
+        "title": "Paramètres Généraux",
+        "description": "Configurez les paramètres d'authentification et les intégrations globales.",
+        "wordpress_connection_title": "Connexion WordPress (Globale)",
+        "wordpress_url_label": "URL WordPress",
+        "wordpress_url_help": "L'URL principale de votre site WordPress.",
+        "wordpress_username_label": "Nom d'utilisateur WP",
+        "wordpress_app_password_label": "Mot de passe d'Application WP",
+        "wordpress_app_password_help": "Générez-le depuis votre profil utilisateur WordPress.",
+        "test_connection_button": "Tester la Connexion WP",
+        "marketing_integrations_title": "Intégrations Marketing (Globales)",
+        "save_settings_button": "Enregistrer les Paramètres"
+     },
 
-export default LandingPageGenerator;
+    // --- Clés générales Admin ---
+    "loading": "Chargement...",
+
+    // --- Chatbot ---
+    "chatbot": {
+      "title": "Assistant MDMC",
+      "welcome_message": "Bonjour ! Je suis votre assistant MDMC. Comment puis-je vous aider aujourd'hui ?",
+      "help_prompt": "Voici quelques sujets sur lesquels je peux vous aider :",
+      "suggestion_pixels": "Intégration des pixels marketing",
+      "suggestion_wordpress": "Connecter WordPress",
+      "suggestion_landing_pages": "Créer une landing page",
+      "general_help": "Je peux vous aider avec les intégrations marketing, la connexion WordPress, ou la création de landing pages. Que souhaitez-vous savoir ?",
+      "google_analytics_help": "Pour configurer Google Analytics, vous avez besoin de votre ID de mesure (G-XXXXXXXX). Vous pouvez le trouver dans votre compte Google Analytics sous Admin > Propriété > Infos de suivi > Code de suivi.",
+      "suggestion_ga_id": "Où trouver mon ID Google Analytics ?",
+      "suggestion_ga_events": "Configuration des événements GA",
+      "gtm_help": "Pour configurer Google Tag Manager, entrez votre ID de conteneur GTM (GTM-XXXXXXX) dans le champ correspondant. Vous pouvez trouver cet ID dans votre compte GTM sous Admin > Paramètres du conteneur.",
+      "suggestion_gtm_id": "Où trouver mon ID GTM ?",
+      "suggestion_gtm_setup": "Configuration avancée GTM",
+      "meta_pixel_help": "Pour configurer le pixel Meta (Facebook), entrez votre ID de pixel dans le champ correspondant. Vous pouvez trouver cet ID dans votre Gestionnaire d'événements Meta sous Pixels > Détails du pixel.",
+      "suggestion_meta_events": "Configuration des événements Meta",
+      "suggestion_meta_advanced": "Options avancées du pixel Meta",
+      "tiktok_pixel_help": "Pour configurer le pixel TikTok, entrez votre ID de pixel dans le champ correspondant. Vous pouvez trouver cet ID dans votre TikTok Ads Manager sous Library > Events > Website Pixel > Setup.",
+      "suggestion_tiktok_events": "Configuration des événements TikTok",
+      "suggestion_tiktok_api": "Utilisation de l'API TikTok",
+      "pixels_general_help": "Vous pouvez intégrer différents pixels marketing sans avoir à manipuler de code. Il vous suffit d'entrer les identifiants correspondants dans les champs prévus à cet effet.",
+      "suggestion_google_analytics": "Google Analytics",
+      "suggestion_meta_pixel": "Pixel Meta (Facebook)",
+      "suggestion_tiktok_pixel": "Pixel TikTok",
+      "wordpress_setup_help": "Pour connecter votre blog WordPress, vous aurez besoin de l'URL de votre site WordPress et d'un mot de passe d'application. Vous pouvez créer un mot de passe d'application dans votre profil WordPress sous Sécurité > Mots de passe d'application.",
+      "suggestion_wp_app_password": "Créer un mot de passe d'application",
+      "suggestion_wp_sync": "Synchroniser le contenu",
+      "wordpress_sync_help": "Vous pouvez synchroniser automatiquement le contenu de votre blog WordPress avec votre site MDMC. Sélectionnez les catégories que vous souhaitez synchroniser et définissez la fréquence de synchronisation.",
+      "suggestion_wp_categories": "Sélection des catégories",
+      "suggestion_wp_frequency": "Fréquence de synchronisation",
+      "wordpress_general_help": "Le connecteur WordPress vous permet d'intégrer facilement le contenu de votre blog WordPress à votre site MDMC sans avoir à manipuler de code.",
+      "suggestion_wp_connect": "Comment connecter WordPress",
+      "suggestion_wp_troubleshoot": "Résoudre les problèmes",
+      "landing_templates_help": "Le générateur de landing page propose plusieurs templates optimisés pour l'industrie musicale. Sélectionnez celui qui correspond le mieux à vos besoins et personnalisez-le selon vos préférences.",
+      "suggestion_landing_customize": "Personnaliser un template",
+      "suggestion_landing_sections": "Gérer les sections",
+      "landing_publish_help": "Une fois votre landing page créée, vous pouvez la publier en un clic. Vous pouvez également intégrer vos pixels marketing pour suivre les performances de votre page.",
+      "suggestion_landing_analytics": "Suivi des performances",
+      "suggestion_landing_domain": "Utiliser un domaine personnalisé",
+      "landing_general_help": "Le générateur de landing page vous permet de créer facilement des pages d'atterrissage professionnelles sans avoir à coder. Vous pouvez choisir parmi plusieurs templates, personnaliser le contenu et publier en quelques clics.",
+      "suggestion_landing_create": "Créer une landing page",
+      "suggestion_landing_publish": "Publier une landing page",
+      "input_placeholder": "Posez votre question ici...",
+      "send": "Envoyer",
+      "close": "Fermer",
+      "open": "Ouvrir l'assistant"
+    }
+  }
+  // --- Fin Section Admin - Mise à jour Finale ---
+}
