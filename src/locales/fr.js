@@ -70,8 +70,8 @@ export default {
     "step5_email_label": "Votre adresse email",
     "step5_email_placeholder": "vous@email.com",
     "email_error": "Veuillez entrer une adresse email valide.",
-    "button_next": "Suivant", // Clé générique
-    "button_prev": "Précédent", // Clé générique
+    "button_next": "Suivant",
+    "button_prev": "Précédent",
     "button_show_results": "Voir les résultats",
     "submitting_text": "Calcul en cours...",
     "button_modify": "Modifier les infos",
@@ -154,12 +154,22 @@ export default {
       "algorythme_description": "Partenaire technologique pour l'analyse de données"
     }
   },
-  "reviews": { // Section Reviews (inchangée)
+  // --- Section Reviews (MISE À JOUR avec .form) ---
+  "reviews": {
     "title": "Ce que disent nos clients",
     "subtitle": "Témoignages d'artistes et de labels",
-    "cta": "Voir tous les avis",
-    "leave_review": "Laisser un avis",
-    "view_all": "Voir tous les avis"
+    "cta": "Voir tous les avis", // Peut-être renommer en view_all pour cohérence ?
+    "leave_review": "Laisser un avis", // Bouton qui ouvre le formulaire
+    "view_all": "Voir tous les avis", // Texte du bouton/lien "Voir tous"
+    // --- Clés pour le formulaire d'avis (Nouvelles) ---
+    "form": {
+        "title": "Partagez votre expérience", // reviews.form.title
+        "name": "Votre nom", // reviews.form.name
+        "email": "Votre email", // reviews.form.email
+        "rating": "Votre note", // reviews.form.rating
+        "message": "Votre message", // reviews.form.message
+        "submit": "Envoyer l'avis" // reviews.form.submit
+    }
   },
   "footer": { // Section Footer (inchangée)
     "rights": "Tous droits réservés",
@@ -179,9 +189,8 @@ export default {
     "legal_terms": "Conditions",
     "legal_cookies": "Cookies"
   },
-  // --- Section Admin - Correction Finale v5 ---
+  // --- Section Admin (inchangée depuis v5) ---
   "admin": {
-    // --- Connexion ---
     "login": {
       "title": "Connexion Administrateur",
       "subtitle": "Accédez à votre tableau de bord",
@@ -191,8 +200,6 @@ export default {
       "logging_in": "Connexion en cours...",
       "error": "Nom d'utilisateur ou mot de passe incorrect."
     },
-
-    // --- Barre Latérale (Sidebar) & Titres Généraux ---
     "dashboard": "Tableau de bord",
     "reviews": "Avis",
     "content": "Contenu",
@@ -203,8 +210,6 @@ export default {
     "landing_pages": "Landing Pages",
     "settings": "Paramètres",
     "logout": "Déconnexion",
-
-    // --- Contenu spécifique Tableau de Bord ---
     "pending_reviews": "Avis en attente",
     "approved_reviews": "Avis approuvés",
     "active_campaigns": "Campagnes actives",
@@ -213,16 +218,12 @@ export default {
     "new_review_received": "Nouvel avis reçu",
     "content_updated": "Contenu mis à jour",
     "campaign_started": "Campagne démarrée",
-
-    // --- Contenu spécifique Gestion des Avis ---
     "reviews_management": "Gestion des avis",
     "generate_review_link": "Générer un lien d'avis",
     "link_copied": "Lien copié dans le presse-papiers !",
     "no_pending_reviews": "Aucun avis en attente",
     "approve": "Approuver",
     "reject": "Rejeter",
-
-    // --- Contenu spécifique Gestion de Contenu ---
     "content_management": "Gestion du contenu",
     "select_language": "Sélectionner une langue",
     "select_section": "Sélectionner une section",
@@ -234,15 +235,11 @@ export default {
     "field_subtitle": "Sous-titre",
     "field_description": "Description",
     "save_changes": "Enregistrer les modifications",
-
-     // --- Contenu spécifique Gestion des Médias ---
     "media_management": "Gestion des médias",
     "drop_files": "Déposez vos fichiers ici ou cliquez pour parcourir",
     "recent_uploads": "Téléchargements récents",
     "view": "Voir",
     "delete": "Supprimer",
-
-    // --- Section Intégrations Marketing ---
     "integrations": {
         "title": "Intégrations Marketing",
         "description": "Connectez vos outils marketing pour suivre vos performances.",
@@ -253,7 +250,6 @@ export default {
         "google_ads": "Google Ads",
         "meta_pixel": "Pixel Meta (Facebook)",
         "tiktok_pixel": "Pixel TikTok",
-        // Détails GA (plats)
         "ga_description": "Suivez le trafic et le comportement des utilisateurs sur votre site.",
         "ga_id": "ID de Mesure Google Analytics (G-XXXXXXXX)",
         "ga_id_tooltip": "Trouvez cet ID dans votre compte GA > Admin > Flux de données.",
@@ -263,8 +259,6 @@ export default {
         "ga_outbound_links": "Clics sur liens sortants",
         "ga_form_submissions": "Soumissions de formulaires"
     },
-
-    // --- Section Connecteur WordPress ---
     "wordpress": {
         "title": "Connecteur WordPress",
         "description": "Connectez votre blog WordPress pour synchroniser les articles.",
@@ -274,18 +268,13 @@ export default {
         "app_password_tooltip": "Créez un mot de passe d'application dans votre profil WP > Sécurité.",
         "test_connection": "Tester la Connexion"
     },
-
-    // --- Section Landing Pages (Complétée & Corrigée) ---
     "landing_page": {
-        // Général & Header
         "title": "Générateur de Landing Pages",
         "description": "Créez et gérez vos landing pages dédiées à vos campagnes.",
-        // Étapes Indicateur
         "step1": "Choix Template",
         "step2": "Personnalisation",
         "step3": "Sections",
         "step4": "Publication",
-        // Étape 1: Template
         "select_template": "Sélectionnez un modèle :",
         "template_music_artist": "Artiste Musical",
         "template_album_release": "Sortie d'Album",
@@ -293,7 +282,6 @@ export default {
         "template_music_promotion": "Promotion Musicale",
         "selected": "Sélectionné",
         "select": "Sélectionner",
-        // Étape 2: Infos de Base
         "basic_info": "Informations de Base",
         "page_title": "Titre de la Page",
         "page_title_placeholder": "Ex: Nouvel Album Électro",
@@ -308,7 +296,6 @@ export default {
         "choose_image": "Choisir une image",
         "primary_color": "Couleur Principale",
         "secondary_color": "Couleur Secondaire",
-         // Étape 3: Sections
         "customize_sections": "Personnaliser les Sections",
         "hero_section": "Section Héro",
         "hero_title": "Titre Principal",
@@ -345,14 +332,10 @@ export default {
         "social_section": "Section Liens Sociaux",
         "social_title": "Titre Liens Sociaux",
         "social_title_placeholder": "Ex: Suivez-nous !",
-        // Étape 4: Intégrations & Publication
         "integrations_publish": "Intégrations & Publication",
         "analytics_tracking": "Suivi Analytique",
-        "google_analytics": "Google Analytics", // Réutilisation admin.integrations.google_analytics
         "google_analytics_description": "Activez Google Analytics pour cette page (nécessite l'ID global).",
-        "meta_pixel": "Pixel Meta (Facebook)", // Réutilisation admin.integrations.meta_pixel
         "meta_pixel_description": "Activez le Pixel Meta pour cette page (nécessite l'ID global).",
-        "tiktok_pixel": "Pixel TikTok", // Réutilisation admin.integrations.tiktok_pixel
         "tiktok_pixel_description": "Activez le Pixel TikTok pour cette page (nécessite l'ID global).",
         "preview": "Aperçu",
         "desktop": "Bureau",
@@ -369,7 +352,6 @@ export default {
         "publish_success": "Votre page a été publiée avec succès !",
         "url_copied": "URL copiée !",
         "copy": "Copier",
-         // Liste des Pages Existantes
         "your_pages": "Vos Landing Pages",
         "create_new": "Créer une nouvelle page",
         "no_pages": "Vous n'avez pas encore créé de landing page.",
@@ -379,33 +361,26 @@ export default {
         "conversions": "Conversions",
         "actions": "Actions",
         "edit": "Modifier",
-        "view": "Voir",
+        // "view": "Voir", // Utilise admin.view
         "duplicate": "Dupliquer",
-        // Navigation Étapes (Boutons - Clés corrigées)
-        "previous": "Précédent", // Corrigé: utilise la clé exacte du code
-        "next": "Suivant", // Corrigé: utilise la clé exacte du code
-        "cancel": "Annuler" // Corrigé: utilise la clé exacte du code
+        "previous": "Précédent",
+        "next": "Suivant",
+        "cancel": "Annuler"
     },
-
-     // --- Section Paramètres ---
-     "settings": {
-        "title": "Paramètres Généraux",
-        "description": "Configurez les paramètres d'authentification et les intégrations globales.",
-        "wordpress_connection_title": "Connexion WordPress (Globale)",
-        "wordpress_url_label": "URL WordPress",
-        "wordpress_url_help": "L'URL principale de votre site WordPress.",
-        "wordpress_username_label": "Nom d'utilisateur WP",
-        "wordpress_app_password_label": "Mot de passe d'Application WP",
-        "wordpress_app_password_help": "Générez-le depuis votre profil utilisateur WordPress.",
-        "test_connection_button": "Tester la Connexion WP",
-        "marketing_integrations_title": "Intégrations Marketing (Globales)",
-        "save_settings_button": "Enregistrer les Paramètres"
-     },
-
-    // --- Clés générales Admin ---
+    "settings": {
+       "title": "Paramètres Généraux",
+       "description": "Configurez les paramètres d'authentification et les intégrations globales.",
+       "wordpress_connection_title": "Connexion WordPress (Globale)",
+       "wordpress_url_label": "URL WordPress",
+       "wordpress_url_help": "L'URL principale de votre site WordPress.",
+       "wordpress_username_label": "Nom d'utilisateur WP",
+       "wordpress_app_password_label": "Mot de passe d'Application WP",
+       "wordpress_app_password_help": "Générez-le depuis votre profil utilisateur WordPress.",
+       "test_connection_button": "Tester la Connexion WP",
+       "marketing_integrations_title": "Intégrations Marketing (Globales)",
+       "save_settings_button": "Enregistrer les Paramètres"
+    },
     "loading": "Chargement...",
-
-    // --- Chatbot ---
     "chatbot": {
       "title": "Assistant MDMC",
       "welcome_message": "Bonjour ! Je suis votre assistant MDMC. Comment puis-je vous aider aujourd'hui ?",
@@ -454,5 +429,4 @@ export default {
       "open": "Ouvrir l'assistant"
     }
   }
-  // --- Fin Section Admin - Correction Finale v5 ---
 }
