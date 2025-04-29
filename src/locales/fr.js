@@ -37,73 +37,88 @@ export default {
     }
   },
   "simulator": {
-    "title": "Simulateur de campagne",
-    "subtitle": "Découvrez combien vous pourriez gagner",
-    "step1": {
-      "title": "Quel est votre objectif principal ?",
-      "option1": "Augmenter les streams",
-      "option2": "Vendre des produits dérivés",
-      "option3": "Promouvoir un concert/événement",
-      "option4": "Développer ma communauté"
-    },
-    "step2": {
-      "title": "Quel est votre budget mensuel ?",
-      "option1": "500€ - 1000€",
-      "option2": "1000€ - 3000€",
-      "option3": "3000€ - 5000€",
-      "option4": "5000€+"
-    },
-    "step3": {
-      "title": "Quel est votre genre musical ?",
-      "option1": "Pop",
-      "option2": "Hip-Hop/Rap",
-      "option3": "Électronique",
-      "option4": "Rock/Métal",
-      "option5": "R&B/Soul",
-      "option6": "Autre"
-    },
-    "step4": {
-      "title": "Où est basée votre audience principale ?",
-      "option1": "France",
-      "option2": "Europe",
-      "option3": "Amérique du Nord",
-      "option4": "Mondial"
-    },
-    "step5": {
-      "title": "Avez-vous déjà fait de la publicité en ligne ?",
-      "option1": "Jamais",
-      "option2": "Quelques campagnes",
-      "option3": "Régulièrement",
-      "option4": "Expert"
-    },
-    "step6": {
+    "title": "Simulateur de campagne", // Clé existante utilisée pour H2 principal
+    "subtitle": "Découvrez combien vous pourriez gagner", // Clé existante (non utilisée dans le code fourni?)
+
+    // === CLÉS AJOUTÉES/MODIFIÉES POUR CORRESPONDRE AU JSX ===
+    // --- Étape 1 ---
+    "step1_title": "Quel est votre objectif principal ?", // Texte utilisé pour H3 Étape 1 (clé reprise de votre en.js)
+    "step1_platform_label": "Plateforme publicitaire", // Utilisé pour label Étape 1 (clé reprise de votre en.js)
+    "option_select": "-- Sélectionner --", // Utilisé dans tous les selects
+    "platform_youtube": "YouTube Ads", // Option du select
+    "platform_meta": "Meta Ads (Facebook/Instagram)", // Option du select
+    "platform_tiktok": "TikTok Ads", // Option du select
+    "platform_error": "Veuillez sélectionner une plateforme.", // Message validation (AJOUTÉ)
+
+    // --- Étape 2 ---
+    "step2_title": "Étape 2 : Type de Campagne", // AJOUTÉ (basé sur H3 en dur)
+    "step2_label": "Choisissez le type de campagne", // AJOUTÉ (basé sur label en dur) -> Note: Renommé step2_select_label serait mieux
+    "step2_placeholder": "Choisissez le type de campagne", // AJOUTÉ (si besoin pour placeholder)
+    "campaignType_awareness": "Awareness (Notoriété)", // AJOUTÉ (pour option select)
+    "campaignType_engagement": "Engagement", // AJOUTÉ (pour option select)
+    "campaignType_conversion": "Conversion", // AJOUTÉ (pour option select)
+    "campaignType_error": "Veuillez sélectionner un type de campagne.", // Message validation (AJOUTÉ)
+
+    // --- Étape 3 ---
+    "step3_title": "Étape 3 : Budget Mensuel Estimé", // AJOUTÉ (basé sur H3 en dur)
+    "step3_label": 'Budget mensuel estimé', // Texte confirmé par vous
+    "step2_budget_label": 'Budget mensuel estimé', // !! CLÉ INCORRECTE utilisée dans le JSX pour le label Budget !! - Ajoutée pour correspondre
+    "step3_budget_placeholder": 'Votre budget', // Texte confirmé par vous
+    "step2_budget_placeholder": 'Votre budget', // !! CLÉ INCORRECTE utilisée dans le JSX pour le placeholder Budget !! - Ajoutée pour correspondre
+    "budget_error": "Le budget doit être d'au moins 500€.", // Message validation (AJOUTÉ)
+
+    // --- Étape 4 ---
+    "step4_title": "Étape 4 : Pays Cible", // AJOUTÉ (basé sur H3 en dur)
+    "step4_label": 'Pays cible', // Texte confirmé par vous
+    "step3_region_label": 'pays ciblés', // !! CLÉ INCORRECTE utilisée dans le JSX pour le label Pays !! - Ajoutée pour correspondre
+    "region_error": "Veuillez sélectionner un pays/région.", // Message validation (AJOUTÉ)
+    "region_europe": "Europe", // AJOUTÉ (pour option select)
+    "region_usa": "USA", // AJOUTÉ (pour option select)
+    "region_canada": "Canada", // AJOUTÉ (pour option select)
+    "region_south_america": "Amérique du Sud", // AJOUTÉ (pour option select)
+    "region_asia": "Asie", // AJOUTÉ (pour option select)
+
+    // --- Étape 5 ---
+    "step5_title": "Étape 5 : Vos Informations", // AJOUTÉ (basé sur H3 en dur)
+    "step5_label": 'Vos Informations', // Texte logique (utilisé dans mes prop précédentes)
+    "step4_artist_label": 'Nom d\'artiste / Label', // !! CLÉ INCORRECTE utilisée dans le JSX pour label Artiste !! - Ajoutée pour correspondre
+    "step5_artist_label": 'Nom d\'artiste / Label', // Texte logique (ajouté aussi)
+    "step4_artist_placeholder": 'nom de l\'artiste', // !! CLÉ INCORRECTE utilisée dans le JSX pour placeholder Artiste !! - Ajoutée pour correspondre
+    "step5_artist_placeholder": 'nom de l\'artiste', // Texte confirmé (ajouté aussi)
+    "artist_error": "Veuillez entrer un nom d'artiste ou de label.", // Message validation (AJOUTÉ)
+    "step4_email_label": 'Votre Email', // !! CLÉ INCORRECTE utilisée dans le JSX pour label Email !! - Ajoutée pour correspondre
+    "step5_email_label": 'Votre Email', // Texte logique (ajouté aussi)
+    "step4_email_placeholder": 'votre email', // !! CLÉ INCORRECTE utilisée dans le JSX pour placeholder Email !! - Ajoutée pour correspondre
+    "step5_email_placeholder": 'votre email', // Texte confirmé (ajouté aussi)
+    "email_error": "Veuillez entrer une adresse email valide.", // Message validation (AJOUTÉ)
+
+    // --- Étape 6 / Résultats ---
+    "step6": { // Structure existante dans votre en.js
       "title": "Voici votre estimation personnalisée",
       "roi_title": "ROI estimé",
       "monthly_streams": "Streams mensuels potentiels",
       "monthly_sales": "Ventes mensuelles potentielles",
       "ticket_sales": "Ventes de billets potentielles",
       "followers_growth": "Croissance d'abonnés potentielle",
-      "cta": "Parler avec un expert", // Confirmé
+      "cta": "Parler avec un expert", // Texte du bouton déjà présent
       "disclaimer": "Ces chiffres sont des estimations basées sur nos données historiques et peuvent varier en fonction de nombreux facteurs."
     },
-    // === CLÉS AJOUTÉES/CONFIRMÉES ===
-    step2_label: 'Type de Campagne',
-    step2_placeholder: 'Choisissez le type de campagne',
-    step3_label: 'Budget mensuel estimé',
-    step3_budget_placeholder: 'Votre budget', // Texte confirmé par vous
-    step3_region_label: 'pays ciblés', // Nouvelle clé ajoutée
-    step4_label: 'Pays cible', // Nouvelle clé ajoutée
-    step5_label: 'Vos Informations', // Texte logique basé sur clé
-    step5_artist_label: 'Nom d\'artiste / Label', // Texte logique basé sur clé
-    step5_artist_placeholder: 'nom de l\'artiste', // Texte confirmé par vous
-    step5_email_label: 'Votre Email', // Texte logique basé sur clé
-    step5_email_placeholder: 'votre email', // Texte confirmé par vous (ou utiliser nom@exemple.com?)
-    button_prev: 'précédent', // Texte confirmé par vous
-    button_show_results: 'voir le résultat', // Texte confirmé par vous
-    // ===========================
-    "next": "Suivant",
-    "previous": "Précédent", // Clé déjà présente dans votre fr.js original
-    "close": "Fermer"
+    "results_title": "Vos Résultats Estimés", // AJOUTÉ (pour H3 utilisé en étape 6)
+    "results_views_label": "Vues Estimées", // AJOUTÉ
+    "results_cpv_label": "Coût Estimé", // AJOUTÉ (CPV/CPM Range)
+    "results_reach_label": "Portée Estimée", // AJOUTÉ
+    "results_disclaimer": "Ces chiffres sont des estimations basées sur nos données historiques et peuvent varier en fonction de nombreux facteurs.", // AJOUTÉ (clé utilisée dans JSX, différente de step6.disclaimer)
+    "results_cta_expert": "Réserver un appel pour discuter des résultats", // AJOUTÉ (pour aria-label)
+
+    // --- Boutons ---
+    "button_prev": 'précédent', // Texte confirmé par vous
+    "button_next": "Suivant", // Clé existante
+    "button_show_results": 'voir le résultat', // Texte confirmé par vous
+    "button_modify": "Modifier les sélections", // AJOUTÉ (pour bouton étape 6)
+    "previous": "Précédent", // Clé existante dans votre fr.js original
+    "close": "Fermer", // Clé existante
+    "close_button_aria_label": "Fermer le simulateur" // AJOUTÉ (pour bouton X)
+    // ==================================================
   },
   "services": {
     "title": "Nos services",
@@ -146,9 +161,9 @@ export default {
     "title": "Articles récents",
     "subtitle": "Conseils et actualités du marketing musical",
     "view_all": "Voir tous les articles",
-    "read_more": "Lire la suite", // Clé ajoutée par rapport à votre original
-    "error_loading": "Erreur lors du chargement des articles.", // Clé ajoutée par rapport à votre original
-    "categories": { // Section ajoutée par rapport à votre original
+    "read_more": "Lire la suite",
+    "error_loading": "Erreur lors du chargement des articles.",
+    "categories": {
        "strategy": "Stratégie",
        "youtube": "YouTube",
        "meta": "Meta",
@@ -158,35 +173,33 @@ export default {
   },
   "contact": {
     "title": "Contactez-nous",
-    "subtitle": "Prêt à propulser votre musique ?", // Gardé de l'original
-    "description": "Discutons de votre projet et de la façon dont nous pouvons vous aider à atteindre vos objectifs.", // Gardé de l'original
-    "name": "Nom", // Note: doublon potentiel avec contact.form.name
-    "email": "Email", // Note: doublon potentiel avec contact.form.email
-    "message": "Message", // Note: doublon potentiel avec contact.form.message
-    "submit": "Envoyer", // Note: doublon potentiel avec contact.form.submit
-    "success": "Message envoyé avec succès !", // Note: doublon potentiel avec contact.form.success
-    "error": "Une erreur s'est produite. Veuillez réessayer.", // Note: doublon potentiel avec contact.form.error
+    "subtitle": "Prêt à propulser votre musique ?",
+    "description": "Discutons de votre projet et de la façon dont nous pouvons vous aider à atteindre vos objectifs.",
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "submit": "Envoyer",
+    "success": "Message envoyé avec succès !",
+    "error": "Une erreur s'est produite. Veuillez réessayer.", // Clé générique ajoutée
     "form": {
-      // === AJOUTS/CONFIRMATIONS ===
       platform_label: "Plateforme principale ciblée",
       option_select: "-- Sélectionner --",
       platform_youtube: "YouTube Ads",
       platform_meta: "Meta Ads (Facebook/Instagram)",
       platform_tiktok: "TikTok Ads",
-      book_call: "parler à un expert", // Mis à jour
+      book_call: "parler à un expert",
       submitting: "Envoi en cours...",
       success: "Message envoyé avec succès !",
-      error: "Une erreur s'est produite. Veuillez réessayer.",
-      // ==========================
-      "name": "Votre nom", // Clé existante dans votre original
-      "email": "Votre email", // Clé existante dans votre original
-      "message": "Votre message", // Clé existante dans votre original
-      "submit": "Envoyer le message", // Clé existante dans votre original (différente du submit global)
-      "error_fields": "Veuillez remplir tous les champs requis.", // Ajout possible
-      "error_email": "Veuillez entrer une adresse email valide." // Ajout possible
+      error: "Une erreur s'est produite. Veuillez réessayer.", // Erreur spécifique formulaire
+      name: "Votre nom",
+      email: "Votre email",
+      message: "Votre message",
+      submit: "Envoyer le message",
+      error_fields: "Veuillez remplir tous les champs requis.",
+      error_email: "Veuillez entrer une adresse email valide."
     },
     "partners": {
-      "title": "Ils nous font confiance", // Texte de votre original
+      "title": "Ils nous font confiance",
       "fmm": "Fédération des Musiques Métalliques",
       "fmm_description": "Partenaire officiel pour la promotion des artistes métal",
       "google": "Google Partner",
@@ -203,12 +216,11 @@ export default {
     "subtitle": "Témoignages d'artistes et de labels",
     "cta": "Voir tous les avis",
     "leave_review": "Laisser un avis",
-    "view_all": "Voir tous les avis", // Note: doublon avec cta?
+    "view_all": "Voir tous les avis",
     // === AJOUT SECTION FORM ===
     form: {
       title: 'Laisse un avis',
       name: 'Votre nom'
-      // Ajouter d'autres clés si besoin
     }
     // =======================
   },
@@ -216,18 +228,18 @@ export default {
     "rights": "Tous droits réservés",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation",
-    "copyright": "MDMC Music Ads. Tous droits réservés.", // Plus complet que 'rights'
+    "copyright": "MDMC Music Ads. Tous droits réservés.",
     "logo_p": "Marketing musical qui convertit",
     "nav_title": "Navigation",
-    "nav_home": "Accueil", // Note: doublon nav
+    "nav_home": "Accueil",
     "resources_title": "Ressources",
     "resources_blog": "Blog",
     "resources_simulator": "Simulateur",
     "resources_faq": "FAQ",
     "resources_glossary": "Glossaire",
     "legal_title": "Mentions légales",
-    "legal_privacy": "Confidentialité", // Note: doublon privacy
-    "legal_terms": "Conditions", // Note: doublon terms
+    "legal_privacy": "Confidentialité",
+    "legal_terms": "Conditions",
     "legal_cookies": "Cookies"
   },
   "admin": { // Gardé en français
@@ -325,4 +337,4 @@ export default {
       "open": "Ouvrir l'assistant"
     }
   }
-}; // <<< Fin de l'export default
+};
