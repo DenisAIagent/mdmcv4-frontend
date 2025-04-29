@@ -35,37 +35,27 @@ export default {
       "countries": "Pays couverts"
     }
   },
-  // --- Section Simulator MÀJ ---
+  // --- Section Simulator MÀJ (basée sur le code Simulator.jsx harmonisé) ---
   "simulator": {
-    "title": "Simulateur de campagne publicitaire", // Titre général
+    "title": "Simulateur de campagne publicitaire",
     "close_button_aria_label": "Fermer le simulateur",
-
-    // Options communes
     "option_select": "-- Sélectionner --",
-
-    // Étape 1: Plateforme
     "step1_title": "Étape 1 : Choisissez votre plateforme",
     "step1_platform_label": "Plateforme publicitaire",
     "platform_youtube": "YouTube Ads",
     "platform_meta": "Meta Ads (Facebook/Instagram)",
     "platform_tiktok": "TikTok Ads",
     "platform_error": "Veuillez sélectionner une plateforme.",
-
-    // Étape 2: Type de Campagne
     "step2_title": "Étape 2 : Type de Campagne",
     "step2_campaignType_label": "Choisissez le type de campagne",
     "campaignType_awareness": "Awareness (Notoriété)",
     "campaignType_engagement": "Engagement",
     "campaignType_conversion": "Conversion",
     "campaignType_error": "Veuillez sélectionner un type de campagne.",
-
-    // Étape 3: Budget
     "step3_title": "Étape 3 : Budget Mensuel Estimé",
     "step3_budget_label": "Votre budget mensuel (minimum 500€)",
     "step3_budget_placeholder": "Ex: 1500",
     "budget_error": "Veuillez entrer un budget d'au moins 500€.",
-
-    // Étape 4: Région Cible
     "step4_title": "Étape 4 : Pays Cible",
     "step4_region_label": "Choisissez la région principale ciblée",
     "region_europe": "Europe",
@@ -74,8 +64,6 @@ export default {
     "region_south_america": "Amérique du Sud",
     "region_asia": "Asie",
     "region_error": "Veuillez sélectionner une région cible.",
-
-    // Étape 5: Informations Artiste
     "step5_title": "Étape 5 : Vos Informations",
     "step5_artist_label": "Nom d'artiste ou de projet",
     "step5_artist_placeholder": "Votre nom d'artiste",
@@ -83,22 +71,18 @@ export default {
     "step5_email_label": "Votre adresse email",
     "step5_email_placeholder": "vous@email.com",
     "email_error": "Veuillez entrer une adresse email valide.",
-
-    // Boutons & Actions
     "button_next": "Suivant",
     "button_prev": "Précédent",
     "button_show_results": "Voir les résultats",
     "submitting_text": "Calcul en cours...",
     "button_modify": "Modifier les infos",
     "cta_expert_button": "Parler avec un expert",
-
-    // Étape 6: Résultats
     "results_title": "Résultats Estimés",
     "results_views_label": "Vues / Impressions Potentielles",
     "results_cpv_label": "Coût Estimé (CPV/CPM)",
     "results_reach_label": "Portée Estimée (Reach)",
     "results_disclaimer": "Ces chiffres sont des estimations basées sur des moyennes. Les résultats réels peuvent varier.",
-    "results_cta_expert": "Discutez de ces estimations avec un expert" // Utilisé pour aria-label du lien Calendly
+    "results_cta_expert": "Discutez de ces estimations avec un expert"
   },
   // --- Fin Section Simulator MÀJ ---
   "services": {
@@ -186,7 +170,7 @@ export default {
     "copyright": "MDMC Music Ads. Tous droits réservés.",
     "logo_p": "Marketing musical qui convertit",
     "nav_title": "Navigation",
-    "nav_home": "Accueil",
+    "nav_home": "Accueil", // Utilisé aussi dans AdminLogin
     "resources_title": "Ressources",
     "resources_blog": "Blog",
     "resources_simulator": "Simulateur",
@@ -197,53 +181,134 @@ export default {
     "legal_terms": "Conditions",
     "legal_cookies": "Cookies"
   },
-  "admin": { // Gardé intact
-    "dashboard": "Tableau de bord",
-    "reviews": "Avis",
-    "content": "Contenu",
-    "media": "Médias",
-    "settings": "Paramètres",
-    "marketing_integrations": "Intégrations Marketing",
-    "wordpress_connector": "Connecteur WordPress",
-    "landing_page_generator": "Générateur de Landing Page",
-    "wordpress_sync": "Synchronisation WordPress",
-    "logout": "Déconnexion",
-    "reviews_management": "Gestion des avis",
-    "content_management": "Gestion du contenu",
-    "media_management": "Gestion des médias",
-    "pending_reviews": "Avis en attente",
-    "approved_reviews": "Avis approuvés",
-    "active_campaigns": "Campagnes actives",
-    "recent_activity": "Activité récente",
-    "new_review_received": "Nouvel avis reçu",
-    "content_updated": "Contenu mis à jour",
-    "campaign_started": "Campagne démarrée",
+  // --- Section Admin MÀJ (basée sur AdminLogin.jsx et AdminPanel.jsx) ---
+  "admin": {
+    // --- Connexion ---
+    "login": {
+      "title": "Connexion Administrateur",
+      "subtitle": "Accédez à votre tableau de bord",
+      "username": "Nom d'utilisateur",
+      "password": "Mot de passe",
+      "login_button": "Se connecter",
+      "logging_in": "Connexion en cours...", // Clé ajoutée
+      "error": "Nom d'utilisateur ou mot de passe incorrect." // Clé ajoutée
+    },
+
+    // --- Barre Latérale (Sidebar) ---
+    "sidebar": {
+      "home_link": "Accueil MDMC", // Clé ajoutée implicitement depuis le code AdminLogin
+      "admin_title": "Admin", // Clé ajoutée implicitement depuis le code AdminPanel
+      "back_arrow": "←", // Clé ajoutée implicitement depuis le code AdminPanel (peut être remplacé par icône)
+      "dashboard": "Tableau de bord",
+      "reviews": "Avis",
+      "content": "Contenu",
+      "media": "Médias",
+      "marketing_integrations": "Intégrations Marketing",
+      "wordpress_connector": "Connecteur WordPress",
+      "wordpress_sync": "Synchronisation WordPress",
+      "landing_pages": "Landing Pages",
+      "settings": "Paramètres",
+      "logout": "Déconnexion"
+    },
+
+    // --- Tableau de Bord ---
+    "dashboard": {
+      "title": "Tableau de bord", // Ajout pour cohérence si nécessaire
+      "pending_reviews": "Avis en attente",
+      "approved_reviews": "Avis approuvés",
+      "active_campaigns": "Campagnes actives",
+      "total_campaigns": "Campagnes totales", // Clé ajoutée
+      "recent_activity": "Activité récente"
+    },
+
+    // --- Gestion des Avis ---
+    "reviews_management": {
+      "title": "Gestion des avis", // Ajout pour cohérence
+      "generate_review_link": "Générer un lien d'avis",
+      "link_copied": "Lien copié dans le presse-papiers !",
+      "no_pending_reviews": "Aucun avis en attente",
+      "approve": "Approuver",
+      "reject": "Rejeter"
+    },
+
+    // --- Gestion de Contenu ---
+    "content_management": {
+       "title": "Gestion du contenu", // Ajout pour cohérence
+       "select_language": "Sélectionner une langue",
+       "select_section": "Sélectionner une section",
+       "section_hero": "Section Héro",
+       "section_services": "Section Services",
+       "section_about": "Section À propos",
+       "section_contact": "Section Contact",
+       "field_title": "Titre",
+       "field_subtitle": "Sous-titre",
+       "field_description": "Description",
+       "save_changes": "Enregistrer les modifications"
+    },
+
+     // --- Gestion des Médias ---
+    "media_management": {
+      "title": "Gestion des médias", // Ajout pour cohérence
+      "drop_files": "Déposez vos fichiers ici ou cliquez pour parcourir",
+      "recent_uploads": "Téléchargements récents",
+      "view": "Voir",
+      "delete": "Supprimer"
+    },
+
+    // --- Intégrations Marketing ---
+    "integrations": {
+      "title": "Intégrations Marketing",
+      "description": "Connectez vos outils marketing pour suivre vos performances.",
+      "test_integration": "Tester l'intégration",
+      "save_all": "Enregistrer Tout",
+
+      "google_analytics": {
+         "title": "Google Analytics",
+         "description": "Suivez le trafic et le comportement des utilisateurs sur votre site.",
+         "ga_id": "ID de Mesure Google Analytics (G-XXXXXXXX)",
+         "ga_id_tooltip": "Trouvez cet ID dans votre compte GA > Admin > Flux de données.",
+         "ga_events_title": "Événements à Suivre",
+         "page_views": "Vues de page",
+         "scroll_tracking": "Suivi du défilement",
+         "outbound_links": "Clics sur liens sortants",
+         "form_submissions": "Soumissions de formulaires"
+      },
+      "gtm": {
+        "title": "Google Tag Manager (GTM)"
+        // Ajouter d'autres clés pour GTM si nécessaire (description, ID, etc.)
+      },
+      "google_ads": {
+        "title": "Google Ads"
+         // Ajouter d'autres clés pour Google Ads si nécessaire
+      },
+      "meta_pixel": {
+        "title": "Pixel Meta (Facebook)"
+         // Ajouter d'autres clés pour Meta Pixel si nécessaire
+      },
+      "tiktok_pixel": {
+        "title": "Pixel TikTok"
+         // Ajouter d'autres clés pour TikTok Pixel si nécessaire
+      }
+    },
+
+     // --- Paramètres (Settings) ---
+     "settings_page": { // Renommé pour éviter conflit avec sidebar.settings
+        "title": "Paramètres", // Ajout pour cohérence
+        "site_title": "Titre du site",
+        "admin_email": "Email administrateur",
+        "default_language": "Langue par défaut",
+        "change_password": "Changer le mot de passe",
+        "new_password": "Nouveau mot de passe",
+        "save_settings": "Enregistrer les paramètres"
+     },
+
+    // --- Clés diverses générales ---
     "loading": "Chargement...",
-    "no_pending_reviews": "Aucun avis en attente",
-    "approve": "Approuver",
-    "reject": "Rejeter",
-    "generate_review_link": "Générer un lien d'avis",
-    "link_copied": "Lien copié dans le presse-papiers !",
-    "select_language": "Sélectionner une langue",
-    "select_section": "Sélectionner une section",
-    "section_hero": "Section Héro",
-    "section_services": "Section Services",
-    "section_about": "Section À propos",
-    "section_contact": "Section Contact",
-    "field_title": "Titre",
-    "field_subtitle": "Sous-titre",
-    "field_description": "Description",
-    "save_changes": "Enregistrer les modifications",
-    "drop_files": "Déposez vos fichiers ici ou cliquez pour parcourir",
-    "recent_uploads": "Téléchargements récents",
-    "view": "Voir",
-    "delete": "Supprimer",
-    "site_title": "Titre du site",
-    "admin_email": "Email administrateur",
-    "default_language": "Langue par défaut",
-    "change_password": "Changer le mot de passe",
-    "new_password": "Nouveau mot de passe",
-    "save_settings": "Enregistrer les paramètres",
+    "new_review_received": "Nouvel avis reçu", // Utilisé dans recent_activity
+    "content_updated": "Contenu mis à jour", // Utilisé dans recent_activity
+    "campaign_started": "Campagne démarrée", // Utilisé dans recent_activity
+
+    // --- Chatbot (inchangé depuis la version précédente) ---
     "chatbot": {
       "title": "Assistant MDMC",
       "welcome_message": "Bonjour ! Je suis votre assistant MDMC. Comment puis-je vous aider aujourd'hui ?",
@@ -292,4 +357,5 @@ export default {
       "open": "Ouvrir l'assistant"
     }
   }
+  // --- Fin Section Admin MÀJ ---
 }
