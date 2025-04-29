@@ -70,8 +70,8 @@ export default {
     "step5_email_label": "Votre adresse email",
     "step5_email_placeholder": "vous@email.com",
     "email_error": "Veuillez entrer une adresse email valide.",
-    "button_next": "Suivant",
-    "button_prev": "Précédent",
+    "button_next": "Suivant", // Clé générique
+    "button_prev": "Précédent", // Clé générique
     "button_show_results": "Voir les résultats",
     "submitting_text": "Calcul en cours...",
     "button_modify": "Modifier les infos",
@@ -168,7 +168,7 @@ export default {
     "copyright": "MDMC Music Ads. Tous droits réservés.",
     "logo_p": "Marketing musical qui convertit",
     "nav_title": "Navigation",
-    "nav_home": "Accueil", // Utilisé aussi dans AdminLogin
+    "nav_home": "Accueil",
     "resources_title": "Ressources",
     "resources_blog": "Blog",
     "resources_simulator": "Simulateur",
@@ -179,7 +179,7 @@ export default {
     "legal_terms": "Conditions",
     "legal_cookies": "Cookies"
   },
-  // --- Section Admin - Mise à jour avec WP Connector, Landing Pages, Settings ---
+  // --- Section Admin - Correction Finale v5 ---
   "admin": {
     // --- Connexion ---
     "login": {
@@ -198,10 +198,10 @@ export default {
     "content": "Contenu",
     "media": "Médias",
     "marketing_integrations": "Intégrations Marketing",
-    "wordpress_connector": "Connecteur WordPress", // Utilisé par t('admin.wordpress_connector') sidebar
+    "wordpress_connector": "Connecteur WordPress",
     "wordpress_sync": "Synchronisation WordPress",
-    "landing_pages": "Landing Pages", // Utilisé par t('admin.landing_pages') sidebar
-    "settings": "Paramètres", // Utilisé par t('admin.settings') sidebar
+    "landing_pages": "Landing Pages",
+    "settings": "Paramètres",
     "logout": "Déconnexion",
 
     // --- Contenu spécifique Tableau de Bord ---
@@ -248,11 +248,11 @@ export default {
         "description": "Connectez vos outils marketing pour suivre vos performances.",
         "test_integration": "Tester l'intégration",
         "save_all": "Enregistrer Tout",
-        "google_analytics": "Google Analytics", // Nom utilisé pour titre/onglet
-        "gtm": "Google Tag Manager (GTM)", // Nom utilisé pour titre/onglet
-        "google_ads": "Google Ads", // Nom utilisé pour titre/onglet
-        "meta_pixel": "Pixel Meta (Facebook)", // Nom utilisé pour titre/onglet
-        "tiktok_pixel": "Pixel TikTok", // Nom utilisé pour titre/onglet
+        "google_analytics": "Google Analytics",
+        "gtm": "Google Tag Manager (GTM)",
+        "google_ads": "Google Ads",
+        "meta_pixel": "Pixel Meta (Facebook)",
+        "tiktok_pixel": "Pixel TikTok",
         // Détails GA (plats)
         "ga_description": "Suivez le trafic et le comportement des utilisateurs sur votre site.",
         "ga_id": "ID de Mesure Google Analytics (G-XXXXXXXX)",
@@ -262,62 +262,150 @@ export default {
         "ga_scroll_tracking": "Suivi du défilement",
         "ga_outbound_links": "Clics sur liens sortants",
         "ga_form_submissions": "Soumissions de formulaires"
-        // Ajouter ici d'autres clés plates préfixées si nécessaire pour GTM, Google Ads, etc.
     },
 
-    // --- Section Connecteur WordPress (Nouvelle) ---
+    // --- Section Connecteur WordPress ---
     "wordpress": {
-        "title": "Connecteur WordPress", // Utilisé par t('admin.wordpress.title')
-        "description": "Connectez votre blog WordPress pour synchroniser les articles.", // Utilisé par t('admin.wordpress.description')
-        "site_url": "URL de votre site WordPress", // Utilisé par t('admin.wordpress.site_url')
-        "username": "Nom d'utilisateur WordPress", // Utilisé par t('admin.wordpress.username')
-        "app_password": "Mot de passe d'application", // Utilisé par t('admin.wordpress.app_password')
-        "app_password_tooltip": "Créez un mot de passe d'application dans votre profil WP > Sécurité.", // Pour le '?'
-        "test_connection": "Tester la Connexion" // Utilisé par t('admin.wordpress.test_connection')
+        "title": "Connecteur WordPress",
+        "description": "Connectez votre blog WordPress pour synchroniser les articles.",
+        "site_url": "URL de votre site WordPress",
+        "username": "Nom d'utilisateur WordPress",
+        "app_password": "Mot de passe d'application",
+        "app_password_tooltip": "Créez un mot de passe d'application dans votre profil WP > Sécurité.",
+        "test_connection": "Tester la Connexion"
     },
 
-    // --- Section Landing Pages (Nouvelle) ---
+    // --- Section Landing Pages (Complétée & Corrigée) ---
     "landing_page": {
-        "title": "Générateur de Landing Pages", // Utilisé par t('admin.landing_page.title')
-        "description": "Créez et gérez vos landing pages dédiées à vos campagnes.", // Utilisé par t('admin.landing_page.description')
-        "step1": "Choix Template", // Utilisé par t('admin.landing_page.step1')
-        "step2": "Personnalisation", // Utilisé par t('admin.landing_page.step2')
-        "step3": "Configuration", // Utilisé par t('admin.landing_page.step3')
-        "step4": "Publication", // Utilisé par t('admin.landing_page.step4')
-        "select_template": "Sélectionnez un modèle :", // Utilisé par t('admin.landing_page.select_template')
-        "template_music_artist": "Artiste Musical", // Utilisé par t('admin.landing_page.template_music_artist')
-        "selected": "Sélectionné", // Utilisé par t('admin.landing_page.selected')
-        "template_album_release": "Sortie d'Album", // Utilisé par t('admin.landing_page.template_album_release')
-        "select": "Sélectionner", // Utilisé par t('admin.landing_page.select')
-        "template_music_event": "Événement Musical", // Utilisé par t('admin.landing_page.template_music_event')
-        "template_music_promotion": "Promotion Musicale", // Utilisé par t('admin.landing_page.template_music_promotion')
-        "cancel": "Annuler", // Utilisé par t('admin.landing_page.cancel')
-        "next": "Suivant" // Utilisé par t('admin.landing_page.next')
+        // Général & Header
+        "title": "Générateur de Landing Pages",
+        "description": "Créez et gérez vos landing pages dédiées à vos campagnes.",
+        // Étapes Indicateur
+        "step1": "Choix Template",
+        "step2": "Personnalisation",
+        "step3": "Sections",
+        "step4": "Publication",
+        // Étape 1: Template
+        "select_template": "Sélectionnez un modèle :",
+        "template_music_artist": "Artiste Musical",
+        "template_album_release": "Sortie d'Album",
+        "template_music_event": "Événement Musical",
+        "template_music_promotion": "Promotion Musicale",
+        "selected": "Sélectionné",
+        "select": "Sélectionner",
+        // Étape 2: Infos de Base
+        "basic_info": "Informations de Base",
+        "page_title": "Titre de la Page",
+        "page_title_placeholder": "Ex: Nouvel Album Électro",
+        "page_description": "Description Courte (SEO)",
+        "page_description_placeholder": "Décrivez brièvement votre page",
+        "artist_name": "Nom de l'Artiste/Groupe",
+        "artist_name_placeholder": "Ex: DJ Étincelle",
+        "main_cta": "Texte du Bouton Principal (CTA)",
+        "cta_placeholder": "Ex: Écouter maintenant",
+        "cta_link": "Lien du Bouton Principal (URL)",
+        "header_image": "Image d'En-tête",
+        "choose_image": "Choisir une image",
+        "primary_color": "Couleur Principale",
+        "secondary_color": "Couleur Secondaire",
+         // Étape 3: Sections
+        "customize_sections": "Personnaliser les Sections",
+        "hero_section": "Section Héro",
+        "hero_title": "Titre Principal",
+        "hero_title_placeholder": "Votre accroche principale",
+        "hero_subtitle": "Sous-titre",
+        "hero_subtitle_placeholder": "Texte complémentaire",
+        "button_text": "Texte du Bouton",
+        "button_text_placeholder": "Ex: Découvrir",
+        "button_link": "Lien du Bouton",
+        "features_section": "Section Caractéristiques",
+        "feature": "Caractéristique",
+        "feature_title": "Titre Caractéristique",
+        "feature_title_placeholder": "Point fort #1",
+        "feature_description": "Description Caractéristique",
+        "feature_description_placeholder": "Expliquez ce point fort",
+        "feature_icon": "Icône Caractéristique",
+        "icon_music": "Musique",
+        "icon_headphones": "Casque",
+        "icon_play": "Lecture",
+        "icon_mic": "Micro",
+        "icon_album": "Album",
+        "icon_ticket": "Ticket",
+        "testimonials_section": "Section Témoignages",
+        "testimonial": "Témoignage",
+        "testimonial_name": "Nom",
+        "testimonial_name_placeholder": "Nom de la personne",
+        "testimonial_quote": "Citation",
+        "testimonial_quote_placeholder": "Leur témoignage ici",
+        "cta_section": "Section Appel à l'Action Final",
+        "cta_title": "Titre CTA",
+        "cta_title_placeholder": "Titre accrocheur",
+        "cta_description": "Description CTA",
+        "cta_description_placeholder": "Texte descriptif court",
+        "social_section": "Section Liens Sociaux",
+        "social_title": "Titre Liens Sociaux",
+        "social_title_placeholder": "Ex: Suivez-nous !",
+        // Étape 4: Intégrations & Publication
+        "integrations_publish": "Intégrations & Publication",
+        "analytics_tracking": "Suivi Analytique",
+        "google_analytics": "Google Analytics", // Réutilisation admin.integrations.google_analytics
+        "google_analytics_description": "Activez Google Analytics pour cette page (nécessite l'ID global).",
+        "meta_pixel": "Pixel Meta (Facebook)", // Réutilisation admin.integrations.meta_pixel
+        "meta_pixel_description": "Activez le Pixel Meta pour cette page (nécessite l'ID global).",
+        "tiktok_pixel": "Pixel TikTok", // Réutilisation admin.integrations.tiktok_pixel
+        "tiktok_pixel_description": "Activez le Pixel TikTok pour cette page (nécessite l'ID global).",
+        "preview": "Aperçu",
+        "desktop": "Bureau",
+        "tablet": "Tablette",
+        "mobile": "Mobile",
+        "preview_title": "Titre de votre Page",
+        "preview_description": "Description de votre page ici...",
+        "preview_cta": "Bouton d'Action",
+        "publish": "Publication",
+        "publish_description": "Une fois publiée, votre page sera accessible via une URL unique.",
+        "publishing": "Publication en cours...",
+        "published": "Publiée !",
+        "publish_page": "Publier la Page",
+        "publish_success": "Votre page a été publiée avec succès !",
+        "url_copied": "URL copiée !",
+        "copy": "Copier",
+         // Liste des Pages Existantes
+        "your_pages": "Vos Landing Pages",
+        "create_new": "Créer une nouvelle page",
+        "no_pages": "Vous n'avez pas encore créé de landing page.",
+        "template": "Template",
+        "created": "Créée le",
+        "visits": "Visites",
+        "conversions": "Conversions",
+        "actions": "Actions",
+        "edit": "Modifier",
+        "view": "Voir",
+        "duplicate": "Dupliquer",
+        // Navigation Étapes (Boutons - Clés corrigées)
+        "previous": "Précédent", // Corrigé: utilise la clé exacte du code
+        "next": "Suivant", // Corrigé: utilise la clé exacte du code
+        "cancel": "Annuler" // Corrigé: utilise la clé exacte du code
     },
 
-     // --- Section Paramètres (Mise à jour) ---
-     "settings": { // Renommé de settings_page pour correspondre à la sidebar
-        "title": "Paramètres Généraux", // Utilisé par t('admin.settings.title')
-        "description": "Configurez les paramètres d'authentification et les intégrations globales.", // Utilisé par t('admin.settings.description')
-
-        "wordpress_connection_title": "Connexion WordPress (Globale)", // Utilisé par t('admin.settings.wordpress_connection_title')
-        "wordpress_url_label": "URL WordPress", // Utilisé par t('admin.settings.wordpress_url_label')
-        "wordpress_url_help": "L'URL principale de votre site WordPress.", // Utilisé par t('admin.settings.wordpress_url_help')
-        "wordpress_username_label": "Nom d'utilisateur WP", // Utilisé par t('admin.settings.wordpress_username_label')
-        "wordpress_app_password_label": "Mot de passe d'Application WP", // Utilisé par t('admin.settings.wordpress_app_password_label')
-        "wordpress_app_password_help": "Générez-le depuis votre profil utilisateur WordPress.", // Utilisé par t('admin.settings.wordpress_app_password_help')
-        "test_connection_button": "Tester la Connexion WP", // Utilisé par t('admin.settings.test_connection_button')
-
-        "marketing_integrations_title": "Intégrations Marketing (Globales)", // Utilisé par t('admin.settings.marketing_integrations_title')
-        // Les noms (Google Analytics, GTM...) ici utilisent les clés de la section "integrations" (ex: t('admin.integrations.google_analytics'))
-
-        "save_settings_button": "Enregistrer les Paramètres" // Utilisé par t('admin.settings.save_settings_button')
+     // --- Section Paramètres ---
+     "settings": {
+        "title": "Paramètres Généraux",
+        "description": "Configurez les paramètres d'authentification et les intégrations globales.",
+        "wordpress_connection_title": "Connexion WordPress (Globale)",
+        "wordpress_url_label": "URL WordPress",
+        "wordpress_url_help": "L'URL principale de votre site WordPress.",
+        "wordpress_username_label": "Nom d'utilisateur WP",
+        "wordpress_app_password_label": "Mot de passe d'Application WP",
+        "wordpress_app_password_help": "Générez-le depuis votre profil utilisateur WordPress.",
+        "test_connection_button": "Tester la Connexion WP",
+        "marketing_integrations_title": "Intégrations Marketing (Globales)",
+        "save_settings_button": "Enregistrer les Paramètres"
      },
 
     // --- Clés générales Admin ---
     "loading": "Chargement...",
 
-    // --- Chatbot (inchangé depuis la dernière correction) ---
+    // --- Chatbot ---
     "chatbot": {
       "title": "Assistant MDMC",
       "welcome_message": "Bonjour ! Je suis votre assistant MDMC. Comment puis-je vous aider aujourd'hui ?",
@@ -366,5 +454,5 @@ export default {
       "open": "Ouvrir l'assistant"
     }
   }
-  // --- Fin Section Admin - Correction Finale ---
+  // --- Fin Section Admin - Correction Finale v5 ---
 }
