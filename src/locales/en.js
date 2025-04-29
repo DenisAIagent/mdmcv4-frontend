@@ -1,5 +1,4 @@
-// src/locales/en.js - Added missing keys for reviews/simulator
-
+// src/locales/en.js - English Translations - REVIEW AND COMPLETE CAREFULLY!
 export default {
   "meta_title": "MDMC Music Ads - Music Marketing That Converts",
   "meta_description": "Specialized music marketing agency. Expertise in YouTube Ads, Meta Ads, TikTok Ads, and content strategy for artists and labels.",
@@ -15,9 +14,8 @@ export default {
     "about": "About",
     "articles": "Articles",
     "contact": "Contact"
-    // "reviews": "Reviews", // Uncomment if you have this link
   },
-  "header": { // Note: 'header' keys seem redundant if same as 'nav', adjust if needed
+  "header": { // Note: Maybe merge with nav if keys/values are identical
     "home": "Home",
     "services": "Services",
     "about": "About",
@@ -34,36 +32,29 @@ export default {
     "stats": {
       "campaigns": "Campaigns completed",
       "artists": "Artists supported",
-      "views": "Views generated", // Consider M+ ?
+      "views": "Views generated", // Add M+ if needed
       "countries": "Countries covered"
     }
   },
   "simulator": {
     "title": "Campaign Simulator",
     "subtitle": "Find out how much you could earn",
-    "step1_title": "Step 1: Choose your platform", // Used in your EN file structure
-    "step1_platform_label": "Advertising platform", // Used in your EN file structure
-    "option_select": "-- Select --", // Kept from contact form section in your EN file
-    "platform_youtube": "YouTube Ads", // Kept from contact form section in your EN file
-    "platform_meta": "Meta Ads (Facebook/Instagram)", // Kept from contact form section in your EN file
-    "platform_tiktok": "TikTok Ads", // Kept from contact form section in your EN file
-    "button_next": "Next",
-    "step1": { // Used in your EN file structure
+    "step1": {
       "title": "What is your main goal?",
       "option1": "Increase streams",
       "option2": "Sell merchandise",
       "option3": "Promote a concert/event",
       "option4": "Grow my community"
     },
-    "step2": { // Used in your EN file structure
-      "title": "What is your monthly budget?", // Note: Title exists, but label/placeholder were missing
+    "step2": {
+      "title": "What is your monthly budget?",
       "option1": "€500 - €1000",
       "option2": "€1000 - €3000",
       "option3": "€3000 - €5000",
       "option4": "€5000+"
     },
-    "step3": { // Used in your EN file structure
-      "title": "What is your musical genre?", // Note: Title exists, but label/placeholder were missing
+    "step3": {
+      "title": "What is your musical genre?",
       "option1": "Pop",
       "option2": "Hip-Hop/Rap",
       "option3": "Electronic",
@@ -71,28 +62,28 @@ export default {
       "option5": "R&B/Soul",
       "option6": "Other"
     },
-    "step4": { // Used in your EN file structure
-      "title": "Where is your main audience based?", // Note: Title exists, but label was missing
+    "step4": {
+      "title": "Where is your main audience based?",
       "option1": "France",
       "option2": "Europe",
       "option3": "North America",
       "option4": "Worldwide"
     },
-    "step5": { // Used in your EN file structure
-      "title": "Have you ever advertised online before?", // Note: Title exists, but label/placeholders were missing
+    "step5": {
+      "title": "Have you ever advertised online before?",
       "option1": "Never",
       "option2": "A few campaigns",
       "option3": "Regularly",
       "option4": "Expert"
     },
-    "step6": { // Used in your EN file structure (Results step)
+    "step6": {
       "title": "Here is your personalized estimate",
       "roi_title": "Estimated ROI",
       "monthly_streams": "Potential monthly streams",
       "monthly_sales": "Potential monthly sales",
       "ticket_sales": "Potential ticket sales",
       "followers_growth": "Potential follower growth",
-      "cta": "Speak with an expert",
+      "cta": "Speak with an expert", // Matches updated FR
       "disclaimer": "These figures are estimates based on our historical data and may vary depending on many factors."
     },
     // === Keys ADDED to match JSX/Screenshots ===
@@ -100,18 +91,19 @@ export default {
     step2_placeholder: 'Choose the campaign type',
     step3_label: 'Estimated monthly budget',
     step3_budget_placeholder: 'Your budget',
-    step3_region_label: 'Target countries', // Added based on FR
-    step4_label: 'Target Country', // Added based on FR (Check plural?)
+    step3_region_label: 'Target countries',
+    step4_label: 'Target Country',
     step5_label: 'Your Information',
     step5_artist_label: 'Artist Name / Label',
     step5_artist_placeholder: 'Artist name',
     step5_email_label: 'Your Email',
-    step5_email_placeholder: 'your email', // Consider 'your.email@example.com'
-    button_prev: 'previous', // Added (duplicate of 'previous' below?)
+    step5_email_placeholder: 'your email', // Or 'your.email@example.com'?
+    button_prev: 'previous',
     button_show_results: 'see the result',
     // =======================================
-    "previous": "Previous", // Already existed in your EN file
-    "close": "Close" // Already existed in your EN file
+    "next": "Next",
+    "previous": "Previous", // Note: duplicate 'button_prev' added above for consistency with screenshots
+    "close": "Close"
   },
   "services": {
     "title": "Our Services",
@@ -143,7 +135,7 @@ export default {
       "targeting": "Precise targeting of relevant audiences",
       "analytics": "Detailed analysis and transparent reports"
     },
-    "stats": { // Note: Different stats keys than hero section in your file
+    "stats": {
       "artists": "Artists supported",
       "campaigns": "Campaigns completed",
       "streams": "Streams generated",
@@ -166,54 +158,55 @@ export default {
   },
   "contact": {
     "title": "Contact Us",
-    // Note: Redundant keys name, email, message, submit, success, error exist outside form object
-    "name": "Name",
-    "email": "Email",
-    "message": "Message",
-    "submit": "Send",
-    "success": "Message sent successfully!", // Top level success
-    "error": "An error occurred. Please try again.", // Top level error
+    "name": "Name", // Redundant? See contact.form.name
+    "email": "Email", // Redundant? See contact.form.email
+    "message": "Message", // Redundant? See contact.form.message
+    "submit": "Send", // Redundant? See contact.form.submit
+    "success": "Message sent successfully!", // Redundant? See contact.form.success
+    "error": "An error occurred. Please try again.", // Redundant? See contact.form.error
     "form": {
-      "platform_label": "Main target platform",
-      "option_select": "-- Select --",
-      "platform_youtube": "YouTube Ads",
-      "platform_meta": "Meta Ads (Facebook/Instagram)",
-      "platform_tiktok": "TikTok Ads",
+      // === Keys ADDED/VERIFIED ===
+      platform_label: "Main target platform",
+      option_select: "-- Select --",
+      platform_youtube: "YouTube Ads",
+      platform_meta: "Meta Ads (Facebook/Instagram)",
+      platform_tiktok: "TikTok Ads",
+      book_call: 'speak to an expert',
+      submitting: "Sending...",
+      success: "Message sent successfully!", // Inner success message
+      error: "An error occurred while sending. Please try again.", // Inner error message
+      // =========================
       "name": "Your name",
       "email": "Your email",
       "message": "Your message",
-      "submit": "Send", // Submit inside form
-      "submitting": "Sending...",
-      "book_call": 'speak to an expert', // Updated key
-      "success": "Message sent successfully!", // Success inside form
-      "error": "An error occurred while sending. Please try again.", // Error inside form
+      "submit": "Send", // Submit button text inside form
       "error_fields": "Please fill in all required fields.",
       "error_email": "Please enter a valid email address."
     },
     "partners": {
       "title": "Our Partners",
-      "fmm": "Fédération des Musiques Métalliques", // Proper name kept
+      "fmm": "Fédération des Musiques Métalliques", // Keep proper name?
       "fmm_description": "Official partner for the promotion of metal artists",
       "google": "Google Partner",
       "google_description": "Certified Google Ads agency",
       "google_badge_alt": "Google Partner Badge",
-      "mhl": "MHL Agency & Co", // Proper name kept
+      "mhl": "MHL Agency & Co", // Keep proper name?
       "mhl_description": "Collaboration on international campaigns",
-      "algorythme": "Algorythme", // Proper name kept
+      "algorythme": "Algorythme", // Keep proper name?
       "algorythme_description": "Technology partner for data analysis"
     }
   },
   "reviews": {
     "title": "What Our Clients Say",
     "subtitle": "Testimonials from artists and labels",
-    "cta": "View all reviews", // Note: Redundant key 'view_all' below
+    "cta": "View all reviews", // Duplicate?
     "leave_review": "Leave a review",
     "view_all": "View all reviews",
     // === Keys ADDED for review form ===
     form: {
       title: 'Leave a review',
       name: 'Your name'
-      // Add other keys for review form if needed (rating, comment, etc.)
+      // Add other keys if needed
     }
     // ==================================
   },
@@ -231,8 +224,8 @@ export default {
     "resources_faq": "FAQ",
     "resources_glossary": "Glossary",
     "legal_title": "Legal Mentions",
-    "legal_privacy": "Privacy",
-    "legal_terms": "Terms",
+    "legal_privacy": "Privacy", // Redundant?
+    "legal_terms": "Terms", // Redundant?
     "legal_cookies": "Cookies Policy"
   },
   "admin": { // Keeping admin panel in French as per your file
@@ -282,7 +275,7 @@ export default {
     "change_password": "Changer le mot de passe",
     "new_password": "Nouveau mot de passe",
     "save_settings": "Enregistrer les paramètres",
-    "chatbot": {
+    "chatbot": { // Using English provided by you
       "title": "MDMC Assistant",
       "welcome_message": "Hello! I'm your MDMC assistant. How can I help you today?",
       "help_prompt": "Here are some topics I can help you with:",
