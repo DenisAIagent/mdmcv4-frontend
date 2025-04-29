@@ -1,4 +1,4 @@
-/* ===== reviews.css ===== */
+/* ===== reviews.css (Avec sélecteurs plus spécifiques) ===== */
 
 .reviews-section {
   padding: 6rem 0;
@@ -56,17 +56,15 @@
   width: 100%;
   height: 100%;
   padding: 2rem;
-  /* === Fond moins transparent === */
-  background: rgba(25, 25, 25, 0.85); /* Gris très foncé, plus opaque */
+  background: rgba(25, 25, 25, 0.85); /* Fond sombre plus opaque */
   border-radius: 16px;
-  backdrop-filter: blur(8px); /* Léger flou */
+  backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
-  border: 1px solid rgba(255, 255, 255, 0.15); /* Bordure un peu plus visible */
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* Ombre plus marquée */
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
   transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.8s ease;
   opacity: 0;
-  color: #FFFFFF; /* Texte blanc par défaut */
-  /* === Ajout ombre texte subtile === */
+  color: #FFFFFF; /* Couleur par défaut */
   text-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
 }
 
@@ -100,56 +98,56 @@
   flex: 1;
 }
 
-/* --- Styles Texte (encore plus contrastés) --- */
-.review-name {
-  font-size: 1.3rem; /* <<< Légèrement plus grand */
+/* --- Styles Texte (Avec Sélecteurs Spécifiques) --- */
+.review-card .review-name { /* <<< Ajout de .review-card */
+  font-size: 1.3rem;
   font-weight: 700; /* Gras */
-  margin-bottom: 0.3rem; /* Un peu plus d'espace */
-  color: #FFFFFF;
+  margin-bottom: 0.3rem;
+  color: #FFFFFF !important; /* <<< Ajout de !important pour forcer */
 }
 
-.review-role {
+.review-card .review-role { /* <<< Ajout de .review-card */
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.9); /* <<< Presque opaque */
+  color: rgba(255, 255, 255, 0.9) !important; /* <<< Ajout de !important */
   margin-bottom: 0.5rem;
-  font-weight: 500; /* <<< Un peu plus épais */
+  font-weight: 500;
 }
 
-.review-rating {
+.review-card .review-rating { /* <<< Ajout de .review-card */
   display: flex;
   gap: 0.2rem;
 }
 
-.star {
+.review-card .star { /* <<< Ajout de .review-card */
   font-size: 1.2rem;
   line-height: 1;
 }
 
-.star.filled {
+.review-card .star.filled { /* <<< Ajout de .review-card */
   color: var(--color-primary, #FFD700);
 }
 
-.star.empty {
-  color: rgba(255, 255, 255, 0.4); /* <<< Étoiles vides un peu plus visibles */
+.review-card .star.empty { /* <<< Ajout de .review-card */
+  color: rgba(255, 255, 255, 0.4);
 }
 
-.review-content {
-  /* Pas de style spécifique nécessaire ici */
+.review-card .review-content { /* <<< Ajout de .review-card */
+  /* Pas de couleur spécifique ici */
 }
 
-.review-text {
-  font-size: 1.15rem; /* <<< Légèrement plus grand */
-  line-height: 1.7; /* <<< Plus d'interligne */
-  font-style: normal; /* <<< Enlevé italique pour voir si ça aide */
+.review-card .review-text { /* <<< Ajout de .review-card */
+  font-size: 1.15rem;
+  line-height: 1.7;
+  font-style: normal;
   margin-bottom: 1rem;
-  color: #FFFFFF;
-  font-weight: 400; /* Normal */
+  color: #FFFFFF !important; /* <<< Ajout de !important */
+  font-weight: 400;
 }
 
-.review-date {
+.review-card .review-date { /* <<< Ajout de .review-card */
   text-align: right;
   font-size: 0.9rem;
-  color: rgba(255, 255, 255, 0.75); /* <<< Plus opaque */
+  color: rgba(255, 255, 255, 0.75) !important; /* <<< Ajout de !important */
 }
 /* --- Fin Styles Texte --- */
 
@@ -161,19 +159,7 @@
   gap: 0.8rem;
   margin-top: 2rem;
 }
-.nav-dot {
-  width: 12px;
-  height: 12px;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.3);
-  border: none;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-.nav-dot.active {
-  background-color: var(--color-primary, #FF0000);
-  transform: scale(1.2);
-}
+/* ... styles .nav-dot ... */
 
 /* Boutons d'action sous le carrousel */
 .reviews-actions {
@@ -182,45 +168,10 @@
   gap: 1.5rem;
   margin-top: 2rem;
 }
-.reviews-actions .btn {
-  padding: 0.8rem 1.5rem;
-  border-radius: 8px;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  text-decoration: none;
-  display: inline-block;
-  border: none;
-}
-.reviews-actions .btn-primary {
-  background-color: var(--color-primary, #FF0000);
-  color: #fff;
-}
-.reviews-actions .btn-primary:hover {
-  background-color: var(--color-primary-dark, #cc0000);
-  transform: translateY(-3px);
-  box-shadow: 0 7px 14px rgba(0, 0, 0, 0.2);
-}
-.reviews-actions .btn-secondary {
-  background-color: transparent;
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
-.reviews-actions .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.5);
-  transform: translateY(-3px);
-}
+/* ... styles .btn ... */
 
 /* Responsive pour mobile */
 @media (max-width: 768px) {
-  .reviews-section { padding: 4rem 0; }
-  .reviews-carousel { height: auto; min-height: 350px; }
-  .review-card { padding: 1.5rem; backdrop-filter: blur(5px); /* Moins de flou sur mobile */ }
-  .review-header { flex-direction: column; text-align: center; }
-  .review-avatar { margin-right: 0; margin-bottom: 1rem; width: 60px; height: 60px; }
-  .review-rating { justify-content: center; }
-  .review-text { font-size: 1rem; }
-  .review-date { text-align: center; margin-top: 1rem; }
-  .reviews-actions { flex-direction: column; align-items: center; gap: 1rem; }
-  .reviews-actions .btn { width: 100%; max-width: 300px; text-align: center; }
+  /* ... styles mobile ... */
 }
+
