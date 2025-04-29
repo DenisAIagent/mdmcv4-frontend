@@ -1,6 +1,6 @@
 // src/locales/fr.js
 
-export const fr = {
+export default { // <<< CHANGEMENT ICI : export default au lieu de export const fr
   translation: {
     // Navigation Header
     nav: {
@@ -67,14 +67,14 @@ export const fr = {
 
     // Reviews Section
     reviews: {
-      title: 'Ce que disent nos clients',
-      subtitle: 'Témoignages d\'artistes et de labels',
-      view_all: 'Voir tous les avis', // Clé pour le bouton "Voir tous les avis"
-      submit_review: 'Laisser un avis', // Clé pour le bouton "Laisser un avis"
+      title: "Ce que disent nos clients",
+      subtitle: "Témoignages d'artistes et de labels",
+      view_all: 'Voir tous les avis',
+      submit_review: 'Laisser un avis',
       // === Clés AJOUTÉES pour le formulaire d'avis ===
       form: {
-        title: 'Laissez votre avis',
-        name: 'Votre nom',
+        title: 'Laisse un avis',
+        name: 'Votre nom'
         // Ajoutez ici d'autres clés si nécessaire (ex: rating, comment, submit_button)
       }
       // ============================================
@@ -82,54 +82,53 @@ export const fr = {
 
     // Contact Section
     contact: {
-      title: 'Contactez-nous', // Titre principal de la section
+      title: "Contactez-nous", // Titre principal de la section
       partners: {
-        title: 'Nos Partenaires', // Titre de la sous-section partenaires
-        fmm: 'Fédération des Musiques Métalliques', // Utilisé pour alt et h4
+        title: "Nos Partenaires", // Titre de la sous-section partenaires
+        fmm: 'Fédération des Musiques Métalliques',
         fmm_description: 'Partenaire officiel', // Exemple
-        google: 'Google Partner', // Utilisé pour alt et h4
+        google: 'Google Partner',
         google_description: 'Certification publicitaire', // Exemple
-        mhl: 'MHL Agency & Co', // Utilisé pour alt et h4
+        mhl: 'MHL Agency & Co',
         mhl_description: 'Agence partenaire marketing', // Exemple
-        algorythme: 'Algorythme', // Utilisé pour alt et h4
+        algorythme: 'Algorythme',
         algorythme_description: 'Partenaire technologique' // Exemple
       },
       form: {
-        platform_label: 'Plateforme principale ciblée', // AJOUTÉ/VÉRIFIÉ
-        option_select: '-- Sélectionner --', // AJOUTÉ/VÉRIFIÉ
-        platform_youtube: 'YouTube Ads', // AJOUTÉ/VÉRIFIÉ
-        platform_meta: 'Meta Ads (Facebook/Instagram)', // AJOUTÉ/VÉRIFIÉ
-        platform_tiktok: 'TikTok Ads', // AJOUTÉ/VÉRIFIÉ
-        name: 'Nom complet', // Clé existante probable
-        email: 'Adresse Email', // Clé existante probable
-        message: 'Votre message', // Clé existante probable
-        submit: 'Envoyer le message', // Clé existante probable
-        submitting: 'Envoi en cours...', // AJOUTÉ/VÉRIFIÉ
-        success: 'Message envoyé avec succès !', // AJOUTÉ/VÉRIFIÉ
-        error: 'Une erreur s\'est produite. Veuillez réessayer.', // Peut être surchargé par l'API
-        book_call: 'Réserver un appel', // AJOUTÉ/VÉRIFIÉ
+        platform_label: 'Plateforme principale ciblée',
+        option_select: '-- Sélectionner --',
+        platform_youtube: 'YouTube Ads',
+        platform_meta: 'Meta Ads (Facebook/Instagram)',
+        platform_tiktok: 'TikTok Ads',
+        name: 'Nom complet',
+        email: 'Adresse Email',
+        message: 'Votre message',
+        submit: 'Envoyer le message',
+        submitting: 'Envoi en cours...',
+        success: 'Message envoyé avec succès !',
+        error: 'Une erreur s\'est produite. Veuillez réessayer.', // Texte par défaut
+        book_call: 'parler à un expert', // Mis à jour
       }
     },
 
     // Simulator Section
     simulator: {
-      title: 'Simulateur de campagne', // Clé existante probable (bouton + titre modal)
-      step1_label: 'Objectif Principal', // Exemple, adaptez si clé différente pour étape 1
-      // === Clés AJOUTÉES pour le simulateur ===
+      title: 'Simulateur de campagne',
+      // === Clés AJOUTÉES/MISES A JOUR pour le simulateur ===
       step2_label: 'Type de Campagne',
       step2_placeholder: 'Choisissez le type de campagne',
-      step3_label: 'Budget Mensuel Estimé (€)', // Précision devise ajoutée
-      step3_budget_placeholder: 'Entrez votre budget (ex: 500)', // Placeholder plus clair
-      step4_label: 'Objectif Principal', // Répété ? Vérifiez si nécessaire
+      step3_label: 'Budget mensuel estimé',
+      step3_budget_placeholder: 'Votre budget', // Ou 'Entrez votre budget...' ?
+      step3_region_label: 'pays ciblés',
+      step4_label: 'Pays cible',
       step5_label: 'Vos Informations',
       step5_artist_label: 'Nom d\'artiste / Label',
-      step5_artist_placeholder: 'Votre nom de scène ou label',
+      step5_artist_placeholder: 'nom de l\'artiste',
       step5_email_label: 'Votre Email',
-      step5_email_placeholder: 'nom@exemple.com',
-      button_prev: 'Précédent',
-      button_next: 'Suivant', // Clé pour le bouton "Suivant" traduit
-      button_show_results: 'Voir les résultats',
-      // Ajoutez ici d'autres clés pour les options, les résultats, etc. si nécessaire
+      step5_email_placeholder: 'votre email', // Ou 'nom@exemple.com' ?
+      button_prev: 'précédent',
+      button_next: 'Suivant', // Assurez-vous que cette clé est utilisée pour "Suivant"
+      button_show_results: 'voir le résultat',
       // =========================================
     },
 
@@ -138,7 +137,6 @@ export const fr = {
       description: 'Amplifiez votre musique avec MDMC Music Ads.',
       copyright: `© ${new Date().getFullYear()} MDMC Music Ads. Tous droits réservés.`,
       nav: {
-        // Reprendre les clés de nav ou en définir de nouvelles si besoin
         home: 'Accueil',
         services: 'Services',
         about: 'À propos',
@@ -155,7 +153,5 @@ export const fr = {
       reject: 'Refuser',
       learn_more: 'En savoir plus'
     }
-
-    // Ajoutez d'autres sections globales si nécessaire
   }
-};
+}; // <<< FIN DU FICHIER
