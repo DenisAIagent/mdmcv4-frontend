@@ -1,23 +1,23 @@
-// src/locales/en.js
-// TODO: Translate all French placeholder text to English.
+// src/locales/en.js - Added missing keys for reviews/simulator
 
 export default {
-  "meta_title": "MDMC Music Ads - Music Marketing That Converts", // Example translation
-  "meta_description": "Specialized music marketing agency. Expertise in YouTube Ads, Meta Ads, TikTok Ads, and content strategy for artists and labels.", // Example translation
+  "meta_title": "MDMC Music Ads - Music Marketing That Converts",
+  "meta_description": "Specialized music marketing agency. Expertise in YouTube Ads, Meta Ads, TikTok Ads, and content strategy for artists and labels.",
   "language": {
-    "fr": "French", // Example translation
-    "en": "English", // Example translation
-    "es": "Spanish", // Example translation
-    "pt": "Portuguese" // Example translation
+    "fr": "French",
+    "en": "English",
+    "es": "Spanish",
+    "pt": "Portuguese"
   },
   "nav": {
-    "home": "Home", // Example translation
+    "home": "Home",
     "services": "Services",
     "about": "About",
     "articles": "Articles",
     "contact": "Contact"
+    // "reviews": "Reviews", // Uncomment if you have this link
   },
-  "header": {
+  "header": { // Note: 'header' keys seem redundant if same as 'nav', adjust if needed
     "home": "Home",
     "services": "Services",
     "about": "About",
@@ -26,7 +26,7 @@ export default {
     "simulator": "Simulator"
   },
   "hero": {
-    "title": "Boost your music with converting ad campaigns", // Example translation
+    "title": "Boost your music with converting ad campaigns",
     "subtitle": "Push. Play. Blow up.",
     "slogan": "Push. Play. Blow up.",
     "description": "Expertise in YouTube Ads, Meta Ads, TikTok Ads and content strategy for artists and labels.",
@@ -34,36 +34,36 @@ export default {
     "stats": {
       "campaigns": "Campaigns completed",
       "artists": "Artists supported",
-      "views": "Views generated",
+      "views": "Views generated", // Consider M+ ?
       "countries": "Countries covered"
     }
   },
   "simulator": {
     "title": "Campaign Simulator",
     "subtitle": "Find out how much you could earn",
-    "step1_title": "Step 1: Choose your platform",
-    "step1_platform_label": "Advertising platform",
-    "option_select": "-- Select --",
-    "platform_youtube": "YouTube Ads",
-    "platform_meta": "Meta Ads (Facebook/Instagram)",
-    "platform_tiktok": "TikTok Ads",
+    "step1_title": "Step 1: Choose your platform", // Used in your EN file structure
+    "step1_platform_label": "Advertising platform", // Used in your EN file structure
+    "option_select": "-- Select --", // Kept from contact form section in your EN file
+    "platform_youtube": "YouTube Ads", // Kept from contact form section in your EN file
+    "platform_meta": "Meta Ads (Facebook/Instagram)", // Kept from contact form section in your EN file
+    "platform_tiktok": "TikTok Ads", // Kept from contact form section in your EN file
     "button_next": "Next",
-    "step1": {
+    "step1": { // Used in your EN file structure
       "title": "What is your main goal?",
       "option1": "Increase streams",
       "option2": "Sell merchandise",
       "option3": "Promote a concert/event",
       "option4": "Grow my community"
     },
-    "step2": {
-      "title": "What is your monthly budget?",
+    "step2": { // Used in your EN file structure
+      "title": "What is your monthly budget?", // Note: Title exists, but label/placeholder were missing
       "option1": "€500 - €1000",
       "option2": "€1000 - €3000",
       "option3": "€3000 - €5000",
       "option4": "€5000+"
     },
-    "step3": {
-      "title": "What is your musical genre?",
+    "step3": { // Used in your EN file structure
+      "title": "What is your musical genre?", // Note: Title exists, but label/placeholder were missing
       "option1": "Pop",
       "option2": "Hip-Hop/Rap",
       "option3": "Electronic",
@@ -71,21 +71,21 @@ export default {
       "option5": "R&B/Soul",
       "option6": "Other"
     },
-    "step4": {
-      "title": "Where is your main audience based?",
+    "step4": { // Used in your EN file structure
+      "title": "Where is your main audience based?", // Note: Title exists, but label was missing
       "option1": "France",
       "option2": "Europe",
       "option3": "North America",
       "option4": "Worldwide"
     },
-    "step5": {
-      "title": "Have you ever advertised online before?",
+    "step5": { // Used in your EN file structure
+      "title": "Have you ever advertised online before?", // Note: Title exists, but label/placeholders were missing
       "option1": "Never",
       "option2": "A few campaigns",
       "option3": "Regularly",
       "option4": "Expert"
     },
-    "step6": {
+    "step6": { // Used in your EN file structure (Results step)
       "title": "Here is your personalized estimate",
       "roi_title": "Estimated ROI",
       "monthly_streams": "Potential monthly streams",
@@ -95,9 +95,23 @@ export default {
       "cta": "Speak with an expert",
       "disclaimer": "These figures are estimates based on our historical data and may vary depending on many factors."
     },
-    "next": "Next",
-    "previous": "Previous",
-    "close": "Close"
+    // === Keys ADDED to match JSX/Screenshots ===
+    step2_label: 'Campaign Type',
+    step2_placeholder: 'Choose the campaign type',
+    step3_label: 'Estimated monthly budget',
+    step3_budget_placeholder: 'Your budget',
+    step3_region_label: 'Target countries', // Added based on FR
+    step4_label: 'Target Country', // Added based on FR (Check plural?)
+    step5_label: 'Your Information',
+    step5_artist_label: 'Artist Name / Label',
+    step5_artist_placeholder: 'Artist name',
+    step5_email_label: 'Your Email',
+    step5_email_placeholder: 'your email', // Consider 'your.email@example.com'
+    button_prev: 'previous', // Added (duplicate of 'previous' below?)
+    button_show_results: 'see the result',
+    // =======================================
+    "previous": "Previous", // Already existed in your EN file
+    "close": "Close" // Already existed in your EN file
   },
   "services": {
     "title": "Our Services",
@@ -129,7 +143,7 @@ export default {
       "targeting": "Precise targeting of relevant audiences",
       "analytics": "Detailed analysis and transparent reports"
     },
-    "stats": {
+    "stats": { // Note: Different stats keys than hero section in your file
       "artists": "Artists supported",
       "campaigns": "Campaigns completed",
       "streams": "Streams generated",
@@ -137,7 +151,7 @@ export default {
     }
   },
   "articles": {
-    "title": "Our Latest Articles", // Example translation
+    "title": "Our Latest Articles",
     "subtitle": "Tips and news about music marketing",
     "view_all": "View all articles",
     "read_more": "Read more",
@@ -152,12 +166,13 @@ export default {
   },
   "contact": {
     "title": "Contact Us",
+    // Note: Redundant keys name, email, message, submit, success, error exist outside form object
     "name": "Name",
     "email": "Email",
     "message": "Message",
     "submit": "Send",
-    "success": "Message sent successfully!",
-    "error": "An error occurred. Please try again.",
+    "success": "Message sent successfully!", // Top level success
+    "error": "An error occurred. Please try again.", // Top level error
     "form": {
       "platform_label": "Main target platform",
       "option_select": "-- Select --",
@@ -167,33 +182,40 @@ export default {
       "name": "Your name",
       "email": "Your email",
       "message": "Your message",
-      "submit": "Send",
+      "submit": "Send", // Submit inside form
       "submitting": "Sending...",
-      "book_call": "Book a call",
-      "success": "Message sent successfully!",
-      "error": "An error occurred while sending. Please try again.",
+      "book_call": 'speak to an expert', // Updated key
+      "success": "Message sent successfully!", // Success inside form
+      "error": "An error occurred while sending. Please try again.", // Error inside form
       "error_fields": "Please fill in all required fields.",
       "error_email": "Please enter a valid email address."
     },
     "partners": {
-      "title": "Our Partners", // Text changed here
-      "fmm": "Fédération des Musiques Métalliques", // Keep proper name?
+      "title": "Our Partners",
+      "fmm": "Fédération des Musiques Métalliques", // Proper name kept
       "fmm_description": "Official partner for the promotion of metal artists",
       "google": "Google Partner",
       "google_description": "Certified Google Ads agency",
       "google_badge_alt": "Google Partner Badge",
-      "mhl": "MHL Agency & Co", // Keep proper name?
+      "mhl": "MHL Agency & Co", // Proper name kept
       "mhl_description": "Collaboration on international campaigns",
-      "algorythme": "Algorythme", // Keep proper name?
+      "algorythme": "Algorythme", // Proper name kept
       "algorythme_description": "Technology partner for data analysis"
     }
   },
   "reviews": {
     "title": "What Our Clients Say",
     "subtitle": "Testimonials from artists and labels",
-    "cta": "View all reviews",
+    "cta": "View all reviews", // Note: Redundant key 'view_all' below
     "leave_review": "Leave a review",
-    "view_all": "View all reviews"
+    "view_all": "View all reviews",
+    // === Keys ADDED for review form ===
+    form: {
+      title: 'Leave a review',
+      name: 'Your name'
+      // Add other keys for review form if needed (rating, comment, etc.)
+    }
+    // ==================================
   },
   "footer": {
     "rights": "All rights reserved",
@@ -202,7 +224,7 @@ export default {
     "copyright": "MDMC Music Ads. All rights reserved.",
     "logo_p": "Music marketing that converts",
     "nav_title": "Navigation",
-    "nav_home": "Home",
+    "nav_home": "Home", // Redundant nav keys
     "resources_title": "Resources",
     "resources_blog": "Blog",
     "resources_simulator": "Simulator",
@@ -213,7 +235,7 @@ export default {
     "legal_terms": "Terms",
     "legal_cookies": "Cookies Policy"
   },
-  "admin": { // Keeping admin panel in French for this example, translate if needed
+  "admin": { // Keeping admin panel in French as per your file
     "dashboard": "Tableau de bord",
     "reviews": "Avis",
     "content": "Contenu",
@@ -260,7 +282,7 @@ export default {
     "change_password": "Changer le mot de passe",
     "new_password": "Nouveau mot de passe",
     "save_settings": "Enregistrer les paramètres",
-    "chatbot": { // Example translation
+    "chatbot": {
       "title": "MDMC Assistant",
       "welcome_message": "Hello! I'm your MDMC assistant. How can I help you today?",
       "help_prompt": "Here are some topics I can help you with:",
