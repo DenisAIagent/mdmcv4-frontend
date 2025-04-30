@@ -1,4 +1,5 @@
 // Fichier: src/locales/fr.js
+// Code complet avec la section "admin" corrigée
 
 export default {
   "meta_title": "MDMC Music Ads - Marketing musical qui convertit",
@@ -174,11 +175,9 @@ export default {
       "error_generic": "Une erreur est survenue. Veuillez réessayer.",
       "error_rating_required": "Veuillez sélectionner une note.",
       "error_config": "Erreur de configuration du serveur. Veuillez contacter l'administrateur.",
-      // === PLACEHOLDERS AJOUTÉS ICI ===
       "name_placeholder": "Entrez votre nom ici",
       "email_placeholder": "Entrez votre adresse email",
       "message_placeholder": "Écrivez votre message ici..."
-      // === FIN PLACEHOLDERS AJOUTÉS ===
     },
     "go_to_review": "Voir l'avis",
     "no_reviews": "Il n'y a pas encore d'avis à afficher."
@@ -201,21 +200,25 @@ export default {
     "legal_terms": "Conditions",
     "legal_cookies": "Cookies"
   },
-  // --- Section Admin ---
+
+  // --- Section Admin (CORRIGÉE) ---
   "admin": {
-    // Section Login
-    "login": {
-      "title": "Connexion Administrateur",
-      "subtitle": "Accédez à votre tableau de bord",
-      "username": "Nom d'utilisateur",
-      "password": "Mot de passe",
-      "login_button": "Se connecter",
-      "logging_in": "Connexion en cours...",
-      "error": "Nom d'utilisateur ou mot de passe incorrect."
-    },
-    // Clés pour la navigation et les titres de section
+    // --- Clés pour AdminLogin.jsx (Structure Aplaties) ---
+    "login": "Connexion Administrateur",              // Ancien admin.login.title
+    "login_subtitle": "Accédez à votre tableau de bord", // Ancien admin.login.subtitle
+    "username": "Nom d'utilisateur",                 // Ancien admin.login.username
+    "password": "Mot de passe",                      // Ancien admin.login.password
+    "login_button": "Se connecter",                 // Ancien admin.login.login_button
+    "logging_in": "Connexion en cours...",           // Ancien admin.login.logging_in
+    "login_error": "Nom d'utilisateur ou mot de passe incorrect.", // Ancien admin.login.error
+
+    // --- NOUVELLES clés pour les erreurs réseau/token ---
+    "login_error_no_token": "Erreur : Token de connexion manquant.",
+    "login_error_network": "Erreur réseau lors de la connexion.",
+
+    // --- Reste des clés Admin (INCHANGÉES par rapport à votre fichier) ---
     "dashboard": "Tableau de bord",
-    "reviews": "Avis",
+    "reviews": "Avis", // Clé générale, peut-être utilisée dans la sidebar
     "content": "Contenu",
     "media": "Médias",
     "marketing_integrations": "Intégrations Marketing",
@@ -236,13 +239,13 @@ export default {
     "campaign_started": "Campagne démarrée",
 
     // Clés pour la Gestion des Avis
-    "reviews_management": "Gestion des avis",
+    "reviews_management": "Gestion des avis", // Titre de la page/section
     "generate_review_link": "Générer un lien d'avis",
     "link_copied": "Lien copié dans le presse-papiers !",
     "no_pending_reviews": "Aucun avis en attente",
     "approve": "Approuver",
     "reject": "Rejeter",
-    "loading": "Chargement...",
+    "loading": "Chargement...", // Texte de chargement générique
 
     // Clés pour la Gestion de Contenu
     "content_management": "Gestion du contenu",
@@ -265,7 +268,7 @@ export default {
     "delete": "Supprimer",
 
     // Clés pour les Intégrations Marketing (page dédiée)
-    "integrations": {
+    "integrations": { // Gardez cette structure imbriquée si elle fonctionne pour cette page
       "title": "Intégrations Marketing",
       "description": "Connectez vos outils marketing pour suivre vos performances.",
       "test_integration": "Tester l'intégration",
@@ -280,18 +283,18 @@ export default {
       "ga_id_tooltip": "Trouvez cet ID dans votre compte GA > Admin > Flux de données.",
       "ga_events_title": "Événements à Suivre",
       "ga_page_views": "Vues de page",
-      "ga_scroll_tracking": "Suivi du défilement",
+      "ga_scroll_tracking": "Suivi du défilelement",
       "ga_outbound_links": "Clics sur liens sortants",
       "ga_form_submissions": "Soumissions de formulaires"
       // ... autres clés ...
     },
 
     // Clés pour le Connecteur WordPress (page dédiée)
-    "wordpress": {
+    "wordpress": { // Gardez cette structure imbriquée si elle fonctionne pour cette page
       "title": "Connecteur WordPress",
       "description": "Connectez votre blog WordPress pour synchroniser les articles.",
       "site_url": "URL de votre site WordPress",
-      "username": "Nom d'utilisateur WordPress",
+      "username": "Nom d'utilisateur WordPress", // Attention, conflit potentiel avec admin.username -> renommer si nécessaire ou utiliser chemin complet t('admin.wordpress.username') dans le code WP
       "app_password": "Mot de passe d'application",
       "app_password_tooltip": "Créez un mot de passe d'application dans votre profil WP > Sécurité.",
       "test_connection": "Tester la Connexion"
@@ -299,10 +302,10 @@ export default {
     },
 
     // Clés pour le Générateur de Landing Page (page dédiée)
-    "landing_page": {
+    "landing_page": { // Gardez cette structure imbriquée si elle fonctionne pour cette page
       "title": "Générateur de Landing Pages",
       "description": "Créez et gérez vos landing pages dédiées à vos campagnes.",
-      // ... nombreuses clés spécifiques ...
+       // ... nombreuses clés spécifiques ...
       "your_pages": "Vos Landing Pages",
       "create_new": "Créer une nouvelle page",
       "no_pages": "Vous n'avez pas encore créé de landing page.",
@@ -319,7 +322,7 @@ export default {
     },
 
     // Clés pour la page des Paramètres
-    "settings_page": {
+    "settings_page": { // Gardez cette structure imbriquée si elle fonctionne pour cette page
       "title": "Paramètres Généraux",
       "description": "Configurez les paramètres d'authentification et les intégrations globales.",
       "wordpress_connection_title": "Connexion WordPress (Globale)",
@@ -331,22 +334,22 @@ export default {
       "test_connection_button": "Tester la Connexion WP",
       "marketing_integrations_title": "Intégrations Marketing (Globales)",
       "save_settings_button": "Enregistrer les Paramètres"
-      // --- Ajouter ici les clés manquantes vues sur la capture 2 ---
-      // Exemple (adapter les clés réelles utilisées dans AuthenticationSettings.jsx):
-      // "authentication_settings_description": "Gérez la connexion à WordPress...",
-      // "wordpress_test_success": "Connexion réussie !",
-      // "wordpress_test_failure": "Échec de la connexion.",
+       // --- Assurez-vous que les clés manquantes vues sur la capture 2 sont ici ---
+       // Exemple (adapter les clés réelles utilisées dans AuthenticationSettings.jsx):
+       // "authentication_settings_description": "Gérez la connexion à WordPress...",
+       // "wordpress_test_success": "Connexion réussie !",
+       // "wordpress_test_failure": "Échec de la connexion.",
     },
 
     // Clés pour le Chatbot Admin
-    "chatbot": {
+    "chatbot": { // Gardez cette structure imbriquée si elle fonctionne pour cette page
       "title": "Assistant MDMC",
       "welcome_message": "Bonjour ! Je suis votre assistant MDMC. Comment puis-je vous aider aujourd'hui ?",
-      // ... autres clés chatbot ...
+       // ... autres clés chatbot ...
       "input_placeholder": "Posez votre question ici...",
       "send": "Envoyer",
       "close": "Fermer",
       "open": "Ouvrir l'assistant"
     }
-  }
+  } // Fin de la section admin
 }
