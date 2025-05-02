@@ -39,7 +39,7 @@ export default {
     }
   },
   "simulator": {
-    "title": "Simulateur de campagne publicitaire",
+    "title": "Simulateur de campagne",
     "close_button_aria_label": "Fermer le simulateur",
     "option_select": "-- Sélectionner --",
     "step1_title": "Étape 1 : Choisissez votre plateforme",
