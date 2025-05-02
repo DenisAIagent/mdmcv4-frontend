@@ -37,7 +37,7 @@ export default {
   },
   // --- Seção Simulador Atualizada ---
   "simulator": {
-    "title": "Simulador de Campanha Publicitária",
+    "title": "Simulador de Campanha",
     "close_button_aria_label": "Fechar simulador",
 
     // Opções comuns
