@@ -34,13 +34,13 @@ const HomePage = ({ openSimulator }) => {
         }
       });
     }, { threshold: 0.1 });
-    
+
     const sections = document.querySelectorAll('section');
     sections.forEach(section => {
       section.classList.add('section-fade-in');
       observer.observe(section);
     });
-    
+
     return () => {
       sections.forEach(section => {
         observer.unobserve(section);
@@ -67,28 +67,32 @@ const HomePage = ({ openSimulator }) => {
 
 // Vérification de l'authentification pour les routes protégées
 const ProtectedRoute = ({ children }) => {
-  // Dans une version réelle, cela vérifierait un token JWT ou une session
-  const isAuthenticated = localStorage.getItem('mdmc_admin_auth') === 'true';
-  
+  // --- CORRECTION APPLIQUÉE ICI ---
+  // Vérifie simplement si un token existe dans localStorage, plutôt que de vérifier s'il est égal à 'true'
+  const isAuthenticated = !!localStorage.getItem('mdmc_admin_auth');
+  // --- FIN DE LA CORRECTION ---
+
   if (!isAuthenticated) {
+    // Si pas de token trouvé, redirige vers la page de login admin
     return <Navigate to="/admin" replace />;
   }
-  
+
+  // Si un token existe, affiche le composant enfant (AdminPanel)
   return children;
 };
 
 function App() {
   const { t, i18n } = useTranslation();
   const simulatorRef = createRef();
-  
+
   // Mise à jour des balises meta lors du changement de langue
   useEffect(() => {
     updateMetaTags(t);
-    
+
     // Mise à jour de l'attribut lang de la balise html
     const lang = i18n.language.split('-')[0];
     document.documentElement.setAttribute('lang', lang);
-    
+
     // Mise à jour de la balise meta og:locale
     const ogLocaleValue = i18n.language.replace('-', '_');
     const ogLocaleElement = document.querySelector('meta[property="og:locale"]');
@@ -110,16 +114,19 @@ function App() {
         <Route path="/" element={<HomePage openSimulator={openSimulator} />} />
         <Route path="/all-reviews" element={<AllReviews />} />
         <Route path="/admin" element={<AdminLogin />} />
-        <Route 
-          path="/admin/dashboard" 
+        <Route
+          path="/admin/dashboard"
           element={
+            // La route /admin/dashboard est protégée
             <ProtectedRoute>
               <AdminPanel />
             </ProtectedRoute>
-          } 
+          }
         />
+        {/* Redirige toutes les autres routes non définies vers la page d'accueil */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
+      {/* Le simulateur est en dehors des Routes pour pouvoir être ouvert depuis n'importe où */}
       <Simulator ref={simulatorRef} />
     </Router>
   );
