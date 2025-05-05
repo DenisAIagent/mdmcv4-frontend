@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, createRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom'; // Ajout de Outlet, useLocation
 import './App.css';
 import './assets/styles/global.css';
 import './assets/styles/animations.css';
@@ -31,6 +31,7 @@ import AllReviews from './components/pages/AllReviews';
 import AdminLogin from './components/admin/AdminLogin';
 import AdminPanel from './components/admin/AdminPanel'; // Dashboard principal ?
 // Assurez-vous que ces chemins d'importation sont corrects pour vos pages admin
+// Créez ces fichiers s'ils n'existent pas encore
 import ArtistListPage from './pages/admin/artists/ArtistListPage';
 import ArtistCreatePage from './pages/admin/artists/ArtistCreatePage';
 import ArtistEditPage from './pages/admin/artists/ArtistEditPage';
@@ -40,34 +41,41 @@ import ArtistEditPage from './pages/admin/artists/ArtistEditPage';
 // import SmartlinkEditPage from './pages/admin/smartlinks/SmartlinkEditPage';
 
 // === ProtectedRoute Corrigé (utilise l'API pour vérifier l'auth) ===
+// Vous pouvez mettre ce composant dans son propre fichier si vous préférez
 const ProtectedRoute = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(null); // null = en cours, true = ok, false = non-ok
   const [isAdmin, setIsAdmin] = useState(false); // Pour vérifier le rôle
-  const location = useLocation();
+  const location = useLocation(); // Pour la redirection après login
 
   useEffect(() => {
-    let isMounted = true;
+    let isMounted = true; // Gère le cas où le composant est démonté avant la fin de l'appel API
     const checkAuth = async () => {
-      setIsAuthenticated(null); // Commence la vérification
+      // Réinitialise l'état au début de chaque vérification
+      // setIsAuthenticated(null); // Peut causer un flash de chargement, à tester
       try {
-        console.log("ProtectedRoute: Checking auth via /api/auth/me");
+        console.log("ProtectedRoute: Vérification auth via /api/auth/me...");
         const response = await apiService.getMe(); // Appel API réel
-        // Le cookie est envoyé automatiquement par le navigateur
+        // Le cookie HttpOnly est envoyé automatiquement grâce à withCredentials: true dans api.js
+
         if (isMounted && response.success && response.data) {
-          console.log("ProtectedRoute: Auth check successful", response.data);
+          // L'utilisateur est connecté ET on a ses infos
+          console.log("ProtectedRoute: Auth check réussi", response.data);
           setIsAuthenticated(true);
-          // Vérifier le rôle pour l'accès admin
+          // Vérifie si l'utilisateur a le rôle 'admin'
           setIsAdmin(response.data.role === 'admin');
+          if (response.data.role !== 'admin') {
+              console.warn("ProtectedRoute: Utilisateur authentifié mais PAS admin.");
+          }
         } else if (isMounted) {
-           // Réponse succès false ou pas de données utilisateur
-           console.log("ProtectedRoute: Auth check failed (API success false or no data)");
+           // L'API a répondu mais sans succès ou sans données utilisateur
+           console.log("ProtectedRoute: Auth check échoué (API success:false ou pas de data).");
            setIsAuthenticated(false);
            setIsAdmin(false);
         }
       } catch (error) {
-        // Échec de l'appel API (401, 500, etc.)
+        // L'appel API a échoué (typiquement 401 si pas de cookie valide, ou 500)
         if (isMounted) {
-           console.log("ProtectedRoute: Auth check failed (API error)", error.response?.status);
+           console.log("ProtectedRoute: Auth check échoué (Erreur API)", error.response?.status);
            setIsAuthenticated(false);
            setIsAdmin(false);
         }
@@ -76,41 +84,42 @@ const ProtectedRoute = ({ children }) => {
 
     checkAuth();
 
-    return () => { isMounted = false; }; // Cleanup
+    // Fonction de nettoyage pour éviter les mises à jour d'état si le composant est démonté
+    return () => { isMounted = false; };
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [location.key]); // Re-vérifie quand la route change
+  }, [location.key]); // Relance la vérification si l'URL change (utile dans certains cas)
 
+  // Affiche un indicateur de chargement pendant la vérification initiale
   if (isAuthenticated === null) {
-    // Affiche un chargement pendant la vérification
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
-        <CircularProgress /> Vérification...
+        <CircularProgress /> Vérification de l'accès...
       </Box>
     );
   }
 
-  // Si authentifié ET admin, affiche la page demandée
+  // Si l'utilisateur est authentifié ET admin, on affiche le contenu protégé (children)
   if (isAuthenticated && isAdmin) {
     return children;
   }
 
-  // Si authentifié mais PAS admin (ou si non authentifié) -> redirige vers login
-  // (Vous pourriez vouloir une page "Accès Interdit" pour les non-admins authentifiés)
-  console.log(`ProtectedRoute: Redirecting. Auth: ${isAuthenticated}, Admin: ${isAdmin}`);
+  // Si l'utilisateur n'est pas authentifié OU n'est pas admin, on redirige vers la page de login
+  // On passe l'URL d'origine dans 'state' pour pouvoir y revenir après le login
+  console.log(`ProtectedRoute: Redirection vers /admin. Auth: ${isAuthenticated}, Admin: ${isAdmin}`);
   return <Navigate to="/admin" state={{ from: location }} replace />;
 };
 // === Fin ProtectedRoute ===
 
 
 // === Layout Admin (Optionnel mais recommandé) ===
-// Ce composant englobe toutes les pages admin et contient le menu/sidebar/header commun
+// Ce composant contient les éléments communs aux pages admin (menu, sidebar, header...)
 const AdminLayout = () => {
   return (
-    <Box sx={{ display: 'flex' }}> {/* Exemple avec MUI */}
-      {/* Mettez ici votre Sidebar/Menu Admin commun */}
-      {/* <AdminSidebar /> */}
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}> {/* Contenu principal */}
-        {/* Le contenu de la route enfant sera rendu ici */}
+    <Box sx={{ display: 'flex' }}>
+      {/* Exemple: <AdminSidebar /> */}
+      <Typography variant="h6" sx={{ p: 2, borderRight: 1, borderColor: 'divider', minWidth: 180 }}>Menu Admin</Typography>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        {/* Les composants de page (ArtistListPage, etc.) seront affichés ici */}
         <Outlet />
       </Box>
     </Box>
@@ -119,31 +128,16 @@ const AdminLayout = () => {
 // === Fin AdminLayout ===
 
 
-// === Composant HomePage (inchangé) ===
+// === Composant HomePage (votre code existant) ===
 const HomePage = ({ openSimulator }) => {
-  // ... (votre code existant pour HomePage avec les sections et l'effet d'animation)
    useEffect(() => {
      const observer = new IntersectionObserver((entries) => {
-       entries.forEach(entry => {
-         if (entry.isIntersecting) {
-           entry.target.classList.add('visible');
-         }
-       });
+       entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); } });
      }, { threshold: 0.1 });
-
      const sections = document.querySelectorAll('section');
-     sections.forEach(section => {
-       section.classList.add('section-fade-in');
-       observer.observe(section);
-     });
-
-     return () => {
-       sections.forEach(section => {
-         observer.unobserve(section);
-       });
-     };
+     sections.forEach(section => { section.classList.add('section-fade-in'); observer.observe(section); });
+     return () => { sections.forEach(section => { observer.unobserve(section); }); };
    }, []);
-
   return (
     <>
       <Header />
@@ -168,63 +162,53 @@ function App() {
   const { t, i18n } = useTranslation();
   const simulatorRef = createRef();
 
-  // Effet pour les meta tags et lang (inchangé)
+  // Effet pour les meta tags et lang (votre code existant)
   useEffect(() => {
     updateMetaTags(t);
     const lang = i18n.language.split('-')[0];
     document.documentElement.setAttribute('lang', lang);
     const ogLocaleValue = i18n.language.replace('-', '_');
     const ogLocaleElement = document.querySelector('meta[property="og:locale"]');
-    if (ogLocaleElement) {
-      ogLocaleElement.setAttribute('content', ogLocaleValue);
-    }
+    if (ogLocaleElement) { ogLocaleElement.setAttribute('content', ogLocaleValue); }
   }, [t, i18n.language]);
 
-  // Fonction pour ouvrir le simulateur (inchangée)
+  // Fonction pour ouvrir le simulateur (votre code existant)
   const openSimulator = () => {
-    if (simulatorRef.current) {
-      simulatorRef.current.openSimulator();
-    }
+    if (simulatorRef.current) { simulatorRef.current.openSimulator(); }
   };
 
   return (
     <Router>
-      {/* Le simulateur reste en dehors pour être global */}
+      {/* Le simulateur reste global */}
       <Simulator ref={simulatorRef} />
 
       <Routes>
         {/* --- Routes Publiques --- */}
         <Route path="/" element={<HomePage openSimulator={openSimulator} />} />
         <Route path="/all-reviews" element={<AllReviews />} />
-        <Route path="/admin" element={<AdminLogin />} /> {/* Page de Login Admin */}
+        <Route path="/admin" element={<AdminLogin />} /> {/* Page de Login Admin, publique */}
 
         {/* --- Routes Admin Protégées --- */}
-        {/* Toutes les routes imbriquées ici nécessiteront une authentification admin */}
-        {/* Elles utiliseront aussi AdminLayout pour l'affichage commun (menu, etc.) */}
+        {/* La route parente applique ProtectedRoute ET AdminLayout */}
         <Route element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
-          {/* Le dashboard est souvent la page par défaut après /admin */}
-          <Route path="/admin/dashboard" element={<AdminPanel />} />
-          {/* Routes pour les Artistes */}
-          <Route path="/admin/artists" element={<ArtistListPage />} />
-          <Route path="/admin/artists/new" element={<ArtistCreatePage />} />
-          <Route path="/admin/artists/edit/:slugOrId" element={<ArtistEditPage />} />
-          {/* Routes pour les Smartlinks ( Ajoutez les imports des composants correspondants ) */}
-          {/* <Route path="/admin/smartlinks" element={<SmartlinkListPage />} /> */}
-          {/* <Route path="/admin/smartlinks/new" element={<SmartlinkCreatePage />} /> */}
-          {/* <Route path="/admin/smartlinks/edit/:id" element={<SmartlinkEditPage />} /> */}
+           {/* Les routes enfants héritent de la protection et du layout */}
+           {/* Définissez ici TOUTES les pages de votre panel admin */}
+           <Route path="/admin/dashboard" element={<AdminPanel />} />
+           <Route path="/admin/artists" element={<ArtistListPage />} />
+           <Route path="/admin/artists/new" element={<ArtistCreatePage />} />
+           <Route path="/admin/artists/edit/:slugOrId" element={<ArtistEditPage />} />
+           {/* Décommentez et importez les composants quand ils seront prêts */}
+           {/* <Route path="/admin/smartlinks" element={<SmartlinkListPage />} /> */}
+           {/* <Route path="/admin/smartlinks/new" element={<SmartlinkCreatePage />} /> */}
+           {/* <Route path="/admin/smartlinks/edit/:id" element={<SmartlinkEditPage />} /> */}
+           {/* Ajoutez d'autres routes admin ici (ex: /admin/settings, /admin/users...) */}
 
-          {/* Ajoutez d'autres routes admin ici si nécessaire */}
-
-          {/* Optionnel: Redirection si on arrive sur une route admin non spécifiée */}
-          {/* <Route path="/admin/*" element={<Navigate to="/admin/dashboard" replace />} /> */}
-
+           {/* Optionnel: si on tape juste /admin/* sans chemin spécifique après login */}
+           {/* <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} /> */}
         </Route> {/* Fin des routes protégées */}
 
-
         {/* --- Route Catch-all (404) --- */}
-        {/* Si aucune route ci-dessus ne correspond, redirige vers l'accueil */}
-        {/* Vous pourriez aussi avoir un composant PageNotFound ici */}
-        <Route path="*" element={<Navigate to="/" replace />} />
+        <Route path="*" element={<Navigate to="/" replace />} /> {/* Redirige vers l'accueil si URL inconnue */}
 
       </Routes>
     </Router>
