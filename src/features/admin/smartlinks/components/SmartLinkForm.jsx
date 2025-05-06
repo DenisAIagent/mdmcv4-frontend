@@ -4,52 +4,21 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { 
     TextField, Button, Box, Typography, Paper, Grid, 
     FormControl, InputLabel, Select, MenuItem, FormHelperText, 
-    FormControlLabel, Switch 
+    FormControlLabel, Switch, CircularProgress // Ajout de CircularProgress
 } from '@mui/material';
-// Assuming MUI X Date Pickers are installed: npm install @mui/x-date-pickers
-// If not, you might need a different date input solution or install it.
-// import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3'; // Use v3 adapter
-// import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
-// import { fr } from 'date-fns/locale'; // Import French locale if needed
+// import { toast } from 'react-toastify'; // Supposons que react-toastify est installé et configuré
 
 import { smartLinkSchema } from '../schemas/smartLinkSchema';
 import PlatformLinksInput from './PlatformLinksInput';
 import TrackingIdsInput from './TrackingIdsInput';
-import ImageUpload from '../../artists/components/ImageUpload'; // Re-use ImageUpload from artists feature
-
-// TODO: Replace with actual API calls
-// import { createSmartLinkApi, updateSmartLinkApi, getAllArtistsApi } from '../../../../services/api';
-
-// Placeholder API functions
-const createSmartLinkApi = async (data) => {
-  console.log("Simulating API call to CREATE smartlink:", data);
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  return { success: true, data: { ...data, _id: 'newSL123', trackSlug: 'new-track-slug' } };
-};
-const updateSmartLinkApi = async (id, data) => {
-  console.log(`Simulating API call to UPDATE smartlink (${id}):`, data);
-  await new Promise(resolve => setTimeout(resolve, 1000));
-  return { success: true, data: { ...data, _id: id } };
-};
-// Placeholder to fetch artists for the dropdown
-const getAllArtistsApi = async () => {
-    console.log("Simulating API call to GET artists");
-    await new Promise(resolve => setTimeout(resolve, 500));
-    // Return dummy data
-    return {
-        success: true,
-        data: [
-            { _id: 'artist1', name: 'Artist One' },
-            { _id: 'artist2', name: 'Artist Two' },
-            { _id: 'existing456', name: 'Existing Artist' }, // Match ID from ArtistForm placeholder
-        ]
-    };
-};
+import ImageUpload from '../../artists/components/ImageUpload';
+import apiService from '../../../../services/api.service'; // Utiliser le vrai service API
 
 const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
   const isEditMode = !!smartLinkData;
   const [artists, setArtists] = useState([]);
   const [loadingArtists, setLoadingArtists] = useState(true);
+  const [formError, setFormError] = useState(null); // Pour les erreurs générales du formulaire
 
   const {
     register,
@@ -63,30 +32,35 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
     resolver: zodResolver(smartLinkSchema),
     defaultValues: {
       trackTitle: smartLinkData?.trackTitle || '',
-      artistId: smartLinkData?.artistId?._id || smartLinkData?.artistId || '', // Handle populated or just ID
+      artistId: smartLinkData?.artistId?._id || smartLinkData?.artistId || '',
       coverImageUrl: smartLinkData?.coverImageUrl || '',
       releaseDate: smartLinkData?.releaseDate ? new Date(smartLinkData.releaseDate) : null,
       description: smartLinkData?.description || '',
-      platformLinks: smartLinkData?.platformLinks || [{ platform: '', url: '' }], // Start with one empty link
+      platformLinks: smartLinkData?.platformLinks || [{ platform: '', url: '' }],
       trackingIds: smartLinkData?.trackingIds || {},
-      isPublished: smartLinkData?.isPublished || false
+      isPublished: smartLinkData?.isPublished || false,
+      slug: smartLinkData?.slug || '' // Ajout du champ slug
     }
   });
 
-  // Fetch artists when the component mounts
   useEffect(() => {
     const fetchArtists = async () => {
       setLoadingArtists(true);
       try {
-        const response = await getAllArtistsApi();
-        if (response.success) {
-          setArtists(response.data || []);
-        } else {
-          console.error("Failed to fetch artists:", response.error);
-          setArtists([]); // Set empty on error
-        }
+        // Remplacer par l'appel API réel pour les artistes si un service artistService est créé
+        // Pour l'instant, on simule ou on suppose que le backend a une route /artists
+        // const response = await apiService.artists.getAll(); 
+        // Pour cet exemple, on va garder la simulation car artistService n'est pas défini dans api.service.js
+        console.log("Simulating API call to GET artists for form");
+        await new Promise(resolve => setTimeout(resolve, 500));
+        const mockArtists = [
+            { _id: 'artist1', name: 'Artist One (Mock)' },
+            { _id: 'artist2', name: 'Artist Two (Mock)' },
+        ];
+        setArtists(mockArtists);
       } catch (error) {
         console.error("Error fetching artists:", error);
+        // toast.error("Erreur lors du chargement des artistes.");
         setArtists([]);
       } finally {
         setLoadingArtists(false);
@@ -95,64 +69,66 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
     fetchArtists();
   }, []);
 
-  // Callback for ImageUpload component
   const handleImageUploadSuccess = (imageUrl) => {
     setValue('coverImageUrl', imageUrl, { shouldValidate: true });
   };
 
   const onSubmit = async (data) => {
-    // Convert date back to ISO string or suitable format if needed by backend
+    setFormError(null);
     const submissionData = {
         ...data,
-        releaseDate: data.releaseDate ? data.releaseDate.toISOString() : null
+        releaseDate: data.releaseDate ? data.releaseDate.toISOString().split('T')[0] : null // Format AAAA-MM-JJ
     };
     console.log("SmartLink Form Data Submitted:", submissionData);
     try {
       let response;
       if (isEditMode) {
-        response = await updateSmartLinkApi(smartLinkData._id, submissionData);
+        response = await apiService.smartlinks.update(smartLinkData._id, submissionData);
       } else {
-        response = await createSmartLinkApi(submissionData);
+        response = await apiService.smartlinks.create(submissionData);
       }
 
       if (response.success) {
+        // toast.success(isEditMode ? "SmartLink mis à jour avec succès !" : "SmartLink créé avec succès !");
         console.log("API Success:", response.data);
         if (onFormSubmitSuccess) {
           onFormSubmitSuccess(response.data);
         }
         if (!isEditMode) {
-             // Reset form, keeping artist selection might be useful
              const currentArtistId = watch('artistId');
              reset({
                  trackTitle: '',
-                 artistId: currentArtistId, // Keep artist selected
+                 artistId: currentArtistId,
                  coverImageUrl: '',
                  releaseDate: null,
                  description: '',
                  platformLinks: [{ platform: '', url: '' }],
                  trackingIds: {},
-                 isPublished: false
+                 isPublished: false,
+                 slug: ''
              }); 
         }
       } else {
+        // toast.error(response.error || "Une erreur est survenue.");
+        setFormError(response.error || "Une erreur est survenue lors de la soumission.");
         console.error("API Error:", response.error);
-        // TODO: Show error to user
       }
     } catch (error) {
       console.error("Form submission error:", error);
-      // TODO: Show error to user
+      // toast.error(error.message || "Erreur de soumission du formulaire.");
+      setFormError(error.message || "Erreur de soumission du formulaire.");
     }
   };
 
   return (
-    // <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={fr}> {/* Wrap form if using DatePicker */}
       <Paper elevation={3} sx={{ p: 3 }}>
         <Typography variant="h5" gutterBottom>
           {isEditMode ? 'Modifier le Smartlink' : 'Créer un Smartlink'}
         </Typography>
+        {formError && <Typography color="error" sx={{ mb: 2 }}>{formError}</Typography>}
         <form onSubmit={handleSubmit(onSubmit)} noValidate>
           <Grid container spacing={3}>
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} md={6}>
               <TextField
                 {...register('trackTitle')}
                 label="Titre de la musique"
@@ -161,6 +137,16 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
                 variant="outlined"
                 error={!!errors.trackTitle}
                 helperText={errors.trackTitle?.message}
+              />
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <TextField
+                {...register('slug')}
+                label="Slug (sera auto-généré si laissé vide)"
+                fullWidth
+                variant="outlined"
+                error={!!errors.slug}
+                helperText={errors.slug?.message || "Ex: mon-nouveau-titre. Laisser vide pour auto-génération basée sur le titre."}
               />
             </Grid>
 
@@ -177,8 +163,9 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
                       {...field}
                       disabled={loadingArtists}
                     >
-                      <MenuItem value="" disabled><em>{loadingArtists ? 'Chargement...' : 'Sélectionner un artiste'}</em></MenuItem>
-                      {artists.map((artist) => (
+                      {loadingArtists && <MenuItem value="" disabled><em>Chargement des artistes... <CircularProgress size={20} /></em></MenuItem>}
+                      {!loadingArtists && artists.length === 0 && <MenuItem value="" disabled><em>Aucun artiste trouvé.</em></MenuItem>}
+                      {!loadingArtists && artists.map((artist) => (
                         <MenuItem key={artist._id} value={artist._id}>
                           {artist.name}
                         </MenuItem>
@@ -190,11 +177,35 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
               </FormControl>
             </Grid>
 
+            <Grid item xs={12} md={8}>
+               <Controller
+                    name="releaseDate"
+                    control={control}
+                    render={({ field }) => (
+                        <TextField
+                            label="Date de sortie (Optionnel)"
+                            type="date"
+                            fullWidth
+                            variant="outlined"
+                            value={field.value ? (typeof field.value === 'string' ? field.value : field.value.toISOString().split('T')[0]) : ''}
+                            onChange={(e) => {
+                                const dateValue = e.target.value ? new Date(e.target.value + "T00:00:00") : null; // Assurer la date locale
+                                field.onChange(dateValue && !isNaN(dateValue) ? dateValue : null);
+                            }}
+                            error={!!errors.releaseDate}
+                            helperText={errors.releaseDate?.message}
+                            InputLabelProps={{ shrink: true }}
+                            sx={{ mb: 2 }}
+                        />
+                    )}
+                />
+            </Grid>
+            
             <Grid item xs={12} md={6}>
-              {/* Image Upload for Cover */}
               <ImageUpload 
                   onUploadSuccess={handleImageUploadSuccess} 
-                  initialImageUrl={smartLinkData?.coverImageUrl || null}
+                  initialImageUrl={watch('coverImageUrl') || null}
+                  buttonText="Télécharger la pochette"
               />
               <input type="hidden" {...register('coverImageUrl')} />
               {errors.coverImageUrl && (
@@ -205,49 +216,6 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
             </Grid>
 
             <Grid item xs={12} md={6}>
-               {/* Release Date - Using TextField for now, replace with DatePicker if installed */}
-               <Controller
-                    name="releaseDate"
-                    control={control}
-                    render={({ field }) => (
-                        <TextField
-                            label="Date de sortie (AAAA-MM-JJ)"
-                            type="date" // Basic HTML5 date input
-                            fullWidth
-                            variant="outlined"
-                            value={field.value ? field.value.toISOString().split('T')[0] : ''} // Format for input type=date
-                            onChange={(e) => {
-                                // Handle potential invalid date string from input
-                                const dateValue = e.target.value ? new Date(e.target.value) : null;
-                                field.onChange(dateValue && !isNaN(dateValue) ? dateValue : null);
-                            }}
-                            error={!!errors.releaseDate}
-                            helperText={errors.releaseDate?.message}
-                            InputLabelProps={{
-                                shrink: true, // Keep label floated
-                            }}
-                            sx={{ mb: 2 }} // Margin bottom
-                        />
-                        /* Example using MUI DatePicker (if installed) */
-                        /*
-                        <DatePicker
-                            label="Date de sortie"
-                            value={field.value}
-                            onChange={(newValue) => field.onChange(newValue)}
-                            slotProps={{
-                                textField: {
-                                    fullWidth: true,
-                                    variant: 'outlined',
-                                    error: !!errors.releaseDate,
-                                    helperText: errors.releaseDate?.message,
-                                    sx: {{ mb: 2 }}
-                                },
-                            }}
-                        />
-                        */
-                    )}
-                />
-
               <TextField
                 {...register('description')}
                 label="Description (Optionnel)"
@@ -261,13 +229,11 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
             </Grid>
 
             <Grid item xs={12}>
-              {/* Platform Links Input */}
-              <PlatformLinksInput control={control} register={register} errors={errors} />
+              <PlatformLinksInput control={control} register={register} errors={errors} setValue={setValue} watch={watch} />
             </Grid>
 
             <Grid item xs={12}>
-              {/* Tracking IDs Input */}
-              <TrackingIdsInput register={register} errors={errors} />
+              <TrackingIdsInput control={control} register={register} errors={errors} />
             </Grid>
 
             <Grid item xs={12}>
@@ -292,6 +258,7 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
                 variant="contained"
                 color="primary"
                 disabled={isSubmitting || loadingArtists}
+                startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
               >
                 {isSubmitting ? 'Enregistrement...' : (isEditMode ? 'Mettre à jour Smartlink' : 'Créer Smartlink')}
               </Button>
@@ -299,7 +266,6 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
           </Grid>
         </form>
       </Paper>
-    // </LocalizationProvider>
   );
 };
 

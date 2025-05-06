@@ -137,7 +137,7 @@ const AdminChatbot = () => {
 
   // Cette fonction n'est plus utilisée car nous utilisons maintenant Gemini
   // Conservée pour référence ou comme fallback en cas d'erreur avec l'API
-  const processUserMessageLegacy = (message) => {
+  // const processUserMessageLegacy = (message) => {
     const lowerMessage = message.toLowerCase();
     
     // Réponses pour les pixels marketing

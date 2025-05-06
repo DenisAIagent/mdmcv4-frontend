@@ -47,12 +47,18 @@ apiClient.interceptors.response.use(
   }
 );
 
-// --- Service d'Authentification ---
-export const authService = {
+// --- Service d'Authentification ---export const authService = {
   getMe: async () => {
-    return apiClient.get('/auth/me');
-  },
-  login: async (credentials) => {
+    try {
+      const response = await apiClient.get("/auth/me");
+      return response; // L'intercepteur retourne déjà response.data
+    } catch (error) {
+      // L'intercepteur gère déjà la structuration de l'erreur
+      // On pourrait vouloir logger ici spécifiquement pour getMe ou transformer l'erreur si besoin
+      console.error("Erreur spécifique dans authService.getMe:", error);
+      throw error; // Relancer l'erreur structurée par l'intercepteur
+    }
+  },  login: async (credentials) => {
     return apiClient.post('/auth/login', credentials);
   },
   logout: async () => {
@@ -63,15 +69,31 @@ export const authService = {
   }
 };
 
-// --- Service pour les Artistes (Exemple pour montrer comment ajouter d'autres services) ---
-// export const artistService = {
-//   getAll: async () => apiClient.get('/artists'),
-//   // ... autres fonctions pour les artistes
-// };
-
-// Exporter un objet contenant tous les services pour un accès facile
+export const smartLinkService = {
+  getBySlugs: async (artistSlug, trackSlug) => {
+    // Assurez-vous que le backend a une route correspondante, par exemple /smartlinks/details/:artistSlug/:trackSlug
+    return apiClient.get(`/smartlinks/details/${artistSlug}/${trackSlug}`);
+  },
+  create: async (data) => {
+    return apiClient.post("/smartlinks", data);
+  },
+  update: async (id, data) => {
+    return apiClient.put(`/smartlinks/${id}`, data);
+  },
+  // Ajoutez d'autres fonctions nécessaires pour les smartlinks (getAll, getById, deleteById)
+  getAll: async (params) => { // params peut inclure artistId, isPublished, page, limit, etc.
+    return apiClient.get("/smartlinks", { params });
+  },
+  getById: async (id) => {
+    return apiClient.get(`/smartlinks/${id}`);
+  },
+  deleteById: async (id) => {
+    return apiClient.delete(`/smartlinks/${id}`);
+  }
+};// Exporter un objet contenant tous les services pour un accès facile
 const apiService = {
     auth: authService,
+    smartlinks: smartLinkService, // Ajouter le service smartlinks ici
     // artists: artistService, // Décommente quand tu implémentes ce service
 };
 
