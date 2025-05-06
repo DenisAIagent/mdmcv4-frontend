@@ -1,19 +1,19 @@
-// src/pages/admin/artists/ArtistListPage.jsx (Exemple Complet)
+// src/pages/admin/artists/ArtistListPage.jsx
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// Ajustez le chemin vers votre service api.js
+// Ajustez le chemin vers votre service api.js si différent
 import apiService from '../../../services/api';
 
-// Import MUI Components (assurez-vous que @mui/material et @mui/x-data-grid sont installés)
+// Import MUI Components
 import {
     Box,
     Typography,
     Button,
     CircularProgress,
     Alert,
-    Paper,
-    IconButton
+    Paper
+    // IconButton // Décommentez si vous en avez besoin ailleurs
 } from '@mui/material';
 import { DataGrid, GridColDef, GridActionsCellItem } from '@mui/x-data-grid';
 import AddIcon from '@mui/icons-material/Add';
@@ -28,16 +28,16 @@ function ArtistListPage() {
     const [error, setError] = useState(null);
     const navigate = useNavigate();
 
-    // Fonction pour récupérer les artistes (peut être appelée pour rafraîchir)
+    // Fonction pour récupérer les artistes
     const fetchArtists = async () => {
         try {
             setLoading(true);
             setError(null);
             console.log("Fetching artists from API...");
-            const response = await apiService.getAllArtists(); // Appel API réel
+            const response = await apiService.getAllArtists(); // Appel API
             console.log("API response for artists:", response);
             if (response.success) {
-                // DataGrid préfère un champ 'id'. On le crée à partir de '_id'.
+                // DataGrid a besoin d'un champ 'id'. On le crée à partir de '_id'.
                 const artistsWithId = (response.data || []).map(artist => ({ ...artist, id: artist._id }));
                 setArtists(artistsWithId);
             } else {
@@ -51,8 +51,6 @@ function ArtistListPage() {
             setArtists([]);
             if (err.response?.status === 401) {
                 setError("Erreur d'authentification. Veuillez vous reconnecter.");
-                // Optionnel: rediriger vers login
-                // setTimeout(() => navigate('/admin/login'), 1500);
             } else if (err.response?.status === 403) {
                  setError("Erreur d'autorisation. Vous n'avez pas les droits nécessaires.");
             }
@@ -61,45 +59,36 @@ function ArtistListPage() {
         }
     };
 
-    // Récupérer les artistes au montage du composant
+    // Récupérer les artistes au montage
     useEffect(() => {
         fetchArtists();
-    }, []); // Le tableau vide signifie : exécuter une seule fois au montage
+    }, []);
 
     // --- Gestionnaires d'actions ---
     const handleEdit = (slug) => {
         console.log("Edit artist with slug:", slug);
-        navigate(`/admin/artists/edit/${slug}`); // Redirige vers la page d'édition
+        navigate(`/admin/artists/edit/${slug}`);
     };
 
     const handleDelete = async (slug, name) => {
         console.log("Delete artist with slug:", slug);
-        // Confirmation utilisateur
-        if (window.confirm(`Êtes-vous sûr de vouloir supprimer l'artiste "${name}" ? Les smartlinks associés pourraient être affectés (selon la logique backend).`)) {
+        if (window.confirm(`Êtes-vous sûr de vouloir supprimer l'artiste "${name}" ?`)) {
             try {
-                // TODO: Ajouter un état de chargement spécifique pour la suppression si besoin
-                await apiService.deleteArtist(slug); // Appel API avec le SLUG
-                // Utiliser react-toastify ou similaire pour le succès
-                // toast.success(`Artiste "${name}" supprimé avec succès.`);
+                await apiService.deleteArtist(slug);
                  console.log(`Artiste "${name}" supprimé avec succès.`);
-                // Recharger la liste pour refléter la suppression
-                fetchArtists();
+                fetchArtists(); // Recharger
             } catch (err) {
                 console.error("Failed to delete artist:", err);
                 const errorMsg = err.response?.data?.error || err.message || 'Erreur lors de la suppression';
-                setError(errorMsg); // Affiche l'erreur en haut du tableau
-                 // Utiliser react-toastify ou similaire pour l'erreur
-                 // toast.error(`Erreur lors de la suppression: ${errorMsg}`);
-            } finally {
-               // TODO: Gérer l'état de chargement de la suppression
+                setError(errorMsg);
             }
         }
     };
 
     // --- Définition des colonnes pour le DataGrid ---
-    const columns: GridColDef[] = [
-        // Colonne Image (Optionnelle)
-         {
+    // CORRECTION APPLIQUÉE ICI : Suppression de ": GridColDef[]"
+    const columns = [
+        {
            field: 'artistImageUrl',
            headerName: 'Image',
            width: 80,
@@ -109,35 +98,32 @@ function ArtistListPage() {
            sortable: false,
            filterable: false,
          },
-        { field: 'name', headerName: 'Nom', width: 300, flex: 1 }, // flex: 1 prend l'espace restant
+        { field: 'name', headerName: 'Nom', width: 300, flex: 1 },
         { field: 'slug', headerName: 'Slug', width: 300, flex: 1 },
-        // Vous pouvez ajouter d'autres colonnes ici (ex: date de création)
         {
             field: 'actions',
             type: 'actions',
             headerName: 'Actions',
-            width: 120, // Largeur augmentée pour les icônes
+            width: 120,
             cellClassName: 'actions',
-            getActions: ({ row }) => { // On utilise l'objet 'row' qui contient toutes les données de la ligne
-                return [
-                    <GridActionsCellItem
-                        icon={<EditIcon />}
-                        label="Modifier"
-                        onClick={() => handleEdit(row.slug)} // Utilise le slug de la ligne
-                        color="primary" // Couleur pour l'icône d'édition
-                    />,
-                    <GridActionsCellItem
-                        icon={<DeleteIcon />}
-                        label="Supprimer"
-                        onClick={() => handleDelete(row.slug, row.name)} // Utilise le slug et le nom de la ligne
-                        color="error" // Couleur pour l'icône de suppression
-                    />,
-                ];
-            },
+            getActions: ({ row }) => [
+                <GridActionsCellItem
+                    icon={<EditIcon />}
+                    label="Modifier"
+                    onClick={() => handleEdit(row.slug)}
+                    color="primary"
+                />,
+                <GridActionsCellItem
+                    icon={<DeleteIcon />}
+                    label="Supprimer"
+                    onClick={() => handleDelete(row.slug, row.name)}
+                    color="error"
+                />,
+            ],
         },
     ];
 
-    // --- Rendu Conditionnel ---
+    // --- Rendu Conditionnel (Chargement) ---
     if (loading) {
         return (
             <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
@@ -147,9 +133,8 @@ function ArtistListPage() {
         );
     }
 
-    // Affichage principal
+    // --- Affichage Principal ---
     return (
-        // Paper ajoute une élévation/un cadre
         <Paper sx={{ p: 2, width: '100%', overflow: 'hidden' }}>
             {error && <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>}
             <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
@@ -160,27 +145,24 @@ function ArtistListPage() {
                     variant="contained"
                     color="primary"
                     startIcon={<AddIcon />}
-                    onClick={() => navigate('/admin/artists/new')} // Redirige vers la page de création
+                    onClick={() => navigate('/admin/artists/new')}
                 >
                     Nouvel Artiste
                 </Button>
             </Box>
 
-            {/* Conteneur pour le DataGrid avec hauteur définie */}
-            <Box sx={{ height: 'calc(100vh - 200px)', width: '100%' }}> {/* Ajustez la hauteur si besoin */}
+            {/* Conteneur DataGrid */}
+            <Box sx={{ height: 'calc(100vh - 200px)', width: '100%' }}>
                 <DataGrid
-                    rows={artists} // Les données à afficher
-                    columns={columns} // La configuration des colonnes
-                    loading={loading} // Affiche un indicateur de chargement intégré
-                    pageSizeOptions={[10, 25, 50, 100]} // Choix du nombre d'éléments par page
+                    rows={artists}
+                    columns={columns}
+                    loading={loading}
+                    pageSizeOptions={[10, 25, 50, 100]}
                     initialState={{
                         pagination: {
-                            paginationModel: { pageSize: 10 }, // Taille de page par défaut
+                            paginationModel: { pageSize: 10 },
                          },
                      }}
-                    // Fonctionnalités utiles du DataGrid (à activer si besoin)
-                    // checkboxSelection
-                    // disableRowSelectionOnClick
                 />
             </Box>
         </Paper>
