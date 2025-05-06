@@ -1,80 +1,38 @@
 // src/services/api.service.js
 import axios from 'axios';
-import API_CONFIG from '../config/api.config'; // Vérifier le chemin
+import API_CONFIG from '../config/api.config'; // Vérifie que le chemin est correct
 
+// Créer une instance Axios configurée
 const apiClient = axios.create({
-  baseURL: API_CONFIG.BASE_URL, // ex: https://mdmcv4-backend-production-b615.up.railway.app/api
+  baseURL: API_CONFIG.BASE_URL, // Par ex: https://mdmcv4-backend-production-b615.up.railway.app/api
   timeout: API_CONFIG.TIMEOUT,
-  withCredentials: true, // ESSENTIEL pour les cookies HttpOnly
+  withCredentials: true, // ESSENTIEL pour que le navigateur envoie les cookies HttpOnly avec les requêtes
 });
 
-// Intercepteur de réponse
+// Intercepteur de réponse Axios
+// Il permet de traiter toutes les réponses ou erreurs de manière centralisée.
 apiClient.interceptors.response.use(
-  (response) => response.data, // Simplifie l'accès direct aux données
+  (response) => {
+    // Si la requête réussit, on retourne directement les 'data' de la réponse.
+    // Le backend renvoie généralement { success: true, data: ... } ou { success: true, error: ... }
+    return response.data;
+  },
   (error) => {
-    console.error('API Error Interceptor:', error.response || error.message || error);
+    // Si une erreur se produit (erreur réseau, statut HTTP 4xx ou 5xx)
+    console.error('API Error Interceptor caught an error:', error.response || error.message || error);
+
     let structuredError = {
-      message: 'An unexpected error occurred.',
-      status: null,
-      data: null,
+      message: 'An unexpected error occurred. Please try again.',
+      status: null, // Statut HTTP de la réponse, si disponible
+      data: null,   // Données de la réponse d'erreur du backend, si disponibles
     };
 
     if (error.response) {
-      structuredError = {
-        status: error.response.status,
-        message: error.response.data?.error || error.response.data?.message || error.message || `Request failed with status ${error.response.status}`,
-        data: error.response.data,
-      };
-      if (error.response.status === 401) {
-        console.warn('API Error 401: Unauthorized. Token might be invalid or expired. Consider global logout.');
-        // TODO: Ici, on pourrait déclencher un événement de déconnexion global
-        // ou appeler une action d'un store (Zustand) pour nettoyer l'état utilisateur
-        // et potentiellement rediriger vers la page de login si l'erreur 401
-        // n'est pas gérée spécifiquement par le composant appelant (comme ProtectedRoute).
-        // Pour l'instant, on laisse ProtectedRoute gérer la redirection basée sur son propre appel /me.
-      }
-    } else if (error.request) {
-      structuredError.message = 'No response from server. Check network or CORS policy.';
-    } else {
-      structuredError.message = error.message;
-    }
-    return Promise.reject(structuredError); // Propager une erreur structurée
-  }
-);
-
-// --- Service d'Authentification ---
-export const authService = {
-  getMe: async () => {
-    // GET {API_CONFIG.BASE_URL}/auth/me
-    return apiClient.get('/auth/me');
-  },
-  login: async (credentials) => {
-    // POST {API_CONFIG.BASE_URL}/auth/login
-    return apiClient.post('/auth/login', credentials);
-  },
-  logout: async () => {
-    // GET {API_CONFIG.BASE_URL}/auth/logout
-    return apiClient.get('/auth/logout');
-  },
-  register: async (userData) => { // Ajout pour la complétude, si nécessaire
-    // POST {API_CONFIG.BASE_URL}/auth/register
-    return apiClient.post('/auth/register', userData);
-  }
-  // ... autres fonctions (forgotPassword, resetPassword)
-};
-
-// --- Service Artistes (Exemple) ---
-// export const artistService = {
-//   getAll: async () => apiClient.get('/artists'),
-//   create: async (artistData) => apiClient.post('/artists', artistData),
-//   // ...
-// };
-
-// Exporter les services structurés
-const apiService = {
-    auth: authService,
-    // artists: artistService, // Décommentez quand prêt
-};
-
-export default apiService; // Exportation par défaut pour import apiService from '...'
-// Ou exporter individuellement si préféré : export { authService, artistService }
+      // Le serveur a répondu avec un statut d'erreur
+      structuredError.status = error.response.status;
+      structuredError.data = error.response.data;
+      // Tenter d'extraire un message d'erreur plus précis du backend
+      structuredError.message = error.response.data?.error || //  Notre backend utilise { success: false, error: 'message' }
+                                error.response.data?.message || // Au cas où la structure changerait
+                                error.message || // Message d'erreur Axios par défaut
+                                `Request failed with status ${
