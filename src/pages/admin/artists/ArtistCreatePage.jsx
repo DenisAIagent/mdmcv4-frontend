@@ -6,8 +6,8 @@ import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify'; // Pour les notifications
 
-// Assurez-vous que le chemin est correct
-import apiService from '../../../services/api';
+// Import corrigé avec alias
+import apiService from '@/services/api.service';
 
 // Import MUI Components
 import {
@@ -20,11 +20,12 @@ import {
     Alert
 } from '@mui/material';
 
-// Schéma de validation avec Zod
+// Schéma de validation avec Zod (incluant websiteUrl comme discuté)
 const artistSchema = z.object({
   name: z.string().min(1, { message: "Le nom de l'artiste est requis." }),
   bio: z.string().optional(),
-  artistImageUrl: z.string().url({ message: "Veuillez entrer une URL valide pour l'image." }).optional().or(z.literal('')), // Autorise vide ou URL valide
+  artistImageUrl: z.string().url({ message: "Veuillez entrer une URL valide pour l'image." }).optional().or(z.literal('')),
+  websiteUrl: z.string().url({ message: "Veuillez entrer une URL valide pour le site web." }).optional().or(z.literal('')),
 });
 
 function ArtistCreatePage() {
@@ -37,10 +38,11 @@ function ArtistCreatePage() {
         formState: { errors, isSubmitting } // isSubmitting gère l'état de chargement
     } = useForm({
         resolver: zodResolver(artistSchema),
-        defaultValues: { // Valeurs par défaut optionnelles
+        defaultValues: { // Valeurs par défaut
             name: '',
             bio: '',
             artistImageUrl: '',
+            websiteUrl: '', // Ajouté
         }
     });
 
@@ -48,8 +50,7 @@ function ArtistCreatePage() {
         setServerError(null); // Réinitialise les erreurs serveur
         console.log("Données soumises pour création:", data);
         try {
-            // Appel API pour créer l'artiste
-            // ADAPTEZ à votre méthode apiService réelle
+            // Utilise la méthode createArtist de api.service.js
             const response = await apiService.createArtist(data);
 
             if (response.success) {
@@ -84,10 +85,10 @@ function ArtistCreatePage() {
                     fullWidth
                     id="name"
                     label="Nom de l'Artiste"
-                    autoFocus // Focus sur ce champ au chargement
-                    {...register("name")} // Enregistre avec react-hook-form
-                    error={!!errors.name} // Affiche l'état d'erreur
-                    helperText={errors.name?.message} // Affiche le message d'erreur
+                    autoFocus
+                    {...register("name")}
+                    error={!!errors.name}
+                    helperText={errors.name?.message}
                 />
 
                 {/* Champ Bio */}
@@ -101,6 +102,18 @@ function ArtistCreatePage() {
                     {...register("bio")}
                     error={!!errors.bio}
                     helperText={errors.bio?.message}
+                />
+
+                {/* Champ Site Web */}
+                 <TextField
+                    margin="normal"
+                    fullWidth
+                    id="websiteUrl"
+                    label="Site Web (Optionnel)"
+                    type="url"
+                    {...register("websiteUrl")}
+                    error={!!errors.websiteUrl}
+                    helperText={errors.websiteUrl?.message}
                 />
 
                 {/* Champ URL Image */}
@@ -121,7 +134,7 @@ function ArtistCreatePage() {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                    disabled={isSubmitting} // Désactivé pendant la soumission
+                    disabled={isSubmitting}
                 >
                     {isSubmitting ? <CircularProgress size={24} /> : "Créer l'Artiste"}
                 </Button>
