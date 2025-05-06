@@ -1,9 +1,3 @@
-const ArtistCreatePage = () => {
-  return <div>Artist Create Page (en construction)</div>;
-};
-
-export default ArtistCreatePage;
-=======
 // src/pages/admin/artists/ArtistCreatePage.jsx
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
