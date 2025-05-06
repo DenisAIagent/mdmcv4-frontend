@@ -1,22 +1,28 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+// vite.config.js
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+// 'path' n'est plus nécessaire pour cet alias spécifique
+// import path from 'path';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // Ajouter cette configuration pour inclure les fichiers JSON
+  resolve: {
+    alias: {
+      // Tentez cette définition plus simple : '@' pointe vers '/src'
+      // Ceci suppose que vite.config.js est à la racine du projet.
+      '@': '/src',
+    },
+  },
+  // Le reste de votre configuration...
   assetsInclude: ['**/*.json'],
-  // Optimiser le build pour la production
   build: {
-    // Assurer que les fichiers de traduction sont inclus
     rollupOptions: {
       input: {
         main: './index.html',
       },
     },
-    // Éviter la minification des fichiers JSON
     commonjsOptions: {
       include: [/node_modules/, /locales/],
     }
   }
-})
+});
