@@ -1,18 +1,56 @@
 // src/App.jsx
-// ... (imports inchangés en haut) ...
-// MODIFIÉ: Importation de apiService, qui contient authService
-import apiService from './services/api.service'; // Ajuster le chemin si nécessaire
 
-// ... (autres imports) ...
+import React, { useState, useEffect, useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet, useLocation } from 'react-router-dom';
 
-// === ProtectedRoute ===
+// Styles Globaux (Vérifiez les chemins !)
+import './App.css';
+import './assets/styles/global.css';
+import './assets/styles/animations.css';
+
+// --- Services & Config ---
+import apiService from './services/api.service'; // Chemin vers votre instance Axios configurée
+import { updateMetaTags } from './i18n'; // Assurez-vous que le chemin est correct
+
+// --- Composants UI & Layout ---
+import { CircularProgress, Box, Typography } from '@mui/material';
+import Header from './components/layout/Header'; // Vérifiez le chemin
+import Footer from './components/layout/Footer'; // Vérifiez le chemin
+import Simulator from './components/features/Simulator'; // Vérifiez le chemin
+import CookieBanner from './components/features/CookieBanner'; // Vérifiez le chemin
+
+// --- Pages Publiques (Vérifiez les chemins !) ---
+import Hero from './components/sections/Hero';
+import Services from './components/sections/Services';
+import About from './components/sections/About';
+import Articles from './components/sections/Articles';
+import Reviews from './components/sections/Reviews';
+import Contact from './components/sections/Contact';
+import AllReviews from './components/pages/AllReviews'; // Vérifiez le chemin
+
+// --- Pages/Composants Admin (Vérifiez les chemins !) ---
+import AdminLogin from './components/admin/AdminLogin';
+import AdminPanel from './components/admin/AdminPanel'; // Dashboard principal
+
+// --- Pages Admin CRUD Artistes (Vérifiez les chemins !) ---
+import ArtistListPage from './pages/admin/artists/ArtistListPage';
+import ArtistCreatePage from './pages/admin/artists/ArtistCreatePage';
+import ArtistEditPage from './pages/admin/artists/ArtistEditPage';
+
+// --- Pages Admin CRUD Smartlinks (À créer et décommenter si nécessaire) ---
+// import SmartlinkListPage from './pages/admin/smartlinks/SmartlinkListPage';
+// import SmartlinkCreatePage from './pages/admin/smartlinks/SmartlinkCreatePage';
+// import SmartlinkEditPage from './pages/admin/smartlinks/SmartlinkEditPage';
+
+// === ProtectedRoute (Vérifie l'authentification via API) ===
 const ProtectedRoute = ({ children }) => {
   const [authStatus, setAuthStatus] = useState({
     isLoading: true,
     isAuthenticated: false,
     isAdmin: false,
   });
-  const location = useLocation(); // Pour la redirection et la clé de re-vérification
+  const location = useLocation();
 
   useEffect(() => {
     let isMounted = true;
@@ -21,7 +59,7 @@ const ProtectedRoute = ({ children }) => {
       setAuthStatus(prev => ({ ...prev, isLoading: true }));
       try {
         console.log("ProtectedRoute: Vérification auth via apiService.auth.getMe()...");
-        const response = await apiService.auth.getMe(); // Renvoie { success: true, data: user }
+        const response = await apiService.auth.getMe(); // Attend { success: true, data: user }
 
         if (isMounted) {
           if (response.success && response.data) {
@@ -35,7 +73,6 @@ const ProtectedRoute = ({ children }) => {
               console.warn("ProtectedRoute: Utilisateur authentifié mais PAS admin.");
             }
           } else {
-            // Ce cas est moins probable si l'API lance une erreur en cas de non-succès
             console.warn("ProtectedRoute: Auth check a renvoyé success:false ou data manquante.");
             setAuthStatus({ isLoading: false, isAuthenticated: false, isAdmin: false });
           }
@@ -50,7 +87,7 @@ const ProtectedRoute = ({ children }) => {
 
     checkAuth();
     return () => { isMounted = false; };
-  }, [location.key]); // location.key est une façon simple de re-vérifier si la "page" change
+  }, [location.key]); // location.key force une re-vérification si la clé de l'URL change (navigation "profonde")
 
   if (authStatus.isLoading) {
     return (
@@ -66,28 +103,130 @@ const ProtectedRoute = ({ children }) => {
     return <Navigate to="/admin" state={{ from: location }} replace />;
   }
 
-  return children;
+  return children; // children sera <AdminLayout />
 };
-// ... (AdminLayout, HomePage, et le reste de App sont OK, avec les imports de composants corrigés si nécessaire) ...
 
-// Dans la fonction App()
-// ...
-        <Route path="/admin" element={<AdminLogin />} /> {/* Login Page publique */}
+// === Layout pour les Pages Admin ===
+const AdminLayout = () => {
+  // TODO: Implémenter une vraie sidebar de navigation admin ici
+  return (
+    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+      <Box component="nav" sx={{ width: { sm: 240 }, flexShrink: { sm: 0 }, bgcolor: 'background.paper', borderRight: 1, borderColor: 'divider' }}>
+        <Typography variant="h6" sx={{ p: 2 }}>Menu Admin</Typography>
+        {/* Exemple de liens de navigation (à remplacer par vos NavLink réels) :
+        <List>
+          <ListItem button component={RouterLink} to="/admin/dashboard">
+            <ListItemText primary="Dashboard" />
+          </ListItem>
+          <ListItem button component={RouterLink} to="/admin/artists">
+            <ListItemText primary="Artistes" />
+          </ListItem>
+        </List>
+        */}
+      </Box>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - 240px)` } }}
+      >
+        {/* <Toolbar /> // Si vous avez une AppBar MUI spécifique à l'admin */}
+        <Outlet /> {/* C'est ici que les composants de page admin (AdminPanel, ArtistListPage, etc.) seront rendus */}
+      </Box>
+    </Box>
+  );
+};
 
-        {/* Routes Admin Protégées */}
+// === Composant pour la Page d'Accueil Publique ===
+const HomePage = ({ openSimulator }) => {
+  useEffect(() => {
+    // La manipulation DOM directe pour les animations devrait être refactorisée.
+    // Idéalement, chaque section gère ses propres animations/observations.
+    console.warn("HomePage useEffect: La logique d'animation DOM directe doit être refactorisée.");
+  }, []);
+
+  return (
+    <>
+      <Header /> {/* Header public */}
+      <main>
+        <Hero openSimulator={openSimulator} />
+        <Services />
+        <About />
+        <Articles />
+        <Reviews />
+        <Contact />
+      </main>
+      <Footer openSimulator={openSimulator} /> {/* Footer public */}
+      <CookieBanner />
+    </>
+  );
+};
+
+// === Composant Principal de l'Application ===
+function App() {
+  const { t, i18n } = useTranslation();
+  const simulatorRef = useRef(null);
+
+  // Gérer les meta tags et l'attribut lang de la page
+  useEffect(() => {
+    updateMetaTags(t); // Fonction à définir dans i18n.js ou un utilitaire SEO
+    const lang = i18n.language.split('-')[0];
+    document.documentElement.setAttribute('lang', lang);
+    const ogLocaleValue = i18n.language.replace('-', '_');
+    const ogLocaleElement = document.querySelector('meta[property="og:locale"]');
+    if (ogLocaleElement) {
+      ogLocaleElement.setAttribute('content', ogLocaleValue);
+    }
+  }, [t, i18n.language]);
+
+  const openSimulator = () => {
+    if (simulatorRef.current) {
+      simulatorRef.current.openSimulator();
+    }
+  };
+
+  // TODO: Si vous utilisez TanStack Query, enveloppez <Router> avec <QueryClientProvider client={queryClient}>
+  // const queryClient = new QueryClient();
+
+  return (
+    // <QueryClientProvider client={queryClient}>
+    <Router>
+      <Simulator ref={simulatorRef} /> {/* Composant global */}
+
+      <Routes>
+        {/* --- Routes Publiques --- */}
+        <Route path="/" element={<HomePage openSimulator={openSimulator} />} />
+        <Route path="/all-reviews" element={<AllReviews />} />
+        {/* La page de login pour l'admin est publique */}
+        <Route path="/admin" element={<AdminLogin />} />
+
+        {/* --- Routes Admin Protégées --- */}
+        {/* ProtectedRoute vérifie l'auth et le rôle admin. Si OK, rend AdminLayout qui contient <Outlet /> */}
         <Route element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
-          {/* Redirige /admin (si protégé et auth) vers /admin/dashboard */}
-          {/* Important: la route /admin publique pour AdminLogin est définie séparément */}
+          {/* Si un admin authentifié arrive sur une route de base comme /admin/ (improbable), redirige vers dashboard */}
+          {/* AdminLogin gère la redirection vers /admin/dashboard après un login réussi. */}
+          <Route index element={<Navigate to="/admin/dashboard" replace />} />
           <Route path="/admin/dashboard" element={<AdminPanel />} />
+          
+          {/* Routes Artistes */}
           <Route path="/admin/artists" element={<ArtistListPage />} />
           <Route path="/admin/artists/new" element={<ArtistCreatePage />} />
-          <Route path="/admin/artists/edit/:slug" element={<ArtistEditPage />} />
-          {/* La route index pour /admin/* n'est pas nécessaire ici car /admin est déjà la page de login.
-              Si un utilisateur loggué tente /admin, il est déjà loggué.
-              S'il tente /admin/quelquechose, ProtectedRoute le gère.
-              Si après login on veut aller à /admin/dashboard, AdminLogin s'en charge.
-           */}
-           {/* <Route index element={<Navigate to="/admin/dashboard" replace />} />  <-- On peut supprimer ça */}
+          <Route path="/admin/artists/edit/:slug" element={<ArtistEditPage />} /> {/* ou :id selon votre param */}
+
+          {/* Routes Smartlinks (décommentez et implémentez si nécessaire) */}
+          {/* <Route path="/admin/smartlinks" element={<SmartlinkListPage />} /> */}
+          {/* <Route path="/admin/smartlinks/new" element={<SmartlinkCreatePage />} /> */}
+          {/* <Route path="/admin/smartlinks/edit/:id" element={<SmartlinkEditPage />} /> */}
+
+          {/* Ajoutez d'autres routes admin ici. Elles seront rendues dans l'<Outlet /> d'AdminLayout */}
+          {/* Exemple: <Route path="/admin/settings" element={<AdminSettingsPage />} /> */}
         </Route>
-// ...
+
+        {/* --- Route Catch-all (404) --- */}
+        {/* Redirige vers la page d'accueil si aucune autre route ne correspond */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </Router>
+    // </QueryClientProvider>
+  );
+}
+
 export default App;
