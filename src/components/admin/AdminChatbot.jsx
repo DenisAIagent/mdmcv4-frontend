@@ -344,6 +344,5 @@ const AdminChatbot = () => {
       )}
     </div>
   );
-};
 
 export default AdminChatbot;
