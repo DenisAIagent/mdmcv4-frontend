@@ -1,75 +1,74 @@
 {
+  "name": "mdmc-react",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0", // Commande lint mise à jour (optionnel)
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    // --- Core React & Routing ---
+    "react": "^18.3.1",             // Version 18 stable recommandée
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.25.1",    // Version 6 stable recommandée
 
-"name": "mdmc-react",
+    // --- UI Library (Material UI) ---
+    "@mui/material": "^5.16.4",      // Ou dernière v5 stable
+    "@mui/icons-material": "^5.16.4", // Ou dernière v5 stable
+    "@mui/x-data-grid": "^7.11.0",   // Ou dernière v7/v6 stable
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
 
-"private": true,
+    // --- Form Handling ---
+    "react-hook-form": "^7.52.1",
+    "zod": "^3.23.8",
+    "@hookform/resolvers": "^3.9.0", // Contient le résolveur Zod
 
-"version": "0.0.0",
+    // --- State Management ---
+    "@tanstack/react-query": "^5.51.11",
+    "zustand": "^4.5.4",
 
-"type": "module",
+    // --- API Client ---
+    "axios": "^1.7.2", // Version récente
 
-"scripts": {
+    // --- Internationalization (i18n) ---
+    "i18next": "^23.12.2",
+    "react-i18next": "^15.0.0",
+    "i18next-browser-languagedetector": "^8.0.0",
+    // 'i18next-http-backend' retiré car vous chargez depuis /locales/*.js
 
-"dev": "vite",
+    // --- Utilities ---
+    "react-helmet-async": "^2.0.5",
+    "react-dropzone": "^14.2.3",
+    "react-toastify": "^10.0.5", // Ou "sonner" si vous préférez
 
-"build": "vite build",
+    // --- Dépendances spécifiques existantes ---
+    "@emailjs/browser": "^4.4.1",     // Gardé tel quel
+    "@google/generative-ai": "^0.24.0" // Gardé tel quel
 
-"lint": "eslint .",
+    // --- À vérifier si réellement utilisées dans le frontend ---
+    // "react-modal": "^3.16.3",
+    // "react-simple-star-rating": "^5.1.7",
+    // "slugify": "^1.6.6" // Généralement utilisé côté backend
+  },
+  "devDependencies": {
+    // --- Build & Dev Tools ---
+    "vite": "^5.3.4",                 // Version 5 stable recommandée
+    "@vitejs/plugin-react": "^4.3.1",
 
-"preview": "vite preview"
+    // --- Linting ---
+    "eslint": "^8.57.0", // Version d'ESLint vue dans vos logs (peut être mise à jour)
+    "eslint-plugin-react": "^7.34.3",
+    "eslint-plugin-react-hooks": "^4.6.2",
+    "eslint-plugin-react-refresh": "^0.4.7",
 
-},
+    // --- Types (si vous utilisez un peu TS ou pour l'intellisense) ---
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0"
 
-"dependencies": {
-
-"@emailjs/browser": "^4.4.1",
-
-"@google/generative-ai": "^0.24.0",
-
-"axios": "^1.9.0",
-
-"i18next": "^25.0.1",
-
-"i18next-browser-languagedetector": "^8.0.5",
-
-"i18next-http-backend": "^3.0.2",
-
-"react": "^19.0.0",
-
-"react-dom": "^19.0.0",
-
-"react-i18next": "^15.5.1",
-
-"react-modal": "^3.16.3",
-
-"react-router-dom": "^7.5.2",
-
-"react-simple-star-rating": "^5.1.7",
-
-"slugify": "^1.6.6"
-
-},
-
-"devDependencies": {
-
-"@eslint/js": "^9.22.0",
-
-"@types/react": "^19.0.10",
-
-"@types/react-dom": "^19.0.4",
-
-"@vitejs/plugin-react": "^4.3.4",
-
-"eslint": "^9.22.0",
-
-"eslint-plugin-react-hooks": "^5.2.0",
-
-"eslint-plugin-react-refresh": "^0.4.19",
-
-"globals": "^16.0.0",
-
-"vite": "^6.3.1"
-
-}
-
+    // Retiré: @eslint/js, globals (généralement gérés par la config ESLint)
+  }
 }
