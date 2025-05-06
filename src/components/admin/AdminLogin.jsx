@@ -1,130 +1,101 @@
+// src/components/admin/AdminLogin.jsx
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import apiService from '../../services/api.service'; // Assurez-vous que ce chemin est correct
 import '../../assets/styles/admin-login.css'; // Gardez votre chemin de style
 
 const AdminLogin = () => {
-  const { t } = useTranslation();
-  const navigate = useNavigate();
-  const [username, setUsername] = useState(''); // Ou email si vous préférez utiliser 'email' comme état
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation(); // Pour rediriger vers la page précédente après login
 
-  const handleSubmit = async (e) => { // Marquer la fonction comme async
-    e.preventDefault();
-    setLoading(true);
-    setError('');
+  // Utiliser 'email' pour correspondre à ce que le backend attend (authController.js)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
-    // Récupérer l'URL de base de l'API depuis les variables d'environnement
-    const apiUrl = import.meta.env.VITE_API_URL;
-    if (!apiUrl) {
-      console.error("VITE_API_URL non définie dans l'environnement.");
-      setError("Erreur de configuration de l'API.");
-      setLoading(false);
-      return;
-    }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError('');
 
-    // --- Début de l'appel API réel ---
-    // Adaptez l'URL si votre endpoint de login est différent
-    const loginUrl = `${apiUrl}/api/auth/login`;
-    // Adaptez { email: username } si votre backend attend 'username' au lieu de 'email'
-    const body = JSON.stringify({ email: username, password: password });
-    const headers = { 'Content-Type': 'application/json' };
+    try {
+      // Appel via apiService.auth.login, qui utilise Axios configuré
+      // avec withCredentials: true. Le backend définira le cookie HttpOnly.
+      const response = await apiService.auth.login({ email, password });
 
-    try {
-      const response = await fetch(loginUrl, {
-        method: 'POST',
-        headers: headers,
-        body: body
-      });
+      // console.log('Login successful response from apiService:', response); // Pour le debug
 
-      const data = await response.json(); // Essayer de parser la réponse JSON dans tous les cas
+      // Si le login est réussi (pas d'erreur lancée par l'intercepteur Axios),
+      // le cookie HttpOnly est maintenant défini par le backend.
+      // Le frontend n'a pas besoin de stocker ou gérer le token.
 
-      if (!response.ok) {
-        // Gérer les erreurs HTTP (ex: 401 Mauvais identifiants, 400 Requête invalide, 500 Erreur serveur)
-        // Utiliser le message d'erreur du backend si disponible, sinon un message générique
-        setError(data.error || data.message || `${t('admin.login_error')} (${response.status})`);
-        setLoading(false); // Ne pas oublier de réinitialiser le loading
-        return; // Arrêter le traitement ici
-      }
+      // Rediriger vers le tableau de bord admin ou la page précédente
+      const from = location.state?.from?.pathname || '/admin/dashboard';
+      navigate(from, { replace: true });
+      // Pas besoin de setLoading(false) ici car la navigation change la page.
 
-      // --- Connexion réussie (response.ok est true) ---
-      // Vérifier si le token est bien présent dans la réponse (adaptez 'data.token' si nécessaire)
-      if (data && data.token) {
-        // Stocker le VRAI token JWT dans localStorage
-        localStorage.setItem('mdmc_admin_auth', data.token);
+    } catch (err) { // L'erreur est déjà structurée par l'intercepteur d'api.service.js
+      console.error("Login failed:", err.status, err.message, err.data);
+      setError(err.message || t('admin.login_error_network'));
+      setLoading(false);
+    }
+  };
 
-        // Redirection vers le tableau de bord admin
-        navigate('/admin/dashboard');
-        // Pas besoin de setLoading(false) ici car la page va changer
-      } else {
-        // Cas où la réponse est OK mais le token manque (problème API ou logique backend)
-        console.error("Connexion réussie mais token manquant dans la réponse:", data);
-        setError(t('admin.login_error_no_token')); // Pensez à ajouter cette clé dans i18n
-        setLoading(false);
-      }
+  return (
+    <div className="admin-login-container">
+      <div className="admin-login-card">
+        <div className="admin-login-header">
+          <h1>{t('admin.login')}</h1>
+          <p>{t('admin.login_subtitle')}</p>
+        </div>
 
-    } catch (err) {
-      // Gérer les erreurs réseau ou les erreurs lors du fetch/parsing JSON
-      console.error("Erreur réseau ou technique lors de la connexion:", err);
-      setError(t('admin.login_error_network')); // Pensez à ajouter cette clé dans i18n
-      setLoading(false); // Assurer que le loading s'arrête
-    }
-    // Pas besoin de finally ici car setLoading(false) est géré dans chaque branche d'erreur
-    // et la navigation interrompt le flux en cas de succès.
-  };
+        {error && <div className="admin-login-error">{error}</div>}
 
-  // --- Le reste du JSX reste identique ---
-  return (
-    <div className="admin-login-container">
-      <div className="admin-login-card">
-        <div className="admin-login-header">
-          <h1>{t('admin.login')}</h1>
-          <p>{t('admin.login_subtitle')}</p>
-        </div>
+        <form onSubmit={handleSubmit} className="admin-login-form">
+          <div className="form-group">
+            {/* Modifier label et id pour 'email' pour la cohérence */}
+            <label htmlFor="email">{t('admin.email_label', 'Adresse Email')}</label> {/* Pensez à ajouter 'admin.email_label' à i18n */}
+            <input
+              type="email" // Utiliser type="email" pour la validation navigateur
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              autoFocus
+              disabled={loading}
+            />
+          </div>
 
-        {error && <div className="admin-login-error">{error}</div>}
+          <div className="form-group">
+            <label htmlFor="password">{t('admin.password')}</label>
+            <input
+              type="password"
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              disabled={loading}
+            />
+          </div>
 
-        <form onSubmit={handleSubmit} className="admin-login-form">
-          <div className="form-group">
-            <label htmlFor="username">{t('admin.username')}</label>
-            <input
-              type="text" // Changez en type="email" si votre backend attend un email et que vous voulez la validation navigateur
-              id="username" // Peut être renommé 'email' si vous changez le type et l'état
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-              autoFocus
-            />
-          </div>
+          <button
+            type="submit"
+            className={`admin-login-button ${loading ? 'loading' : ''}`}
+            disabled={loading}
+          >
+            {loading ? t('admin.logging_in') : t('admin.login_button')}
+          </button>
+        </form>
 
-          <div className="form-group">
-            <label htmlFor="password">{t('admin.password')}</label>
-            <input
-              type="password"
-              id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className={`admin-login-button ${loading ? 'loading' : ''}`}
-            disabled={loading}
-          >
-            {loading ? t('admin.logging_in') : t('admin.login_button')}
-          </button>
-        </form>
-
-        <div className="admin-login-footer">
-          <a href="/">{t('footer.nav_home')}</a>
-        </div>
-      </div>
-    </div>
-  );
+        <div className="admin-login-footer">
+          <a href="/">{t('footer.nav_home')}</a>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default AdminLogin;
