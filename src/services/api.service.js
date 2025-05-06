@@ -14,7 +14,6 @@ const apiClient = axios.create({
 apiClient.interceptors.response.use(
   (response) => {
     // Si la requête réussit, on retourne directement les 'data' de la réponse.
-    // Le backend renvoie généralement { success: true, data: ... } ou { success: true, error: ... }
     return response.data;
   },
   (error) => {
@@ -31,8 +30,49 @@ apiClient.interceptors.response.use(
       // Le serveur a répondu avec un statut d'erreur
       structuredError.status = error.response.status;
       structuredError.data = error.response.data;
-      // Tenter d'extraire un message d'erreur plus précis du backend
-      structuredError.message = error.response.data?.error || //  Notre backend utilise { success: false, error: 'message' }
-                                error.response.data?.message || // Au cas où la structure changerait
-                                error.message || // Message d'erreur Axios par défaut
-                                `Request failed with status ${
+      structuredError.message = error.response.data?.error ||
+                                error.response.data?.message ||
+                                error.message ||
+                                `Request failed with status ${error.response.status}`;
+
+      if (error.response.status === 401) {
+        console.warn('API Error 401: Unauthorized. Token might be invalid, expired, or not sent.');
+      }
+    } else if (error.request) {
+      structuredError.message = 'No response from server. Check your network connection or CORS policy on the server.';
+    } else {
+      structuredError.message = error.message;
+    }
+    return Promise.reject(structuredError);
+  }
+);
+
+// --- Service d'Authentification ---
+export const authService = {
+  getMe: async () => {
+    return apiClient.get('/auth/me');
+  },
+  login: async (credentials) => {
+    return apiClient.post('/auth/login', credentials);
+  },
+  logout: async () => {
+    return apiClient.get('/auth/logout');
+  },
+  register: async (userData) => {
+    return apiClient.post('/auth/register', userData);
+  }
+};
+
+// --- Service pour les Artistes (Exemple pour montrer comment ajouter d'autres services) ---
+// export const artistService = {
+//   getAll: async () => apiClient.get('/artists'),
+//   // ... autres fonctions pour les artistes
+// };
+
+// Exporter un objet contenant tous les services pour un accès facile
+const apiService = {
+    auth: authService,
+    // artists: artistService, // Décommente quand tu implémentes ce service
+};
+
+export default apiService;
