@@ -4,10 +4,10 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { toast } from 'react-toastify'; // Pour les notifications
+import { toast } from 'react-toastify';
 
-// Vérifiez si ce chemin vers apiService est correct pour vous
-import apiService from '../../../services/api';
+// Import corrigé avec alias
+import apiService from '@/services/api.service';
 
 // Import MUI Components
 import {
@@ -20,30 +20,31 @@ import {
     Alert
 } from '@mui/material';
 
-// Schéma de validation (MAJ: ajout de websiteUrl)
+// Schéma de validation
 const artistSchema = z.object({
   name: z.string().min(1, { message: "Le nom de l'artiste est requis." }),
   bio: z.string().optional(),
   artistImageUrl: z.string().url({ message: "Veuillez entrer une URL valide pour l'image." }).optional().or(z.literal('')),
-  websiteUrl: z.string().url({ message: "Veuillez entrer une URL valide pour le site web." }).optional().or(z.literal('')), // Ajouté
+  websiteUrl: z.string().url({ message: "Veuillez entrer une URL valide pour le site web." }).optional().or(z.literal('')),
 });
 
 function ArtistEditPage() {
-    const { slugOrId } = useParams(); // Récupère le slug/id depuis l'URL
+    // Utilise slugOrId pour correspondre à la route, même si l'API utilise 'slug'
+    const { slugOrId } = useParams();
     const navigate = useNavigate();
-    const [artistId, setArtistId] = useState(null); // Pour stocker l'_id interne
+    // Plus besoin de stocker artistId séparément si l'API update utilise le slug
+    // const [artistId, setArtistId] = useState(null);
     const [loadingData, setLoadingData] = useState(true);
     const [fetchError, setFetchError] = useState(null);
-    const [serverError, setServerError] = useState(null); // Erreur lors de l'update
+    const [serverError, setServerError] = useState(null);
 
     const {
         register,
         handleSubmit,
-        reset, // Pour pré-remplir le formulaire
+        reset,
         formState: { errors, isSubmitting }
     } = useForm({
         resolver: zodResolver(artistSchema)
-        // Les defaultValues seront définis par reset après le fetch
     });
 
     // Effet pour charger les données de l'artiste existant
@@ -52,27 +53,23 @@ function ArtistEditPage() {
             setLoadingData(true);
             setFetchError(null);
             try {
-                console.log(`Workspaceing data for artist: ${slugOrId}`);
-                // --- ADAPTEZ CET APPEL API ---
-                const response = await apiService.getArtistBySlugOrId(slugOrId); // Fonction à vérifier/adapter
+                console.log(`Workspaceing data for artist using slug: ${slugOrId}`);
+                // Utilise la méthode getArtistBySlug de votre service
+                const response = await apiService.getArtistBySlug(slugOrId);
 
                 if (response.success && response.data) {
-                    // Pré-remplit le formulaire avec les données reçues
-                    // Assurez-vous que les noms de champs correspondent entre response.data et le schéma Zod
                     reset({
                         name: response.data.name || '',
                         bio: response.data.bio || '',
                         artistImageUrl: response.data.artistImageUrl || '',
-                        websiteUrl: response.data.websiteUrl || '' // Ajouté
+                        websiteUrl: response.data.websiteUrl || ''
                     });
-                    setArtistId(response.data._id); // Stocke l'ID interne pour l'update
+                    // setArtistId(response.data._id); // Plus nécessaire si update utilise le slug
                     console.log("Artist data loaded and form reset:", response.data);
                 } else {
                     const errorMsg = response.error || 'Artiste non trouvé ou erreur API.';
                     setFetchError(errorMsg);
                     toast.error(errorMsg);
-                    // Optionnel: rediriger si l'artiste n'est pas trouvé
-                    // navigate('/admin/artists');
                 }
             } catch (err) {
                 console.error("Failed to fetch artist data:", err);
@@ -87,27 +84,22 @@ function ArtistEditPage() {
         if (slugOrId) {
             fetchArtistData();
         } else {
-             setFetchError("Identifiant d'artiste manquant dans l'URL.");
+             setFetchError("Identifiant d'artiste (slug) manquant dans l'URL.");
              setLoadingData(false);
         }
-    }, [slugOrId, reset, navigate]); // Dépendances de l'effet
+    }, [slugOrId, reset]); // navigate enlevé des dépendances car non utilisé ici
 
     // Fonction de soumission pour la mise à jour
     const onSubmit = async (data) => {
-        if (!artistId) {
-            toast.error("Impossible de mettre à jour : ID de l'artiste manquant.");
-            return;
-        }
         setServerError(null);
-        console.log("Données soumises pour mise à jour:", data);
+        console.log("Données soumises pour mise à jour (slug: " + slugOrId + "):", data);
         try {
-             // --- ADAPTEZ CET APPEL API ---
-             // Assurez-vous que updateArtist attend l'ID et les données
-            const response = await apiService.updateArtist(artistId, data); // Fonction à vérifier/adapter
+             // Utilise la méthode updateArtist avec le slug de votre service
+            const response = await apiService.updateArtist(slugOrId, data);
 
             if (response.success) {
                 toast.success(`Artiste "${data.name}" mis à jour avec succès !`);
-                navigate('/admin/artists'); // Redirige vers la liste après succès
+                navigate('/admin/artists');
             } else {
                 const errorMsg = response.error || 'Erreur lors de la mise à jour de l\'artiste.';
                 setServerError(errorMsg);
@@ -140,15 +132,13 @@ function ArtistEditPage() {
         <Paper sx={{ p: 3, maxWidth: '700px', margin: 'auto' }}>
             <Typography variant="h5" component="h1" sx={{ mb: 3 }}>
                 Modifier l'Artiste
-                 {/* Optionnel: afficher le nom chargé */}
-                 {/* {getValues("name") ? `: ${getValues("name")}` : ''} */}
             </Typography>
 
             {serverError && <Alert severity="error" sx={{ mb: 2 }}>{serverError}</Alert>}
 
             <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-                {/* Champ Nom */}
-                <TextField
+                 {/* Champ Nom */}
+                 <TextField
                     margin="normal"
                     required
                     fullWidth
@@ -158,7 +148,7 @@ function ArtistEditPage() {
                     {...register("name")}
                     error={!!errors.name}
                     helperText={errors.name?.message}
-                    InputLabelProps={{ shrink: true }} // Garde le label en haut si pré-rempli
+                    InputLabelProps={{ shrink: true }}
                 />
 
                 {/* Champ Bio */}
@@ -207,7 +197,7 @@ function ArtistEditPage() {
                     fullWidth
                     variant="contained"
                     sx={{ mt: 3, mb: 2 }}
-                    disabled={isSubmitting || loadingData} // Désactivé si chargement initial ou soumission
+                    disabled={isSubmitting || loadingData}
                 >
                     {isSubmitting ? <CircularProgress size={24} /> : "Enregistrer les Modifications"}
                 </Button>
