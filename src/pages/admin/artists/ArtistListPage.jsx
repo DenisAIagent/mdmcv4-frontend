@@ -2,8 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// Ajustez le chemin vers votre service api.js si différent
-import apiService from '../../../services/api';
+// Import corrigé avec alias
+import apiService from '@/services/api.service';
 
 // Import MUI Components
 import {
@@ -74,19 +74,22 @@ function ArtistListPage() {
         console.log("Delete artist with slug:", slug);
         if (window.confirm(`Êtes-vous sûr de vouloir supprimer l'artiste "${name}" ?`)) {
             try {
+                // Utilise la méthode de api.service.js qui prend le slug
                 await apiService.deleteArtist(slug);
                  console.log(`Artiste "${name}" supprimé avec succès.`);
+                // toast.success(`Artiste "${name}" supprimé.`); // Si vous utilisez toastify
                 fetchArtists(); // Recharger
             } catch (err) {
                 console.error("Failed to delete artist:", err);
                 const errorMsg = err.response?.data?.error || err.message || 'Erreur lors de la suppression';
                 setError(errorMsg);
+                // toast.error(`Erreur: ${errorMsg}`); // Si vous utilisez toastify
             }
         }
     };
 
     // --- Définition des colonnes pour le DataGrid ---
-    // CORRECTION APPLIQUÉE ICI : Suppression de ": GridColDef[]"
+    // Syntaxe TypeScript enlevée
     const columns = [
         {
            field: 'artistImageUrl',
@@ -152,6 +155,7 @@ function ArtistListPage() {
             </Box>
 
             {/* Conteneur DataGrid */}
+            {/* Ajustez la hauteur selon vos besoins */}
             <Box sx={{ height: 'calc(100vh - 200px)', width: '100%' }}>
                 <DataGrid
                     rows={artists}
