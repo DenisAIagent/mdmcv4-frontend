@@ -1,141 +1,149 @@
 // src/pages/admin/artists/ArtistCreatePage.jsx
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify'; // Pour les notifications
+import { toast } from 'react-toastify';
 
-// Import corrigé avec alias
-import apiService from '@/services/api.service';
+import apiService from '@/services/api.service'; // Adaptez le chemin
+// Assurez-vous que ce chemin pointe vers votre artistSchema.js complet
+import { artistSchema } from '@/features/admin/artists/schemas/artistSchema.js'; // Adaptez le chemin
 
-// Import MUI Components
 import {
-    Box,
-    Typography,
-    Paper,
-    TextField,
-    Button,
-    CircularProgress,
-    Alert
+    Box, Typography, Paper, TextField, Button,
+    CircularProgress, Alert, IconButton, Grid, FormHelperText
 } from '@mui/material';
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 
-// Schéma de validation avec Zod (incluant websiteUrl comme discuté)
-const artistSchema = z.object({
-  name: z.string().min(1, { message: "Le nom de l'artiste est requis." }),
-  bio: z.string().optional(),
-  artistImageUrl: z.string().url({ message: "Veuillez entrer une URL valide pour l'image." }).optional().or(z.literal('')),
-  websiteUrl: z.string().url({ message: "Veuillez entrer une URL valide pour le site web." }).optional().or(z.literal('')),
-});
-
-function ArtistCreatePage() {
+function ArtistCreatePage({ isInModal = false, onSuccessInModal, onCancelInModal }) {
     const navigate = useNavigate();
-    const [serverError, setServerError] = useState(null); // Pour les erreurs générales de l'API
+    const [serverError, setServerError] = useState(null);
 
     const {
-        register,
+        control,
         handleSubmit,
-        formState: { errors, isSubmitting } // isSubmitting gère l'état de chargement
+        formState: { errors, isSubmitting },
+        register,
+        watch, // Pour prévisualiser artistImageUrl si besoin
+        reset,
     } = useForm({
         resolver: zodResolver(artistSchema),
-        defaultValues: { // Valeurs par défaut
+        defaultValues: {
             name: '',
             bio: '',
             artistImageUrl: '',
-            websiteUrl: '', // Ajouté
+            websiteUrl: '',
+            socialLinks: [], // Initialiser comme tableau vide
         }
     });
 
-    const onSubmit = async (data) => {
-        setServerError(null); // Réinitialise les erreurs serveur
-        console.log("Données soumises pour création:", data);
-        try {
-            // Utilise la méthode createArtist de api.service.js
-            const response = await apiService.createArtist(data);
+    const { fields: socialLinkFields, append: appendSocialLink, remove: removeSocialLink } = useFieldArray({
+        control,
+        name: "socialLinks"
+    });
 
-            if (response.success) {
-                toast.success(`Artiste "${data.name}" créé avec succès !`);
-                navigate('/admin/artists'); // Redirige vers la liste après succès
+    const onSubmit = async (data) => {
+        setServerError(null);
+        const submissionData = {
+            ...data,
+            bio: data.bio || undefined, // Envoyer undefined si vide pour que le backend puisse l'omettre
+            artistImageUrl: data.artistImageUrl || undefined,
+            websiteUrl: data.websiteUrl || undefined,
+            socialLinks: data.socialLinks?.filter(link => link.platform && link.url.trim() !== '') || [],
+        };
+
+        try {
+            // Utilisez la fonction de votre service API (ex: apiService.artists.create ou apiService.createArtist)
+            const response = await apiService.createArtist(submissionData); // Ou apiService.artists.create(submissionData)
+
+            // Adaptez cette condition de succès à la structure de réponse de VOTRE API
+            // Par exemple, si succès = l'objet artiste est retourné avec un _id
+            if (response && (response.success || response._id || response.data?._id)) {
+                const createdArtist = response.data || response; // Assumer que l'artiste créé est dans response.data ou response
+                toast.success(`Artiste "${createdArtist.name}" créé avec succès !`);
+                if (isInModal && onSuccessInModal) {
+                    reset();
+                    onSuccessInModal(createdArtist);
+                } else if (!isInModal) {
+                    navigate('/admin/artists'); // Adaptez la route de redirection si besoin
+                }
             } else {
-                const errorMsg = response.error || 'Erreur lors de la création de l\'artiste.';
+                const errorMsg = response.error || response.message || 'Erreur lors de la création de l\'artiste.';
                 setServerError(errorMsg);
                 toast.error(errorMsg);
             }
         } catch (err) {
-            console.error("Erreur API lors de la création:", err);
-            const errorMsg = err.response?.data?.error || err.message || 'Une erreur serveur est survenue.';
+            console.error("Erreur API lors de la création de l'artiste:", err);
+            const errorMsg = err.response?.data?.error || err.response?.data?.message || err.message || 'Une erreur serveur est survenue.';
             setServerError(errorMsg);
             toast.error(errorMsg);
         }
     };
 
+    const formFields = (
+        <>
+            {serverError && !isInModal && <Alert severity="error" sx={{ mb: 2 }}>{serverError}</Alert>}
+            {/* En mode modal, les erreurs serveur pourraient être gérées différemment ou via toast */}
+
+            <TextField margin="normal" required fullWidth label="Nom de l'Artiste" autoFocus {...register("name")} error={!!errors.name} helperText={errors.name?.message}/>
+            <TextField margin="normal" fullWidth label="Biographie (Optionnel)" multiline rows={3} {...register("bio")} error={!!errors.bio} helperText={errors.bio?.message}/>
+            <TextField margin="normal" fullWidth label="URL de l'Image (Optionnel)" type="url" {...register("artistImageUrl")} error={!!errors.artistImageUrl} helperText={errors.artistImageUrl?.message}/>
+            {/* Si vous voulez un aperçu de l'image : */}
+            {/* {watch('artistImageUrl') && <Box component="img" src={watch('artistImageUrl')} alt="Aperçu" sx={{maxHeight: 100, mt:1, borderRadius:1}}/>} */}
+            <TextField margin="normal" fullWidth label="Site Web (Optionnel)" type="url" {...register("websiteUrl")} error={!!errors.websiteUrl} helperText={errors.websiteUrl?.message}/>
+
+            <Box sx={{ mt: 2, mb: 1 }}>
+                <Typography variant="subtitle1" gutterBottom>Liens Sociaux (Optionnel)</Typography>
+                {socialLinkFields.map((item, index) => (
+                    <Grid container spacing={1.5} key={item.id} sx={{ mb: 2, alignItems: 'flex-start' }}>
+                        <Grid item xs={12} sm={5}>
+                            <Controller name={`socialLinks.${index}.platform`} control={control} render={({ field }) => (
+                                <TextField {...field} label="Plateforme" variant="outlined" fullWidth size="small" error={!!errors.socialLinks?.[index]?.platform} helperText={errors.socialLinks?.[index]?.platform?.message}/>
+                            )}/>
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <Controller name={`socialLinks.${index}.url`} control={control} render={({ field }) => (
+                                <TextField {...field} label="URL du profil" variant="outlined" fullWidth size="small" type="url" error={!!errors.socialLinks?.[index]?.url} helperText={errors.socialLinks?.[index]?.url?.message}/>
+                            )}/>
+                        </Grid>
+                        <Grid item xs={12} sm={1} sx={{ textAlign: {xs: 'right', sm: 'left'}, pt: {xs: 1, sm: 0.5} }}>
+                            <IconButton onClick={() => removeSocialLink(index)} color="error" size="small" aria-label="Supprimer lien social">
+                                <RemoveCircleOutlineIcon />
+                            </IconButton>
+                        </Grid>
+                    </Grid>
+                ))}
+                <Button type="button" onClick={() => appendSocialLink({ platform: '', url: '' })} startIcon={<AddCircleOutlineIcon />} variant="outlined" size="small">
+                    Ajouter un lien social
+                </Button>
+                {errors.socialLinks && !Array.isArray(errors.socialLinks) && (
+                    <FormHelperText error sx={{mt:1}}>{errors.socialLinks.message || errors.socialLinks.root?.message}</FormHelperText>
+                )}
+            </Box>
+        </>
+    );
+
+    if (isInModal) {
+        return (
+            <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate sx={{pt:1}}>
+                {formFields}
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, mt: 3 }}>
+                    <Button onClick={onCancelInModal} color="inherit" disabled={isSubmitting}>Annuler</Button>
+                    <Button type="submit" variant="contained" color="primary" disabled={isSubmitting} startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}>
+                        {isSubmitting ? 'Création...' : 'Créer et Sélectionner'}
+                    </Button>
+                </Box>
+            </Box>
+        );
+    }
+
     return (
-        <Paper sx={{ p: 3, maxWidth: '700px', margin: 'auto' }}>
-            <Typography variant="h5" component="h1" sx={{ mb: 3 }}>
-                Créer un Nouvel Artiste
-            </Typography>
-
-            {serverError && <Alert severity="error" sx={{ mb: 2 }}>{serverError}</Alert>}
-
+        <Paper sx={{ p: {xs: 2, md: 3}, maxWidth: '700px', margin: '2rem auto' }}>
+            <Typography variant="h5" component="h1" sx={{ mb: 2 }}>Créer un Nouvel Artiste</Typography>
             <Box component="form" onSubmit={handleSubmit(onSubmit)} noValidate>
-                {/* Champ Nom */}
-                <TextField
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="name"
-                    label="Nom de l'Artiste"
-                    autoFocus
-                    {...register("name")}
-                    error={!!errors.name}
-                    helperText={errors.name?.message}
-                />
-
-                {/* Champ Bio */}
-                <TextField
-                    margin="normal"
-                    fullWidth
-                    id="bio"
-                    label="Biographie (Optionnel)"
-                    multiline
-                    rows={4}
-                    {...register("bio")}
-                    error={!!errors.bio}
-                    helperText={errors.bio?.message}
-                />
-
-                {/* Champ Site Web */}
-                 <TextField
-                    margin="normal"
-                    fullWidth
-                    id="websiteUrl"
-                    label="Site Web (Optionnel)"
-                    type="url"
-                    {...register("websiteUrl")}
-                    error={!!errors.websiteUrl}
-                    helperText={errors.websiteUrl?.message}
-                />
-
-                {/* Champ URL Image */}
-                <TextField
-                    margin="normal"
-                    fullWidth
-                    id="artistImageUrl"
-                    label="URL de l'Image Principale (Optionnel)"
-                    type="url"
-                    {...register("artistImageUrl")}
-                    error={!!errors.artistImageUrl}
-                    helperText={errors.artistImageUrl?.message}
-                />
-
-                {/* Bouton de soumission */}
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    sx={{ mt: 3, mb: 2 }}
-                    disabled={isSubmitting}
-                >
+                {formFields}
+                <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }} disabled={isSubmitting}>
                     {isSubmitting ? <CircularProgress size={24} /> : "Créer l'Artiste"}
                 </Button>
             </Box>
