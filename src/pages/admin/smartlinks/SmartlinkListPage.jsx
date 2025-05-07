@@ -1,6 +1,7 @@
 // src/pages/admin/smartlinks/SmartlinkListPage.jsx
 import React, { useState, useEffect, useCallback } from 'react';
-// PAS DE useNavigate ici, la navigation est gérée par AdminPanel via les props
+// Si AdminPanel.jsx gère la navigation interne pour le CRUD SmartLink,
+// n'utilisez pas useNavigate ici pour les actions comme "Nouveau" ou "Modifier".
 import {
   Box,
   Typography,
@@ -11,7 +12,9 @@ import {
   Chip,
   Tooltip,
 } from '@mui/material';
-import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid';
+// GridColDef est un type TypeScript. En JS pur, on ne déclare pas le type explicitement.
+// On importe GridActionsCellItem mais PAS GridColDef.
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid'; 
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
@@ -19,10 +22,11 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import { toast } from 'react-toastify';
 
 // Assurez-vous que cet alias est bien configuré dans votre vite.config.js
-// et que api.service.js exporte bien un objet avec une propriété 'smartlinks'
-import apiService from '@/services/api.service';
+// et que api.service.js exporte bien un objet avec une propriété 'smartlinks'.
+// Si l'alias ne fonctionne pas, utilisez le chemin relatif correct.
+import apiService from '@/services/api.service'; 
 
-// Ce composant reçoit maintenant des fonctions de callback pour la navigation
+// Ce composant reçoit des fonctions de callback pour la navigation depuis AdminPanel
 function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
   const [smartlinks, setSmartlinks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -33,11 +37,11 @@ function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
     setError(null);
     try {
       // Assurez-vous que apiService.smartlinks.getAll existe et fonctionne
-      const response = await apiService.smartlinks.getAll();
+      const response = await apiService.smartlinks.getAll(); 
       
       const smartlinksWithId = (response.data || []).map(sl => ({
         ...sl,
-        id: sl._id, // DataGrid a besoin d'un champ 'id'
+        id: sl._id, // DataGrid a besoin d'un champ 'id' unique pour chaque ligne
         artistName: sl.artistId?.name || 'Artiste inconnu',
         viewCount: sl.viewCount || 0,
         platformClickCount: sl.platformClickCount || 0,
@@ -62,7 +66,7 @@ function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
     if (onNavigateToEdit) {
       onNavigateToEdit(id); // Appel du callback fourni par AdminPanel
     } else {
-      console.error("SmartlinkListPage: La fonction onNavigateToEdit n'a pas été fournie.");
+      console.error("SmartlinkListPage: onNavigateToEdit prop is not defined. Check AdminPanel.jsx.");
     }
   };
 
@@ -70,7 +74,7 @@ function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
     if (onNavigateToCreate) {
       onNavigateToCreate(); // Appel du callback fourni par AdminPanel
     } else {
-      console.error("SmartlinkListPage: La fonction onNavigateToCreate n'a pas été fournie.");
+      console.error("SmartlinkListPage: onNavigateToCreate prop is not defined. Check AdminPanel.jsx.");
     }
   }
 
@@ -79,19 +83,19 @@ function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
       toast.error("Slugs manquants, impossible d'ouvrir le lien.");
       return;
     }
-    // Le chemin ici doit correspondre à votre configuration de route publique dans App.jsx
+    // Ce chemin doit correspondre à votre configuration de route publique dans App.jsx
     // pour le composant SmartLinkPage.jsx public
     const publicUrl = `/smartlink/${artistSlug}/${trackSlug}`; 
-    window.open(publicUrl, '_blank');
+    window.open(publicUrl, '_blank'); // Ouvre dans un nouvel onglet
   };
 
   const handleDelete = async (id, title) => {
     if (window.confirm(`Êtes-vous sûr de vouloir supprimer le SmartLink "${title}" ? Cette action est irréversible.`)) {
       try {
-        setLoading(true); // Peut-être un état de chargement spécifique pour la suppression
+        setLoading(true); 
         await apiService.smartlinks.deleteById(id);
         toast.success(`SmartLink "${title}" supprimé avec succès.`);
-        fetchSmartlinks(); // Recharger la liste
+        fetchSmartlinks(); // Recharger la liste après suppression
       } catch (err) {
         console.error("SmartlinkListPage - Failed to delete SmartLink:", err);
         const errorMsg = err.message || err.data?.error || 'Erreur lors de la suppression du SmartLink.';
@@ -104,11 +108,11 @@ function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
   };
   
   // Définition des colonnes pour le DataGrid
-  // L'annotation de type TypeScript ': GridColDef[]' a été enlevée.
+  // LA LIGNE CI-DESSOUS EST CELLE QUI EST CORRIGÉE (pas de ': GridColDef[]')
   const columns = [
     {
       field: 'coverImageUrl', headerName: 'Pochette', width: 80,
-      renderCell: (params) => params.value ? (<img src={params.value} alt={params.row.trackTitle} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }} />) : null,
+      renderCell: (params) => params.value ? (<img src={params.value} alt={params.row.trackTitle} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }} />) : <Box sx={{width: 40, height: 40, backgroundColor: 'grey.200', borderRadius: 1}} />,
       sortable: false, filterable: false,
     },
     { field: 'trackTitle', headerName: 'Titre', flex: 1, minWidth: 150 },
@@ -121,7 +125,7 @@ function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
     { field: 'platformClickCount', headerName: 'Clics Plateforme', type: 'number', width: 150, align: 'center', headerAlign: 'center' },
     {
       field: 'createdAt', headerName: 'Créé le', type: 'dateTime', width: 180,
-      valueGetter: (value) => value && new Date(value), // Pour le tri/filtre
+      valueGetter: (value) => value && new Date(value), // Pour le tri et le filtre
       renderCell: (params) => params.value && new Date(params.value).toLocaleDateString('fr-FR'), // Affichage localisé
     },
     {
@@ -131,7 +135,7 @@ function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
           <GridActionsCellItem
             icon={<VisibilityIcon />} label="Voir"
             onClick={() => handleViewPublicLink(row.artistId?.slug, row.slug)}
-            disabled={!row.isPublished || !row.artistId?.slug || !row.slug}
+            disabled={!row.isPublished || !row.artistId?.slug || !row.slug} // Assurez-vous que row.artistId contient bien un objet avec 'slug'
             color="inherit"
           />
         </Tooltip>,
@@ -153,9 +157,9 @@ function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
     },
   ];
 
-  if (loading && smartlinks.length === 0) { // Afficher le spinner seulement au chargement initial si la liste est vide
+  if (loading && smartlinks.length === 0) {
     return (
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', py: 5 }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', py: 5, minHeight: 400 }}>
         <CircularProgress size={50} />
         <Typography sx={{ mt: 2 }} variant="h6">Chargement des SmartLinks...</Typography>
       </Box>
@@ -163,38 +167,33 @@ function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
   }
 
   return (
-    // Utiliser des classes CSS de votre admin.css si vous voulez un style non-MUI
-    // ou des composants Paper/Box de MUI pour la structure.
-    // Ce code utilise MUI pour la structure de la page de liste.
-    <Paper sx={{ p: { xs: 1, sm: 2, md: 3 }, width: '100%', overflow: 'hidden', borderRadius: "8px" }}>
+    <Paper sx={{ p: { xs: 1, sm: 2, md: 3 }, width: '100%', overflow: 'hidden', borderRadius: "8px", boxShadow: "none" }}>
       {error && !loading && <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError(null)}>{error}</Alert>}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: 1 }}>
         <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}> 
-          {/* Adaptez le titre si besoin, ex: t('admin.smartlinks_title') */}
           Gestion des SmartLinks
         </Typography>
         <Button
-          variant="contained" // Style MUI
+          variant="contained"
           color="primary"
           startIcon={<AddIcon />}
-          onClick={handleCreateClick} // Appel de la fonction passée en prop
-          // className="btn btn-primary" // Si vous voulez utiliser vos classes CSS
+          onClick={handleCreateClick}
         >
           Nouveau SmartLink
         </Button>
       </Box>
-      <Box sx={{ height: 600, width: '100%' }}> {/* Hauteur fixe pour DataGrid */}
+      <Box sx={{ height: 600, width: '100%' }}>
         <DataGrid
           rows={smartlinks}
           columns={columns}
-          loading={loading} // DataGrid a son propre indicateur de chargement
+          loading={loading}
           pageSizeOptions={[10, 25, 50]}
           initialState={{
             pagination: { paginationModel: { pageSize: 10 } },
             sorting: { sortModel: [{ field: 'createdAt', sort: 'desc' }] },
           }}
           density="standard"
-          autoHeight={false} // Important si la hauteur du Box est définie
+          autoHeight={false}
         />
       </Box>
     </Paper>
