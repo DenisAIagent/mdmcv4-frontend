@@ -1,6 +1,6 @@
 // src/pages/admin/smartlinks/SmartlinkListPage.jsx
 import React, { useState, useEffect, useCallback } from 'react';
-import { useNavigate } from 'react-router-dom';
+// Pas de useNavigate ici si AdminPanel gère la navigation interne
 import {
   Box,
   Typography,
@@ -8,170 +8,139 @@ import {
   CircularProgress,
   Alert,
   Paper,
-  Chip, // Pour afficher le statut Publié/Brouillon
-  Link as MuiLink, // Pour le lien vers la page publique
+  Chip,
   Tooltip,
 } from '@mui/material';
-import { DataGrid, GridActionsCellItem, GridColDef } from '@mui/x-data-grid';
+// On importe GridActionsCellItem mais PAS GridColDef car on n'utilise pas les types TS ici
+import { DataGrid, GridActionsCellItem } from '@mui/x-data-grid'; 
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/DeleteOutline';
-import VisibilityIcon from '@mui/icons-material/Visibility'; // Pour voir le SmartLink
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { toast } from 'react-toastify';
 
-import apiService from '@/services/api.service'; // Vérifiez le chemin
+// Assurez-vous que l'alias @ fonctionne ou utilisez le chemin relatif correct
+import apiService from '@/services/api.service'; 
 
-function SmartlinkListPage() {
+// Accepte les props de navigation depuis AdminPanel
+function SmartlinkListPage({ onNavigateToCreate, onNavigateToEdit }) {
   const [smartlinks, setSmartlinks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
-  // Fonction pour récupérer les SmartLinks, mise en cache avec useCallback
   const fetchSmartlinks = useCallback(async () => {
     setLoading(true);
     setError(null);
     try {
-      console.log("Fetching SmartLinks from API...");
-      // Méthode à créer/utiliser : apiService.smartlinks.getAll()
-      const response = await apiService.smartlinks.getAll();
-      console.log("API response for SmartLinks:", response);
-
-      // DataGrid a besoin d'un champ 'id'. On utilise '_id' de MongoDB.
-      // Assurez-vous que votre API retourne bien '_id' et peuple 'artistId' avec au moins le nom.
+      const response = await apiService.smartlinks.getAll(); 
       const smartlinksWithId = (response.data || []).map(sl => ({
         ...sl,
         id: sl._id,
-        artistName: sl.artistId?.name || 'Artiste inconnu', // Afficher le nom de l'artiste
-        clickCount: sl.clickCount || 0, // Assurer une valeur par défaut pour clickCount
+        artistName: sl.artistId?.name || 'Artiste inconnu',
+        viewCount: sl.viewCount || 0,
+        platformClickCount: sl.platformClickCount || 0,
       }));
       setSmartlinks(smartlinksWithId);
     } catch (err) {
-      console.error("Failed to fetch SmartLinks:", err);
-      const errorMsg = err.response?.data?.message || err.message || 'Erreur serveur lors du chargement des SmartLinks.';
+      console.error("SmartlinkListPage - Failed to fetch SmartLinks:", err);
+      const errorMsg = err.message || err.data?.error || 'Erreur serveur lors du chargement des SmartLinks.';
       setError(errorMsg);
       toast.error(errorMsg);
       setSmartlinks([]);
     } finally {
       setLoading(false);
     }
-  }, []); // useCallback n'a pas de dépendances car il ne dépend pas de props ou state externes pour sa logique interne
+  }, []);
 
-  // Récupérer les SmartLinks au montage du composant
   useEffect(() => {
     fetchSmartlinks();
-  }, [fetchSmartlinks]); // fetchSmartlinks est maintenant une dépendance stable grâce à useCallback
+  }, [fetchSmartlinks]);
 
-  const handleEdit = (id) => {
-    console.log("Edit SmartLink with ID:", id);
-    navigate(`/admin/smartlinks/edit/${id}`); // Route pour l'édition
+  const handleEditClick = (id) => {
+    if (onNavigateToEdit) {
+      onNavigateToEdit(id); 
+    } else {
+      console.error("SmartlinkListPage: onNavigateToEdit prop is not defined.");
+    }
   };
 
-  const handleView = (artistSlug, trackSlug) => {
+  const handleCreateClick = () => {
+    if (onNavigateToCreate) {
+      onNavigateToCreate(); 
+    } else {
+      console.error("SmartlinkListPage: onNavigateToCreate prop is not defined.");
+    }
+  }
+
+  const handleViewPublicLink = (artistSlug, trackSlug) => {
     if (!artistSlug || !trackSlug) {
       toast.error("Slugs manquants, impossible d'ouvrir le lien.");
       return;
     }
-    // Construire l'URL publique. Adaptez si votre structure d'URL est différente.
-    const publicUrl = `/smartlinks/${artistSlug}/${trackSlug}`;
-    window.open(publicUrl, '_blank'); // Ouvre dans un nouvel onglet
+    const publicUrl = `/smartlink/${artistSlug}/${trackSlug}`; 
+    window.open(publicUrl, '_blank');
   };
 
   const handleDelete = async (id, title) => {
-    console.log("Delete SmartLink with ID:", id);
     if (window.confirm(`Êtes-vous sûr de vouloir supprimer le SmartLink "${title}" ? Cette action est irréversible.`)) {
       try {
-        setLoading(true); // Afficher un indicateur pendant la suppression
-        // Méthode à créer/utiliser : apiService.smartlinks.delete(id)
-        await apiService.smartlinks.delete(id);
+        setLoading(true); 
+        await apiService.smartlinks.deleteById(id);
         toast.success(`SmartLink "${title}" supprimé avec succès.`);
-        fetchSmartlinks(); // Recharger la liste après suppression
+        fetchSmartlinks(); 
       } catch (err) {
-        console.error("Failed to delete SmartLink:", err);
-        const errorMsg = err.response?.data?.message || err.message || 'Erreur lors de la suppression du SmartLink.';
-        setError(errorMsg); // Afficher l'erreur sur la page
+        console.error("SmartlinkListPage - Failed to delete SmartLink:", err);
+        const errorMsg = err.message || err.data?.error || 'Erreur lors de la suppression du SmartLink.';
+        setError(errorMsg);
         toast.error(errorMsg);
       } finally {
         setLoading(false);
       }
     }
   };
-
+  
   // Définition des colonnes pour le DataGrid
-  const columns: GridColDef[] = [
+  // LA LIGNE CI-DESSOUS EST CORRIGÉE (pas de ': GridColDef[]')
+  const columns = [
     {
-      field: 'coverImageUrl',
-      headerName: 'Pochette',
-      width: 80,
-      renderCell: (params) =>
-        params.value ? (
-          <img
-            src={params.value}
-            alt={params.row.trackTitle}
-            style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }}
-          />
-        ) : null,
-      sortable: false,
-      filterable: false,
+      field: 'coverImageUrl', headerName: 'Pochette', width: 80,
+      renderCell: (params) => params.value ? (<img src={params.value} alt={params.row.trackTitle} style={{ width: 40, height: 40, objectFit: 'cover', borderRadius: 4 }} />) : null,
+      sortable: false, filterable: false,
     },
-    { field: 'trackTitle', headerName: 'Titre du morceau', width: 250, flex: 1 },
-    { field: 'artistName', headerName: 'Artiste', width: 200, flex: 0.8 },
+    { field: 'trackTitle', headerName: 'Titre', flex: 1, minWidth: 150 },
+    { field: 'artistName', headerName: 'Artiste', flex: 0.8, minWidth: 120 },
     {
-      field: 'isPublished',
-      headerName: 'Statut',
-      width: 120,
-      renderCell: (params) => (
-        <Chip
-          label={params.value ? 'Publié' : 'Brouillon'}
-          color={params.value ? 'success' : 'default'}
-          size="small"
-        />
-      ),
+      field: 'isPublished', headerName: 'Statut', width: 120,
+      renderCell: (params) => (<Chip label={params.value ? 'Publié' : 'Brouillon'} color={params.value ? 'success' : 'default'} size="small" />),
+    },
+    { field: 'viewCount', headerName: 'Vues', type: 'number', width: 100, align: 'center', headerAlign: 'center' },
+    { field: 'platformClickCount', headerName: 'Clics Plateforme', type: 'number', width: 150, align: 'center', headerAlign: 'center' },
+    {
+      field: 'createdAt', headerName: 'Créé le', type: 'dateTime', width: 180,
+      valueGetter: (value) => value && new Date(value),
+      renderCell: (params) => params.value && new Date(params.value).toLocaleDateString('fr-FR'),
     },
     {
-      field: 'clickCount',
-      headerName: 'Clics',
-      type: 'number',
-      width: 100,
-      align: 'center',
-      headerAlign: 'center',
-    },
-    {
-      field: 'createdAt',
-      headerName: 'Créé le',
-      type: 'dateTime',
-      width: 180,
-      valueGetter: (value) => value && new Date(value), // S'assurer que c'est un objet Date pour le tri/filtrage
-      renderCell: (params) => params.value && new Date(params.value).toLocaleDateString(),
-    },
-    {
-      field: 'actions',
-      type: 'actions',
-      headerName: 'Actions',
-      width: 150,
-      cellClassName: 'actions',
+      field: 'actions', type: 'actions', headerName: 'Actions', width: 150,
       getActions: ({ row }) => [
-        <Tooltip title="Voir le SmartLink">
+        <Tooltip title="Voir le SmartLink public" key={`view-${row.id}`}>
           <GridActionsCellItem
-            icon={<VisibilityIcon />}
-            label="Voir"
-            onClick={() => handleView(row.artistId?.slug, row.slug)} // Assurez-vous que artistId.slug et row.slug (trackSlug) sont disponibles
+            icon={<VisibilityIcon />} label="Voir"
+            onClick={() => handleViewPublicLink(row.artistId?.slug, row.slug)}
+            disabled={!row.isPublished || !row.artistId?.slug || !row.slug}
             color="inherit"
-            disabled={!row.isPublished || !row.artistId?.slug || !row.slug} // Désactiver si non publié ou slugs manquants
           />
         </Tooltip>,
-        <Tooltip title="Modifier">
+        <Tooltip title="Modifier" key={`edit-${row.id}`}>
           <GridActionsCellItem
-            icon={<EditIcon />}
-            label="Modifier"
-            onClick={() => handleEdit(row.id)} // Utiliser row.id (qui est _id)
+            icon={<EditIcon />} label="Modifier"
+            onClick={() => handleEditClick(row.id)}
             color="primary"
           />
         </Tooltip>,
-        <Tooltip title="Supprimer">
+        <Tooltip title="Supprimer" key={`delete-${row.id}`}>
           <GridActionsCellItem
-            icon={<DeleteIcon />}
-            label="Supprimer"
+            icon={<DeleteIcon />} label="Supprimer"
             onClick={() => handleDelete(row.id, row.trackTitle)}
             color="error"
           />
@@ -180,48 +149,43 @@ function SmartlinkListPage() {
     },
   ];
 
-  if (loading && smartlinks.length === 0) { // Afficher le chargement initial seulement
+  if (loading && smartlinks.length === 0) {
     return (
-      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: 'calc(100vh - 150px)' }}>
-        <CircularProgress size={60} />
+      <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', py: 5 }}>
+        <CircularProgress size={50} />
         <Typography sx={{ mt: 2 }} variant="h6">Chargement des SmartLinks...</Typography>
       </Box>
     );
   }
 
   return (
-    <Paper sx={{ p: { xs: 1, sm: 2 }, width: '100%', overflow: 'hidden', borderRadius: 2 }}>
+    <Paper sx={{ p: { xs: 1, sm: 2, md: 3 }, width: '100%', overflow: 'hidden', borderRadius: "8px" }}>
       {error && !loading && <Alert severity="error" sx={{ mb: 2 }} onClose={() => setError(null)}>{error}</Alert>}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, flexWrap: 'wrap', gap: 1 }}>
-        <Typography variant="h5" component="h1" sx={{ fontWeight: 'bold' }}>
+        <Typography variant="h5" component="h2" sx={{ fontWeight: 'bold' }}> 
           Gestion des SmartLinks
         </Typography>
         <Button
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
-          onClick={() => navigate('/admin/smartlinks/new')} // Route pour la création
+          onClick={handleCreateClick}
         >
           Nouveau SmartLink
         </Button>
       </Box>
-
-      <Box sx={{ height: 'calc(100vh - 240px)', minHeight: 400, width: '100%' }}> {/* Hauteur ajustable */}
+      <Box sx={{ height: 600, width: '100%' }}>
         <DataGrid
           rows={smartlinks}
           columns={columns}
-          loading={loading} // DataGrid gère son propre indicateur de chargement pour les mises à jour
-          pageSizeOptions={[10, 25, 50, 100]}
+          loading={loading}
+          pageSizeOptions={[10, 25, 50]}
           initialState={{
-            pagination: {
-              paginationModel: { pageSize: 10 },
-            },
-            sorting: { // Tri par défaut par date de création décroissante
-              sortModel: [{ field: 'createdAt', sort: 'desc' }],
-            },
+            pagination: { paginationModel: { pageSize: 10 } },
+            sorting: { sortModel: [{ field: 'createdAt', sort: 'desc' }] },
           }}
-          density="compact" // Pour une table plus dense
-          // autoHeight // Décommentez si vous préférez que la table s'ajuste à son contenu, mais peut impacter la perf sur de grands ensembles
+          density="standard"
+          autoHeight={false}
         />
       </Box>
     </Paper>
