@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 // CHEMIN CSS CORRIGÉ AVEC ALIAS (VÉRIFIEZ VOTRE VITE.CONFIG.JS)
 import '@/assets/css/admin.css'; 
 // SI L'ALIAS NE MARCHE PAS, ESSAYEZ LE CHEMIN RELATIF CORRECT :
-// import '../../assets/css/admin.css'; 
+// import '../../assets/styles/admin.css'; 
 
 // --- Importer les composants pour chaque section ---
 // (Placeholders - remplacez par vos vrais imports)
