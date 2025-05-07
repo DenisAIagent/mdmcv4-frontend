@@ -12,6 +12,10 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import AddIcon from '@mui/icons-material/Add';
 import { toast } from 'react-toastify';
+<<<<<<< HEAD
+=======
+import TrackingPixelsForm from './TrackingPixelsForm';
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
 
 // Adaptez ces chemins d'importation à votre structure de projet
 import { smartLinkSchema } from '@/features/admin/smartlinks/schemas/smartLinkSchema.js'; // Adaptez
@@ -201,10 +205,19 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
             </FormControl>
           </Grid>
           <Grid item xs={12}>
+<<<<<<< HEAD
             <FormControl component="fieldset" fullWidth margin="normal">
               <FormLabel component="legend" sx={{ mb: 1.5, fontWeight: 'medium', fontSize: '1.1rem' }}> Pixels de Tracking (Optionnel) </FormLabel>
               <Grid container spacing={2}> <Grid item xs={12} sm={6}> <TextField {...register('trackingIds.ga4Id')} label="Google Analytics 4 ID (GA4)" fullWidth variant="outlined" error={!!errors.trackingIds?.ga4Id} helperText={errors.trackingIds?.ga4Id?.message} /> </Grid> <Grid item xs={12} sm={6}> <TextField {...register('trackingIds.gtmId')} label="Google Tag Manager ID (GTM)" fullWidth variant="outlined" error={!!errors.trackingIds?.gtmId} helperText={errors.trackingIds?.gtmId?.message} /> </Grid> <Grid item xs={12} sm={6}> <TextField {...register('trackingIds.metaPixelId')} label="Meta Pixel ID (Facebook/Instagram)" fullWidth variant="outlined" error={!!errors.trackingIds?.metaPixelId} helperText={errors.trackingIds?.metaPixelId?.message} /> </Grid> <Grid item xs={12} sm={6}> <TextField {...register('trackingIds.tiktokPixelId')} label="TikTok Pixel ID" fullWidth variant="outlined" error={!!errors.trackingIds?.tiktokPixelId} helperText={errors.trackingIds?.tiktokPixelId?.message} /> </Grid> </Grid>
             </FormControl>
+=======
+            <TrackingPixelsForm 
+              formData={watch('trackingIds')} 
+              setFormData={(newTrackingIds) => {
+                setValue('trackingIds', newTrackingIds, { shouldValidate: true, shouldDirty: true });
+              }} 
+            />
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
           </Grid>
           <Grid item xs={12}>
             <FormControlLabel control={ <Controller name="isPublished" control={control} render={({ field }) => ( <Switch {...field} checked={field.value} color="primary" /> )} /> } label="Publier ce SmartLink (le rendre accessible publiquement)" />

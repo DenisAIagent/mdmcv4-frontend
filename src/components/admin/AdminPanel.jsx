@@ -1,10 +1,26 @@
 // src/components/admin/AdminPanel.jsx
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+<<<<<<< HEAD
 // CHEMIN CSS CORRIGÉ AVEC ALIAS (VÉRIFIEZ VOTRE VITE.CONFIG.JS)
 import '@/assets/styles/admin.css'; 
 // SI L'ALIAS NE MARCHE PAS, ESSAYEZ LE CHEMIN RELATIF CORRECT :
 // import '../../assets/styles/admin.css'; 
+=======
+import { useNavigate } from 'react-router-dom';
+import {
+  Dashboard as DashboardIcon,
+  MusicNote as MusicNoteIcon,
+  Link as LinkIcon,
+  Settings as SettingsIcon,
+  Menu as MenuIcon,
+  ChevronLeft as ChevronLeftIcon,
+  Star as StarIcon,
+  StarBorder as StarBorderIcon,
+} from '@mui/icons-material';
+import '@/assets/styles/admin.css';
+import { apiService } from '../../services/api.service';
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
 
 // --- Importer les composants pour chaque section ---
 // (Placeholders - remplacez par vos vrais imports)
@@ -33,6 +49,7 @@ const DashboardContent = ({ pendingReviewsCount, isLoading }) => ( // Composant 
       </div>
     </section>
 );
+<<<<<<< HEAD
 const ReviewsContent = ({ pendingReviews, isLoading, error, approveReview, rejectReview, generateReviewLink, actionMessage }) => ( // Composant séparé pour les reviews
     <section id="reviews" className="admin-reviews active">
       <h2>Gestion des avis</h2>
@@ -56,6 +73,78 @@ const ReviewsContent = ({ pendingReviews, isLoading, error, approveReview, rejec
         </div>
       )}
     </section>
+=======
+const ReviewsContent = ({ pendingReviews, isLoading, error, approveReview, rejectReview, generateReviewLink, actionMessage }) => (
+  <section id="reviews" className="admin-reviews active">
+    <h2>{t('admin.reviews_management')}</h2>
+    
+    {actionMessage.text && (
+      <div className={`action-message ${actionMessage.type}`}>
+        {actionMessage.text}
+      </div>
+    )}
+
+    <div className="review-actions">
+      <button className="btn btn-primary" onClick={generateReviewLink}>
+        {t('admin.generate_review_link')}
+      </button>
+    </div>
+
+    <h3>{t('admin.pending_reviews')} ({isLoading ? '...' : pendingReviews.length})</h3>
+    
+    {error && <div className="error-message">{error}</div>}
+    
+    {isLoading ? (
+      <div className="loading-spinner">{t('admin.loading')}</div>
+    ) : (
+      <div className="reviews-list">
+        {pendingReviews.length === 0 && !error ? (
+          <p className="no-reviews">{t('admin.no_pending_reviews')}</p>
+        ) : (
+          pendingReviews.map(review => (
+            <div key={review._id} className="review-item">
+              <div className="review-header">
+                <h4>{review.name}</h4>
+                <div className="review-rating">
+                  {[...Array(5)].map((_, i) => (
+                    <span key={i} className={`star ${i < review.rating ? 'filled' : ''}`}>
+                      {i < review.rating ? <StarIcon /> : <StarBorderIcon />}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <p className="review-email">{review.email}</p>
+              <p className="review-date">
+                {t('admin.received_on')}: {new Date(review.createdAt).toLocaleDateString('fr-FR', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: 'numeric',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}
+              </p>
+              <p className="review-message">{review.message}</p>
+              <div className="review-actions">
+                <button 
+                  className="btn btn-approve" 
+                  onClick={() => handleReviewAction(review._id, 'approve')}
+                >
+                  {t('admin.approve')}
+                </button>
+                <button 
+                  className="btn btn-reject" 
+                  onClick={() => handleReviewAction(review._id, 'reject')}
+                >
+                  {t('admin.reject')}
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+    )}
+  </section>
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
 );
 const GenericContent = ({ id, title }) => ( // Composant générique pour les sections non implémentées
     <section id={id} className={`${id} active`}>
@@ -72,6 +161,7 @@ import SmartlinkEditPage from '../../pages/admin/smartlinks/SmartlinkEditPage';
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
+<<<<<<< HEAD
 // Configuration du menu (pour éviter la répétition)
 const menuConfig = [
   { id: 'dashboard', translationKey: 'admin.dashboard_nav', icon: <svg width="24" height="24" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="2" stroke="currentColor"/><rect x="14" y="3" width="7" height="5" rx="2" stroke="currentColor"/><rect x="14" y="12" width="7" height="9" rx="2" stroke="currentColor"/><rect x="3" y="16" width="7" height="5" rx="2" stroke="currentColor"/></svg>, defaultText: 'Tableau de bord' },
@@ -90,29 +180,58 @@ const menuConfig = [
 const AdminPanel = () => {
   const { t } = useTranslation();
   const [activeTab, setActiveTab] = useState(menuConfig[0].id);
+=======
+const AdminPanel = () => {
+  const { t } = useTranslation();
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState('dashboard');
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
   
   const [smartlinkView, setSmartlinkView] = useState('list');
   const [editingSmartlinkId, setEditingSmartlinkId] = useState(null);
 
   const [pendingReviews, setPendingReviews] = useState([]);
   const [isLoadingReviews, setIsLoadingReviews] = useState(false);
+<<<<<<< HEAD
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [fetchErrorReviews, setFetchErrorReviews] = useState(null);
   const [actionMessageReviews, setActionMessageReviews] = useState({ type: '', text: '' });
+=======
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [isMobileSidebarVisible, setIsMobileSidebarVisible] = useState(false);
+  const [fetchErrorReviews, setFetchErrorReviews] = useState(null);
+  const [actionMessageReviews, setActionMessageReviews] = useState({ type: '', text: '' });
+  const [stats, setStats] = useState({
+    totalArtists: 0,
+    totalSmartLinks: 0,
+    totalReviews: 0,
+  });
+  const [loading, setLoading] = useState(true);
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
 
   useEffect(() => {
     const handleResize = () => {
       const mobileCheck = window.innerWidth < 768;
+<<<<<<< HEAD
       setIsMobile(mobileCheck);
       if (!mobileCheck && sidebarCollapsed && isMobile) { 
         setSidebarCollapsed(false); 
+=======
+      setIsMobileSidebarVisible(mobileCheck);
+      if (!mobileCheck && isSidebarCollapsed && isMobileSidebarVisible) { 
+        setIsSidebarCollapsed(false); 
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
       }
     };
     window.addEventListener('resize', handleResize);
     handleResize();
     return () => window.removeEventListener('resize', handleResize);
+<<<<<<< HEAD
   }, [isMobile, sidebarCollapsed]);
+=======
+  }, [isMobileSidebarVisible, isSidebarCollapsed]);
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
 
   const fetchPendingReviews = useCallback(async () => {
     if (!VITE_API_URL) { console.error("VITE_API_URL non définie"); setFetchErrorReviews("Erreur config API."); return; }
@@ -138,6 +257,29 @@ const AdminPanel = () => {
     }
   }, [activeTab, fetchPendingReviews]);
 
+<<<<<<< HEAD
+=======
+  useEffect(() => {
+    fetchDashboardData();
+  }, []);
+
+  const fetchDashboardData = async () => {
+    try {
+      setLoading(true);
+      const [reviewsResponse, statsResponse] = await Promise.all([
+        apiService.reviews.getPendingReviews(),
+        apiService.getDashboardStats(),
+      ]);
+      setPendingReviews(reviewsResponse.data);
+      setStats(statsResponse.data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
   const handleLogout = () => {
     localStorage.removeItem('mdmc_admin_auth');
     window.location.href = '/admin'; 
@@ -153,11 +295,51 @@ const AdminPanel = () => {
     });
     return link;
   };
+<<<<<<< HEAD
   const toggleSidebar = () => { setSidebarCollapsed(!sidebarCollapsed); };
 
   const updateReview = async (id, newStatus) => { /* ... */ };
   const approveReview = (id) => { updateReview(id, 'approved'); };
   const rejectReview = (id) => { updateReview(id, 'rejected'); };
+=======
+  const toggleSidebar = () => { setIsSidebarCollapsed(!isSidebarCollapsed); };
+
+  const handleReviewAction = async (reviewId, action) => {
+    try {
+      setActionMessageReviews({ type: 'loading', text: t('admin.loading') });
+      
+      const response = await fetch(`${VITE_API_URL}/reviews/${reviewId}/${action}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('mdmc_admin_auth')}`
+        }
+      });
+
+      if (!response.ok) {
+        throw new Error(`Erreur HTTP: ${response.status}`);
+      }
+
+      const data = await response.json();
+      
+      if (data.success) {
+        setPendingReviews(prev => prev.filter(review => review._id !== reviewId));
+        setActionMessageReviews({ 
+          type: 'success', 
+          text: action === 'approve' ? t('admin.review_approved') : t('admin.review_rejected') 
+        });
+      } else {
+        throw new Error(data.message || 'Erreur lors de la mise à jour de l\'avis');
+      }
+    } catch (err) {
+      console.error('Erreur lors de la mise à jour de l\'avis:', err);
+      setActionMessageReviews({ 
+        type: 'error', 
+        text: err.message || t('admin.review_update_error') 
+      });
+    }
+  };
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
 
   const handleNavigateToCreateSmartlink = () => {
     setEditingSmartlinkId(null);
@@ -190,8 +372,13 @@ const AdminPanel = () => {
                   pendingReviews={pendingReviews} 
                   isLoading={isLoadingReviews} 
                   error={fetchErrorReviews}
+<<<<<<< HEAD
                   approveReview={approveReview}
                   rejectReview={rejectReview}
+=======
+                  approveReview={handleReviewAction}
+                  rejectReview={handleReviewAction}
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
                   generateReviewLink={generateReviewLink}
                   actionMessage={actionMessageReviews}
                 />;
@@ -219,6 +406,7 @@ const AdminPanel = () => {
     }
   };
 
+<<<<<<< HEAD
   return (
     <div className={`admin-panel ${sidebarCollapsed && !isMobile ? 'sidebar-collapsed' : ''}`}>
       <AdminChatbot />
@@ -277,6 +465,67 @@ const AdminPanel = () => {
           {renderContent()}
         </div>
       </main>
+=======
+  if (loading) {
+    return <div className="loading-spinner">{t('common.loading')}</div>;
+  }
+
+  if (fetchErrorReviews) {
+    return <div className="error-message">{fetchErrorReviews}</div>;
+  }
+
+  return (
+    <div className={`admin-panel ${isSidebarCollapsed ? 'sidebar-collapsed' : ''}`}>
+      {/* Mobile Header */}
+      <div className="admin-header">
+        <button
+          className="mobile-menu-toggle"
+          onClick={() => setIsMobileSidebarVisible(!isMobileSidebarVisible)}
+        >
+          <MenuIcon />
+        </button>
+        <h1>{t('admin.title')}</h1>
+      </div>
+
+      {/* Sidebar */}
+      <aside className={`admin-sidebar ${isMobileSidebarVisible ? 'mobile-sidebar-visible' : ''}`}>
+        <div className="sidebar-header">
+          <div className="admin-logo">
+            <h1>MDMC</h1>
+            <p>{t('admin.subtitle')}</p>
+          </div>
+          <button
+            className="sidebar-toggle"
+            onClick={toggleSidebar}
+          >
+            {isSidebarCollapsed ? <MenuIcon /> : <ChevronLeftIcon />}
+          </button>
+        </div>
+
+        <nav className="admin-nav">
+          {menuItems.map((item) => (
+            <button
+              key={item.path}
+              className={`nav-item ${window.location.pathname === item.path ? 'active' : ''}`}
+              onClick={() => navigate(item.path)}
+            >
+              {item.icon}
+              <span className="nav-text">{item.text}</span>
+            </button>
+          ))}
+        </nav>
+      </aside>
+
+      {/* Main Content */}
+      <main className="admin-content">
+        {renderContent()}
+      </main>
+
+      {/* Chatbot Button */}
+      <button className="admin-chatbot-placeholder">
+        <span>💬</span>
+      </button>
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
     </div>
   );
 };

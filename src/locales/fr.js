@@ -239,6 +239,7 @@ export default {
     "campaign_started": "Campagne démarrée",
 
     // Clés pour la Gestion des Avis
+<<<<<<< HEAD
     "reviews_management": "Gestion des avis", // Titre de la page/section
     "generate_review_link": "Générer un lien d'avis",
     "link_copied": "Lien copié dans le presse-papiers !",
@@ -246,6 +247,21 @@ export default {
     "approve": "Approuver",
     "reject": "Rejeter",
     "loading": "Chargement...", // Texte de chargement générique
+=======
+    "reviews_management": "Gestion des avis",
+    "generate_review_link": "Générer un lien d'avis",
+    "link_copied": "Lien copié dans le presse-papiers !",
+    "no_pending_reviews": "Aucun avis en attente",
+    "received_on": "Reçu le",
+    "review_approved": "Avis approuvé avec succès",
+    "review_rejected": "Avis rejeté avec succès",
+    "review_update_error": "Erreur lors de la mise à jour de l'avis",
+    "approve": "Approuver",
+    "reject": "Rejeter",
+    "loading": "Chargement...",
+    "error": "Une erreur est survenue",
+    "success": "Opération réussie",
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
 
     // Clés pour la Gestion de Contenu
     "content_management": "Gestion du contenu",
@@ -350,6 +366,81 @@ export default {
       "send": "Envoyer",
       "close": "Fermer",
       "open": "Ouvrir l'assistant"
+<<<<<<< HEAD
     }
+=======
+    },
+
+    // Navigation
+    "dashboard_nav": "Tableau de bord",
+    "smartlinks_nav": "Smartlinks",
+    "artists_nav": "Artistes",
+    "reviews_nav": "Avis",
+    "content_nav": "Contenu",
+    "settings_nav": "Paramètres",
+
+    // SmartLinks
+    "smartlinks": {
+      "title": "SmartLinks",
+      "create": "Créer un SmartLink",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "view": "Voir",
+      "track_title": "Titre",
+      "artist": "Artiste",
+      "release_date": "Date de sortie",
+      "status": "Statut",
+      "published": "Publié",
+      "draft": "Brouillon",
+      "actions": "Actions",
+      "tracking_pixels": "Pixels de tracking",
+      "enable_ga4": "Activer Google Analytics 4",
+      "ga4_measurement_id": "ID de mesure GA4",
+      "ga4_measurement_id_help": "Format: G-XXXXXXXX",
+      "enable_gtm": "Activer Google Tag Manager",
+      "gtm_container_id": "ID du conteneur GTM",
+      "gtm_container_id_help": "Format: GTM-XXXXXX",
+      "enable_meta_pixel": "Activer Meta Pixel",
+      "meta_pixel_id": "ID du Pixel Meta",
+      "meta_pixel_id_help": "Format: XXXXXXXXXXXXXXX",
+      "enable_tiktok_pixel": "Activer TikTok Pixel",
+      "tiktok_pixel_id": "ID du Pixel TikTok",
+      "tiktok_pixel_id_help": "Format: XXXXXXXXXXXXXXX",
+      "tracking_pixels_info": "Les pixels de tracking vous permettent de suivre les conversions et le comportement des utilisateurs sur votre SmartLink. Assurez-vous d'avoir les autorisations nécessaires pour utiliser ces outils de tracking.",
+      "analytics": {
+        "title": "Analytics du SmartLink",
+        "total_views": "Vues totales",
+        "total_clicks": "Clics totaux",
+        "conversion_rate": "Taux de conversion",
+        "platform_metrics": "Métriques par plateforme",
+        "trends": "Tendances",
+        "views": "Vues",
+        "clicks": "Clics",
+        "start_date": "Date de début",
+        "end_date": "Date de fin",
+        "platform": "Plateforme",
+        "clicks_count": "Nombre de clics",
+        "clicks_percentage": "% des clics totaux",
+        "conversion_rate_platform": "Taux de conversion",
+        "daily_views": "Vues quotidiennes",
+        "daily_clicks": "Clics quotidiens",
+        "no_data": "Aucune donnée disponible",
+        "loading": "Chargement des données...",
+        "error": "Erreur lors du chargement des données"
+      }
+    },
+
+    title: 'MDMC Admin',
+    subtitle: 'Administration',
+    totalArtists: 'Total Artistes',
+    totalSmartLinks: 'Total SmartLinks',
+    totalReviews: 'Total Avis',
+    pendingReviews: 'Avis en attente',
+    noPendingReviews: 'Aucun avis en attente',
+    approve: 'Approuver',
+    reject: 'Rejeter',
+    error: 'Une erreur est survenue',
+    success: 'Opération réussie',
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
   } // Fin de la section admin
 }
