@@ -291,8 +291,22 @@ export default {
       "ga_page_views": "Vues de page",
       "ga_scroll_tracking": "Suivi du défilelement",
       "ga_outbound_links": "Clics sur liens sortants",
-      "ga_form_submissions": "Soumissions de formulaires"
-      // ... autres clés ...
+      "ga_form_submissions": "Soumissions de formulaires",
+      "conversion_dashboard": "Tableau de bord des conversions",
+      "select_source": "Sélectionner la source",
+      "total_conversions": "Conversions totales",
+      "conversion_rate": "Taux de conversion",
+      "conversions_by_platform": "Conversions par plateforme",
+      "daily_trends": "Tendances quotidiennes",
+      "conversions": "Conversions",
+      "clicks": "Clics",
+      "error_loading_data": "Erreur lors du chargement des données",
+      "source": {
+        "GA4": "Google Analytics 4",
+        "GOOGLE_ADS": "Google Ads",
+        "META": "Meta Pixel",
+        "TIKTOK": "TikTok Pixel"
+      }
     },
 
     // Clés pour le Connecteur WordPress (page dédiée)
@@ -304,7 +318,6 @@ export default {
       "app_password": "Mot de passe d'application",
       "app_password_tooltip": "Créez un mot de passe d'application dans votre profil WP > Sécurité.",
       "test_connection": "Tester la Connexion"
-      // ... autres clés ...
     },
 
     // Clés pour le Générateur de Landing Page (page dédiée)

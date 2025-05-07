@@ -10,6 +10,8 @@ import {
   AccordionSummary,
   AccordionDetails,
   Alert,
+  Grid,
+  Paper,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AnalyticsIcon from '@mui/icons-material/Analytics';
@@ -33,10 +35,120 @@ const TrackingPixelsForm = ({ formData, setFormData }) => {
   };
 
   return (
-    <Box sx={{ mt: 3 }}>
+    <Paper sx={{ p: 3, mb: 3 }}>
       <Typography variant="h6" gutterBottom>
-        {t('admin.smartlinks.tracking_pixels')}
+        Configuration des Pixels de Tracking
       </Typography>
+      
+      <Grid container spacing={3}>
+        {/* Google Analytics 4 */}
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label="ID GA4 de l'artiste"
+            name="trackingIds.ga4.artistId"
+            value={formData.trackingIds?.ga4?.artistId || ''}
+            onChange={(e) => handlePixelChange('ga4', 'artistId', e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="ID Propriété GA4 du single"
+            name="trackingIds.ga4.propertyId"
+            value={formData.trackingIds?.ga4?.propertyId || ''}
+            onChange={(e) => handlePixelChange('ga4', 'propertyId', e.target.value)}
+            margin="normal"
+          />
+        </Grid>
+
+        {/* Google Tag Manager */}
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label="ID GTM de l'artiste"
+            name="trackingIds.gtm.artistId"
+            value={formData.trackingIds?.gtm?.artistId || ''}
+            onChange={(e) => handlePixelChange('gtm', 'artistId', e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="ID Conteneur GTM du single"
+            name="trackingIds.gtm.containerId"
+            value={formData.trackingIds?.gtm?.containerId || ''}
+            onChange={(e) => handlePixelChange('gtm', 'containerId', e.target.value)}
+            margin="normal"
+          />
+        </Grid>
+
+        {/* Google Ads */}
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label="ID Conversion Google Ads de l'artiste"
+            name="trackingIds.googleAds.artistId"
+            value={formData.trackingIds?.googleAds?.artistId || ''}
+            onChange={(e) => handlePixelChange('googleAds', 'artistId', e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="ID Conversion Google Ads du single"
+            name="trackingIds.googleAds.conversionId"
+            value={formData.trackingIds?.googleAds?.conversionId || ''}
+            onChange={(e) => handlePixelChange('googleAds', 'conversionId', e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="Label de conversion Google Ads"
+            name="trackingIds.googleAds.label"
+            value={formData.trackingIds?.googleAds?.label || ''}
+            onChange={(e) => handlePixelChange('googleAds', 'label', e.target.value)}
+            margin="normal"
+          />
+        </Grid>
+
+        {/* Meta Pixel */}
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label="ID Meta Pixel de l'artiste"
+            name="trackingIds.meta.artistId"
+            value={formData.trackingIds?.meta?.artistId || ''}
+            onChange={(e) => handlePixelChange('meta', 'artistId', e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="ID Meta Pixel du single"
+            name="trackingIds.meta.pixelId"
+            value={formData.trackingIds?.meta?.pixelId || ''}
+            onChange={(e) => handlePixelChange('meta', 'pixelId', e.target.value)}
+            margin="normal"
+          />
+        </Grid>
+
+        {/* TikTok Pixel */}
+        <Grid item xs={12} md={6}>
+          <TextField
+            fullWidth
+            label="ID TikTok Pixel de l'artiste"
+            name="trackingIds.tiktok.artistId"
+            value={formData.trackingIds?.tiktok?.artistId || ''}
+            onChange={(e) => handlePixelChange('tiktok', 'artistId', e.target.value)}
+            margin="normal"
+          />
+          <TextField
+            fullWidth
+            label="ID TikTok Pixel du single"
+            name="trackingIds.tiktok.pixelId"
+            value={formData.trackingIds?.tiktok?.pixelId || ''}
+            onChange={(e) => handlePixelChange('tiktok', 'pixelId', e.target.value)}
+            margin="normal"
+          />
+        </Grid>
+      </Grid>
 
       <Accordion defaultExpanded>
         <AccordionSummary expandIcon={<ExpandMoreIcon />}>
@@ -150,7 +262,7 @@ const TrackingPixelsForm = ({ formData, setFormData }) => {
       <Alert severity="info" sx={{ mt: 2 }}>
         {t('admin.smartlinks.tracking_pixels_info')}
       </Alert>
-    </Box>
+    </Paper>
   );
 };
 

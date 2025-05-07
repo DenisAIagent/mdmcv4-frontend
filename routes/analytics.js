@@ -9,4 +9,7 @@ router.post('/events', analyticsController.trackEvent);
 // Route pour récupérer les analytics d'un SmartLink
 router.get('/smartlinks/:smartLinkId', authenticateToken, analyticsController.getSmartLinkAnalytics);
 
+// Route pour récupérer les conversions
+router.get('/conversions', authenticateToken, analyticsController.getConversions);
+
 module.exports = router; 

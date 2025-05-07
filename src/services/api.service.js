@@ -154,6 +154,25 @@ const apiService = {
         throw error;
       }
     },
+
+    async getConversions({ source, startDate, endDate }) {
+      try {
+        const response = await axios.get(`${API_CONFIG.BASE_URL}/analytics/conversions`, {
+          params: {
+            source,
+            startDate,
+            endDate
+          },
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`
+          }
+        });
+        return response.data;
+      } catch (error) {
+        console.error('Erreur lors de la récupération des conversions:', error);
+        throw error;
+      }
+    }
   },
   // apiClientInstance: apiClient, // Si vous avez besoin d'accéder directement à l'instance
 };

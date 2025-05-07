@@ -143,4 +143,261 @@ exports.getSmartLinkAnalytics = async (req, res) => {
       error: 'Erreur lors de la récupération des analytics'
     });
   }
+};
+
+// Récupérer les données de conversion
+exports.getConversions = async (req, res) => {
+  try {
+    const { source, startDate, endDate } = req.query;
+
+    // Vérifier le cache
+    const cacheKey = `conversions:${source}:${startDate}:${endDate}`;
+    const cachedData = await cache.get(cacheKey);
+    if (cachedData) {
+      logger.info(`Données de conversion récupérées du cache pour ${source}`);
+      return res.json(cachedData);
+    }
+
+    // Construire le filtre de date
+    const dateFilter = {};
+    if (startDate || endDate) {
+      dateFilter.timestamp = {};
+      if (startDate) dateFilter.timestamp.$gte = new Date(startDate);
+      if (endDate) dateFilter.timestamp.$lte = new Date(endDate);
+    }
+
+    // Récupérer les événements selon la source
+    let events;
+    switch (source) {
+      case 'GA4':
+        events = await AnalyticsEvent.find({
+          type: 'conversion',
+          source: 'ga4',
+          ...dateFilter
+        });
+        break;
+      case 'GOOGLE_ADS':
+        events = await AnalyticsEvent.find({
+          type: 'conversion',
+          source: 'google_ads',
+          ...dateFilter
+        });
+        break;
+      case 'META':
+        events = await AnalyticsEvent.find({
+          type: 'conversion',
+          source: 'meta',
+          ...dateFilter
+        });
+        break;
+      case 'TIKTOK':
+        events = await AnalyticsEvent.find({
+          type: 'conversion',
+          source: 'tiktok',
+          ...dateFilter
+        });
+        break;
+      default:
+        events = await AnalyticsEvent.find({
+          type: 'conversion',
+          ...dateFilter
+        });
+    }
+
+    // Calculer les métriques
+    const totalConversions = events.length;
+    const totalClicks = await AnalyticsEvent.countDocuments({
+      type: 'platform_click',
+      ...dateFilter
+    });
+    const conversionRate = totalClicks > 0 ? totalConversions / totalClicks : 0;
+
+    // Calculer la valeur totale des conversions
+    const totalConversionValue = events.reduce((sum, event) => sum + (event.conversionValue || 0), 0);
+
+    // Calculer le temps moyen jusqu'à la conversion
+    const conversionTimes = await AnalyticsEvent.aggregate([
+      {
+        $match: {
+          type: 'conversion',
+          ...dateFilter
+        }
+      },
+      {
+        $lookup: {
+          from: 'analyticevents',
+          let: { smartLinkId: '$smartLinkId', timestamp: '$timestamp' },
+          pipeline: [
+            {
+              $match: {
+                $expr: {
+                  $and: [
+                    { $eq: ['$smartLinkId', '$$smartLinkId'] },
+                    { $eq: ['$type', 'platform_click'] },
+                    { $lt: ['$timestamp', '$$timestamp'] }
+                  ]
+                }
+              }
+            },
+            {
+              $sort: { timestamp: -1 }
+            },
+            {
+              $limit: 1
+            }
+          ],
+          as: 'lastClick'
+        }
+      },
+      {
+        $match: {
+          lastClick: { $ne: [] }
+        }
+      },
+      {
+        $project: {
+          timeToConvert: {
+            $divide: [
+              { $subtract: ['$timestamp', { $arrayElemAt: ['$lastClick.timestamp', 0] }] },
+              1000 * 60 // Convertir en minutes
+            ]
+          }
+        }
+      }
+    ]);
+
+    const averageTimeToConvert = conversionTimes.length > 0
+      ? conversionTimes.reduce((sum, event) => sum + event.timeToConvert, 0) / conversionTimes.length
+      : 0;
+
+    // Calculer les conversions par plateforme avec plus de détails
+    const platformBreakdown = await AnalyticsEvent.aggregate([
+      {
+        $match: {
+          type: 'platform_click',
+          ...dateFilter
+        }
+      },
+      {
+        $group: {
+          _id: '$platform',
+          clicks: { $sum: 1 },
+          conversions: {
+            $sum: {
+              $cond: [
+                { $eq: ['$converted', true] },
+                1,
+                0
+              ]
+            }
+          },
+          conversionValue: {
+            $sum: {
+              $cond: [
+                { $eq: ['$converted', true] },
+                '$conversionValue',
+                0
+              ]
+            }
+          }
+        }
+      },
+      {
+        $project: {
+          platform: '$_id',
+          clicks: 1,
+          conversions: 1,
+          conversionValue: 1,
+          conversionRate: {
+            $multiply: [
+              { $divide: ['$conversions', '$clicks'] },
+              100
+            ]
+          },
+          _id: 0
+        }
+      }
+    ]);
+
+    // Calculer les données quotidiennes avec plus de détails
+    const dailyData = await AnalyticsEvent.aggregate([
+      {
+        $match: {
+          type: 'platform_click',
+          ...dateFilter
+        }
+      },
+      {
+        $group: {
+          _id: {
+            $dateToString: {
+              format: '%Y-%m-%d',
+              date: '$timestamp'
+            }
+          },
+          clicks: { $sum: 1 },
+          conversions: {
+            $sum: {
+              $cond: [
+                { $eq: ['$converted', true] },
+                1,
+                0
+              ]
+            }
+          },
+          conversionValue: {
+            $sum: {
+              $cond: [
+                { $eq: ['$converted', true] },
+                '$conversionValue',
+                0
+              ]
+            }
+          }
+        }
+      },
+      {
+        $project: {
+          date: '$_id',
+          clicks: 1,
+          conversions: 1,
+          conversionValue: 1,
+          conversionRate: {
+            $multiply: [
+              { $divide: ['$conversions', '$clicks'] },
+              100
+            ]
+          },
+          _id: 0
+        }
+      },
+      {
+        $sort: { date: 1 }
+      }
+    ]);
+
+    const response = {
+      success: true,
+      data: {
+        totalConversions,
+        totalConversionValue,
+        conversionRate,
+        averageTimeToConvert,
+        platformBreakdown,
+        dailyData
+      }
+    };
+
+    // Mettre en cache pour 5 minutes
+    await cache.set(cacheKey, response, 300);
+
+    logger.info(`Données de conversion récupérées pour ${source}`);
+    res.json(response);
+  } catch (error) {
+    logger.error('Erreur lors de la récupération des conversions:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Erreur lors de la récupération des conversions'
+    });
+  }
 }; 
