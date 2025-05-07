@@ -26,12 +26,14 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { toast } from 'react-toastify';
 
 // Schéma de validation Zod
-// CORRECTION APPLIQUÉE ICI : Chemin d'importation complet et correct avec l'extension .js
+// CORRECTION 1: Chemin d'importation complet et correct pour smartLinkSchema
 import { smartLinkSchema } from '@/features/admin/smartlinks/schemas/smartLinkSchema.js';
 
 // Composant pour l'upload d'image
-import ImageUpload from '@/components/common/ImageUpload';
-// Service API
+// CORRECTION 2: Chemin d'importation complet et correct pour ImageUpload
+import ImageUpload from '@/features/admin/components/ImageUpload.jsx';
+
+// Service API (s'assurer que le chemin est correct - à vérifier si besoin)
 import apiService from '@/services/api.service';
 
 const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
