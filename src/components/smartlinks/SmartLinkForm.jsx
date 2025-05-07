@@ -1,6 +1,6 @@
 // src/components/smartlinks/SmartLinkForm.jsx
 import React, { useState, useEffect } from 'react';
-import { useForm, Controller, useFieldArray } from 'react-hook-form'; // Ajout de useFieldArray
+import { useForm, Controller, useFieldArray } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
   TextField,
@@ -17,20 +17,21 @@ import {
   FormControlLabel,
   Switch,
   CircularProgress,
-  IconButton, // Pour les boutons d'ajout/suppression
-  FormLabel, // Pour les groupes de champs
-  Tooltip, // Pour des aides contextuelles
+  IconButton,
+  FormLabel,
+  Tooltip,
 } from '@mui/material';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { toast } from 'react-toastify';
 
-// Schéma de validation Zod (s'assurer que le chemin est correct et que le schéma est complet)
-// CORRECTION APPLIQUÉE ICI : Ajout de l'extension .js
-import { smartLinkSchema } from '@/schemas/smartLinkSchema.js';
-// Composant pour l'upload d'image (s'assurer que le chemin est correct)
-import ImageUpload from '@/components/common/ImageUpload'; // Exemple de chemin pour un composant commun
-// Service API (s'assurer que le chemin est correct)
+// Schéma de validation Zod
+// CORRECTION APPLIQUÉE ICI : Chemin d'importation complet et correct avec l'extension .js
+import { smartLinkSchema } from '@/features/admin/smartlinks/schemas/smartLinkSchema.js';
+
+// Composant pour l'upload d'image
+import ImageUpload from '@/components/common/ImageUpload';
+// Service API
 import apiService from '@/services/api.service';
 
 const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
@@ -45,7 +46,7 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
     control,
     setValue,
     watch,
-    formState: { errors, isSubmitting, dirtyFields }, // dirtyFields peut être utile
+    formState: { errors, isSubmitting },
     reset,
   } = useForm({
     resolver: zodResolver(smartLinkSchema),
@@ -54,14 +55,12 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
       artistId: smartLinkData?.artistId?._id || smartLinkData?.artistId || '',
       coverImageUrl: smartLinkData?.coverImageUrl || '',
       releaseDate: smartLinkData?.releaseDate
-        ? new Date(`${smartLinkData.releaseDate}T00:00:00`) // Assurer interprétation locale
+        ? new Date(`${smartLinkData.releaseDate}T00:00:00`)
         : null,
       description: smartLinkData?.description || '',
-      // Initialiser platformLinks avec au moins un champ vide ou les données existantes
       platformLinks: smartLinkData?.platformLinks?.length
         ? smartLinkData.platformLinks
         : [{ platform: '', url: '' }],
-      // Initialiser trackingIds comme un objet vide ou avec les données existantes
       trackingIds: {
         ga4Id: smartLinkData?.trackingIds?.ga4Id || '',
         gtmId: smartLinkData?.trackingIds?.gtmId || '',
@@ -73,7 +72,6 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
     },
   });
 
-  // Hook pour gérer les champs dynamiques platformLinks
   const { fields: platformLinkFields, append: appendPlatformLink, remove: removePlatformLink } = useFieldArray({
     control,
     name: "platformLinks"
@@ -114,13 +112,11 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
       releaseDate: data.releaseDate
         ? new Date(data.releaseDate).toISOString().split('T')[0]
         : null,
-      // Filtrer les trackingIds vides pour ne pas les envoyer au backend si non désirés
       trackingIds: Object.fromEntries(
         Object.entries(data.trackingIds).filter(([_, value]) => value && value.trim() !== '')
       )
     };
 
-    // Filtrer les platformLinks vides avant soumission
     submissionData.platformLinks = submissionData.platformLinks.filter(link => link.platform && link.url);
 
     console.log('Données du formulaire SmartLink soumises:', submissionData);
@@ -156,9 +152,7 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
           slug: '',
         });
       } else {
-        // En mode édition, on peut vouloir réinitialiser le formulaire avec les nouvelles données
-        // pour mettre à jour l'état 'dirty' et les valeurs affichées, si le backend modifie des données.
-        reset(submissionData); // Ou mieux, avec les données retournées par le serveur: responseData.data || responseData
+        reset(submissionData);
       }
     } catch (error) {
       console.error('Erreur de soumission du formulaire:', error);
@@ -293,7 +287,7 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
               onUploadSuccess={handleImageUploadSuccess}
               initialImageUrl={watch('coverImageUrl') || null}
               buttonText="Télécharger la pochette"
-              apiUploadFunction={apiService.upload.uploadImage} // Passer la fonction d'upload réelle
+              apiUploadFunction={apiService.upload.uploadImage}
             />
             <input type="hidden" {...register('coverImageUrl')} />
             {errors.coverImageUrl && (
@@ -316,7 +310,6 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
             />
           </Grid>
 
-          {/* Section Liens des plateformes */}
           <Grid item xs={12}>
             <FormControl component="fieldset" fullWidth margin="normal">
               <FormLabel component="legend" sx={{ mb: 1, fontWeight: 'medium', fontSize: '1.1rem' }}>
@@ -383,7 +376,6 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
             </FormControl>
           </Grid>
 
-          {/* Section Pixels de Tracking */}
           <Grid item xs={12}>
              <FormControl component="fieldset" fullWidth margin="normal">
               <FormLabel component="legend" sx={{ mb: 1, fontWeight: 'medium', fontSize: '1.1rem' }}>
