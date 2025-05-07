@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 // CHEMIN CSS CORRIGÉ AVEC ALIAS (VÉRIFIEZ VOTRE VITE.CONFIG.JS)
-import '@/assets/css/admin.css'; 
+import '@/assets/styles/admin.css'; 
 // SI L'ALIAS NE MARCHE PAS, ESSAYEZ LE CHEMIN RELATIF CORRECT :
 // import '../../assets/styles/admin.css'; 
 
