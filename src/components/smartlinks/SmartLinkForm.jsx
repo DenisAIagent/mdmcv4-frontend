@@ -26,7 +26,8 @@ import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
 import { toast } from 'react-toastify';
 
 // Schéma de validation Zod (s'assurer que le chemin est correct et que le schéma est complet)
-import { smartLinkSchema } from '@/schemas/smartLinkSchema'; // Ajustez le chemin si nécessaire
+// CORRECTION APPLIQUÉE ICI : Ajout de l'extension .js
+import { smartLinkSchema } from '@/schemas/smartLinkSchema.js';
 // Composant pour l'upload d'image (s'assurer que le chemin est correct)
 import ImageUpload from '@/components/common/ImageUpload'; // Exemple de chemin pour un composant commun
 // Service API (s'assurer que le chemin est correct)
@@ -121,7 +122,6 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
 
     // Filtrer les platformLinks vides avant soumission
     submissionData.platformLinks = submissionData.platformLinks.filter(link => link.platform && link.url);
-
 
     console.log('Données du formulaire SmartLink soumises:', submissionData);
 
@@ -378,8 +378,8 @@ const SmartLinkForm = ({ smartLinkData = null, onFormSubmitSuccess }) => {
                 Ajouter un lien de plateforme
               </Button>
                {errors.platformLinks && typeof errors.platformLinks === 'object' && !Array.isArray(errors.platformLinks) && (
-                <FormHelperText error>{errors.platformLinks.message || errors.platformLinks.root?.message}</FormHelperText>
-              )}
+                 <FormHelperText error>{errors.platformLinks.message || errors.platformLinks.root?.message}</FormHelperText>
+               )}
             </FormControl>
           </Grid>
 
