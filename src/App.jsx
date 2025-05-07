@@ -20,7 +20,10 @@ import Header from './components/layout/Header';
 import Footer from './components/layout/Footer';
 import Simulator from './components/features/Simulator';
 import CookieBanner from './components/features/CookieBanner';
+<<<<<<< HEAD
+=======
 import Sidebar from './features/admin/components/Sidebar';
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
 
 // --- Pages Publiques ---
 import Hero from './components/sections/Hero'; // Assure-toi que ce composant existe et est importable
@@ -108,6 +111,17 @@ const ProtectedRoute = ({ children }) => {
 const AdminLayout = () => {
   return (
     <Box sx={{ display: 'flex', minHeight: '100vh' }}>
+<<<<<<< HEAD
+      <Box component="nav" sx={{ width: { sm: 240 }, flexShrink: { sm: 0 }, bgcolor: 'background.paper', borderRight: 1, borderColor: 'divider' }}>
+        <Typography variant="h6" sx={{ p: 2 }}>Menu Admin</Typography>
+        {/* TODO: Liens de navigation admin ici (ex: Dashboard, Artistes, SmartLinks) */}
+      </Box>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - 240px)` } }}
+      >
+        <Outlet /> {/* Rend les composants des sous-routes admin */}
+=======
       <Sidebar />
       <Box
         component="main"
@@ -121,6 +135,7 @@ const AdminLayout = () => {
         }}
       >
         <Outlet />
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
       </Box>
     </Box>
   );
@@ -149,9 +164,12 @@ const HomePage = ({ openSimulator }) => {
   );
 };
 
+<<<<<<< HEAD
+=======
 import SmartLinkList from './features/admin/smartlinks/components/SmartLinkList';
 import SmartLinkForm from './features/admin/smartlinks/components/SmartLinkForm';
 
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
 // === Composant Principal de l'Application ===
 function App() {
   const { t, i18n } = useTranslation();
@@ -199,12 +217,22 @@ function App() {
             <Route path="edit/:slug" element={<ArtistEditPage />} /> {/* /admin/artists/edit/:slug */}
           </Route>
 
+<<<<<<< HEAD
+          {/* Routes Smartlinks (à créer et décommenter) */}
+          {/* <Route path="smartlinks" element={<Outlet />}>
+            <Route index element={<SmartlinkListPage />} />
+            <Route path="new" element={<SmartlinkCreatePage />} />
+            <Route path="edit/:id" element={<SmartlinkEditPage />} />
+          </Route>
+          */}
+=======
           {/* Routes Smartlinks */}
           <Route path="smartlinks" element={<Outlet />}>
             <Route index element={<SmartLinkList />} />
             <Route path="new" element={<SmartLinkForm />} />
             <Route path="edit/:id" element={<SmartLinkForm />} />
           </Route>
+>>>>>>> e3cb9c9 (Ajout de la configuration de déploiement)
         </Route>
 
         {/* --- Route Catch-all (404 Not Found) --- */}
