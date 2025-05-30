@@ -1,22 +1,48 @@
+// src/main.jsx - CORRIGÉ
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter } from 'react-router-dom';
+import App from './App.jsx';
+
+// Styles globaux et i18n
 import './index.css';
-import App from './App';
-import './i18n';
+import './i18n.js';
 
-// Point d'entrée principal qui détermine quel application charger
-const path = window.location.pathname;
+// Material-UI Theme
+import { ThemeProvider } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import theme from './theme/theme';
 
-// Si le chemin commence par /admin, charger l'application admin
-// Sinon, charger l'application publique
-const isAdminRoute = path.startsWith('/admin');
-const AppComponent = isAdminRoute ? React.lazy(() => import('./AdminApp')) : App;
+// React Toastify
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
+// i18next - Configuration langue
+import i18n from 'i18next';
+i18n.changeLanguage('fr');
+
+// Configuration Toast pour MDMC
+const toastConfig = {
+  position: "bottom-right",
+  autoClose: 5000,
+  hideProgressBar: false,
+  closeOnClick: true,
+  pauseOnHover: true,
+  draggable: true,
+  theme: "dark",
+  style: {
+    backgroundColor: '#1a1a1a',
+    color: '#ffffff',
+    border: '1px solid #333'
+  }
+};
+
+// Point d'entrée principal
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <React.Suspense fallback={<div>Chargement...</div>}>
-      <AppComponent />
-    </React.Suspense>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+      <ToastContainer {...toastConfig} />
+    </ThemeProvider>
   </React.StrictMode>
 );
