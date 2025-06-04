@@ -8,6 +8,15 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function() {
+        var path = location.pathname;
+        if (path.startsWith('/admin') && !location.hash.startsWith('#/admin')) {
+          var rest = path.slice('/admin'.length);
+          location.replace('/#/admin' + rest + location.search + location.hash);
+        }
+      })();
+    </script>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
