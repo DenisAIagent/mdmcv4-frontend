@@ -237,6 +237,7 @@ function App() {
         <Route path="/smartlinks/:artistSlug/:trackSlug" element={<SmartLinkPage />} />
         <Route path="/admin/login" element={<AdminLogin />} />
         <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+          <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<AdminPanel />} />
           <Route path="artists" element={<Outlet />}>
             <Route index element={<ArtistListPage />} />
@@ -254,7 +255,7 @@ function App() {
           <Route path="reviews" element={<ReviewManager />} />
           <Route path="stats" element={<CampaignStatsShowcase />} />
         </Route>
-        <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+        
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
