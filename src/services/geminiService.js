@@ -1,7 +1,7 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 
-// Initialiser l'API Gemini avec la clé API
-const API_KEY = "AIzaSyDO2mciJoMkhQmamnyP0oELTsuQWsYR4KI";
+// Initialiser l'API Gemini avec la clé API stockée dans les variables d'environnement
+const API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 const genAI = new GoogleGenerativeAI(API_KEY);
 
 // Importer la documentation
