@@ -1,4 +1,4 @@
-import api from './api';
+import api from '../../services/api.service';
 import useStore from '../store/useStore';
 
 const CACHE_TTL = {

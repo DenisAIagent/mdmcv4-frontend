@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, Button, Form, Modal, Tabs } from '../../components';
 import { usersService } from '../../services';
-import { useNotificationStore } from '../../stores';
+import { useNotificationStore } from '../../../stores';
 
 const UsersPage = () => {
   const [isLoading, setIsLoading] = useState(true);

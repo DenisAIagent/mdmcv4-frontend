@@ -1,1 +1,9 @@
- 
+export { default as analyticsService } from './analytics.service';
+export { default as artistsService } from './artists.service';
+export { default as campaignsService } from './campaigns.service';
+export { default as dashboardService } from './dashboard.service';
+export { default as integrationsService } from './integrations.service';
+export { default as reportsService } from './reports.service';
+export { default as settingsService } from './settings.service';
+export { default as smartlinksService } from './smartlinks.service';
+export { default as usersService } from './users.service';

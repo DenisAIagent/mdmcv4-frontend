@@ -14,7 +14,7 @@ import {
   Switch
 } from "@mui/material";
 import { settingsService } from '../../services';
-import { useNotificationStore } from '../../store';
+import { useNotificationStore } from '../../../stores';
 import Form from '../../components/Form';
 
 const SettingsPage = () => {
