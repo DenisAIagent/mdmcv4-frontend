@@ -5,9 +5,20 @@
     <link rel="icon" type="image/png" href="/assets/images/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>MDMC Music Ads - Marketing Musical</title>
+    <!-- Redirect direct visits to /admin so HashRouter can load the route -->
+    <script>
+      (function() {
+        var path = location.pathname;
+        if (path.startsWith('/admin') && !location.hash.startsWith('#/admin')) {
+          var rest = path.slice('/admin'.length);
+          location.replace('/#/admin' + rest + location.search + location.hash);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
+    
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
