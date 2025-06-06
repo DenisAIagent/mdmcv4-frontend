@@ -1,8 +1,8 @@
-import api from '../../../services/api.service';
+import api from '../../../services/api.service.js';
 import integrationsService from '../integrations.service';
 
 // Mock de l'API
-jest.mock('../../../services/api.service');
+jest.mock('../../../services/api.service.js');
 
 describe('integrationsService', () => {
   beforeEach(() => {
