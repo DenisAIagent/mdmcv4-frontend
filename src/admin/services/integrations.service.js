@@ -1,4 +1,4 @@
-import api from './api';
+import api from '../../services/api.service';
 
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
 const cache = new Map();

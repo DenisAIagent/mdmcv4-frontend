@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Card, Button, Form } from '../../components';
 import { dashboardService } from '../../services';
-import { useNotificationStore } from '../../stores';
+import { useNotificationStore } from '../../../stores';
 
 const DashboardPage = () => {
   const [isLoading, setIsLoading] = useState(true);

@@ -17,7 +17,7 @@ import {
   Paper
 } from "@mui/material";
 import { reportsService } from '../../services';
-import { useNotificationStore } from '../../store';
+import { useNotificationStore } from '../../../stores';
 import Form from '../../components/Form';
 
 const ReportsPage = () => {

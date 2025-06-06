@@ -1,4 +1,4 @@
-import api from './api';
+import api from '../../services/api.service';
 
 const CACHE_TTL = {
   GENERAL: 5 * 60 * 1000, // 5 minutes

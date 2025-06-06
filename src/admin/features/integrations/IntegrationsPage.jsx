@@ -19,7 +19,7 @@ import {
   Paper
 } from "@mui/material";
 import { integrationsService } from '../../services';
-import { useNotificationStore } from '../../store';
+import { useNotificationStore } from '../../../stores';
 import Form from '../../components/Form';
 
 const IntegrationsPage = () => {
