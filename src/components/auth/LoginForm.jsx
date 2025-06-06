@@ -10,6 +10,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useNotificationStore } from '../../stores';
+import authService from '../../services/auth.service.js';
 
 const LoginForm = () => {
   const [credentials, setCredentials] = useState({
@@ -32,22 +33,10 @@ const LoginForm = () => {
     setError('');
 
     try {
-      // TODO: Implémenter la logique d'authentification
-      const response = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        credentials: 'include',
-        body: JSON.stringify(credentials),
-      });
-
-      if (!response.ok) {
-        throw new Error('Erreur de connexion');
-      }
-
-      const data = await response.json();
+      const data = await authService.login(
+        credentials.email,
+        credentials.password
+      );
       localStorage.setItem('token', data.token);
       addNotification({
         type: 'success',
