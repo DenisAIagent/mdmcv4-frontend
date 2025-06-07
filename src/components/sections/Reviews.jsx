@@ -15,15 +15,17 @@ const Reviews = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const formRef = useRef(null);
 
-  // États pour le formulaire
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [rating, setRating] = useState(0);
-  const [message, setMessage] = useState('');
+  // États pour le formulaire - UX simplifiée en une seule étape
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    rating: 0,
+    message: ''
+  });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formError, setFormError] = useState(null);
   const [formSuccess, setFormSuccess] = useState(null);
-  const [formStep, setFormStep] = useState(1); // Pour l'expérience multi-étapes
+  const [currentStep, setCurrentStep] = useState('form'); // 'form' | 'success'
 
   // États pour les avis approuvés
   const [approvedReviews, setApprovedReviews] = useState([]);
@@ -84,105 +86,93 @@ const Reviews = () => {
     setActiveIndex(index);
   };
 
-  // Gestion du formulaire
-  const handleRating = (rate) => {
-    setRating(rate);
+  // Gestion du formulaire moderne
+  const handleInputChange = (field, value) => {
+    setFormData(prev => ({ ...prev, [field]: value }));
+    if (formError) setFormError(null); // Clear error on typing
   };
 
-  const validateStep = () => {
-    if (formStep === 1) {
-      if (!name || !email) {
-        setFormError(t('reviews.form_error_required_fields'));
-        return false;
-      }
-      // E-mail de validation basique
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        setFormError(t('reviews.form_error_invalid_email'));
-        return false;
-      }
-      setFormError(null);
-      return true;
-    } else if (formStep === 2) {
-      if (!rating || !message) {
-        setFormError(t('reviews.form_error_required_fields'));
-        return false;
-      }
-      if (message.length < 10) {
-        setFormError(t('reviews.form_error_message_too_short'));
-        return false;
-      }
-      setFormError(null);
-      return true;
+  const handleRatingChange = (rating) => {
+    setFormData(prev => ({ ...prev, rating }));
+    if (formError) setFormError(null);
+  };
+
+  const validateForm = () => {
+    const { name, email, rating, message } = formData;
+    
+    if (!name?.trim()) {
+      setFormError('Veuillez entrer votre nom');
+      return false;
     }
+    
+    if (!email?.trim()) {
+      setFormError('Veuillez entrer votre email');
+      return false;
+    }
+    
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setFormError('Veuillez entrer un email valide');
+      return false;
+    }
+    
+    if (!rating || rating === 0) {
+      setFormError('Veuillez donner une note');
+      return false;
+    }
+    
+    if (!message?.trim() || message.trim().length < 10) {
+      setFormError('Votre message doit contenir au moins 10 caractères');
+      return false;
+    }
+    
     return true;
-  };
-
-  const nextStep = () => {
-    if (validateStep()) {
-      setFormStep(2);
-    }
-  };
-
-  const prevStep = () => {
-    setFormStep(1);
   };
 
   const submitReview = async (e) => {
     e.preventDefault();
-
-    if (!validateStep()) {
-      return;
-    }
-
+    
+    if (!validateForm()) return;
+    
     setIsSubmitting(true);
     setFormError(null);
 
     try {
-      const reviewData = {
-        name,
-        email,
-        rating,
-        message
-      };
-
-      await apiService.reviews.createReview(reviewData);
-
-      // Réinitialiser le formulaire
-      setName('');
-      setEmail('');
-      setRating(0);
-      setMessage('');
-      setFormStep(1);
-
-      setFormSuccess(t('reviews.form_success'));
-
-      // Fermer la modale après un délai
+      await apiService.reviews.createReview(formData);
+      setCurrentStep('success');
+      
+      // Reset après succès
       setTimeout(() => {
         closeModal();
-        setFormSuccess(null);
+        resetForm();
       }, 3000);
 
     } catch (error) {
-      console.error('Erreur lors de la soumission de l\'avis:', error);
-      setFormError(t('reviews.form_error_submit'));
+      console.error('Erreur soumission avis:', error);
+      setFormError('Une erreur est survenue. Veuillez réessayer.');
     } finally {
       setIsSubmitting(false);
     }
   };
 
-  const openModal = () => {
-    setModalIsOpen(true);
+  const resetForm = () => {
+    setFormData({ name: '', email: '', rating: 0, message: '' });
     setFormError(null);
     setFormSuccess(null);
-    setFormStep(1);
+    setCurrentStep('form');
+    setIsSubmitting(false);
+  };
+
+  const openModal = () => {
+    setModalIsOpen(true);
+    resetForm();
   };
 
   const closeModal = () => {
     setModalIsOpen(false);
+    setTimeout(resetForm, 300); // Reset après fermeture de la modal
   };
 
-  // Rendu JSX
   return (
     <section id="reviews" className="reviews-section">
       <div className="container">
@@ -232,139 +222,160 @@ const Reviews = () => {
 
         {/* Boutons d'action */}
         <div className="reviews-actions">
-          <button className="btn btn-primary" onClick={openModal}>{t('reviews.leave_review')}</button>
-          <Link to="/tous-les-avis" className="btn btn-secondary">{t('reviews.view_all')}</Link>
+          <button className="btn btn-primary modern-review-trigger" onClick={openModal}>
+            <span className="btn-icon">⭐</span>
+            Laisser un avis
+          </button>
+          <Link to="/tous-les-avis" className="btn btn-secondary">
+            Voir tous les avis
+          </Link>
         </div>
 
-        {/* Modale moderne pour laisser un avis */}
+        {/* Modal moderne ultra-fluide */}
         <Modal 
           isOpen={modalIsOpen} 
           onRequestClose={closeModal}
-          className="modern-review-modal"
-          overlayClassName="modern-review-overlay"
-          contentLabel={t('reviews.leave_review')}
+          className="ultra-modern-review-modal"
+          overlayClassName="ultra-modern-overlay"
           closeTimeoutMS={300}
+          contentLabel="Laisser un avis"
         >
-          <div className="modern-modal-header">
-            <h2>{formStep === 1 ? t('reviews.leave_review') : t('reviews.rate_experience')}</h2>
-            <button className="modern-modal-close" onClick={closeModal} aria-label="Fermer"></button>
-          </div>
-
-          <div className="modern-modal-body">
-            {formSuccess ? (
-              <div className="modern-form-success">
-                {formSuccess}
+          <div className="modern-modal-wrapper">
+            {/* Header avec animation */}
+            <div className="modern-modal-header">
+              <div className="header-content">
+                <div className="modal-icon">
+                  <div className="icon-wrapper">
+                    {currentStep === 'success' ? '✨' : '💭'}
+                  </div>
+                </div>
+                <div className="header-text">
+                  <h2 className="modal-title">
+                    {currentStep === 'success' ? 'Merci !' : 'Partagez votre expérience'}
+                  </h2>
+                  <p className="modal-subtitle">
+                    {currentStep === 'success' 
+                      ? 'Votre avis a été envoyé avec succès' 
+                      : 'Votre avis nous aide à nous améliorer'
+                    }
+                  </p>
+                </div>
               </div>
-            ) : (
-              <form ref={formRef} onSubmit={submitReview} className="modern-review-form">
-                {formError && <div className="modern-form-error">{formError}</div>}
+              <button 
+                className="modern-close-btn" 
+                onClick={closeModal}
+                aria-label="Fermer"
+              >
+                <span className="close-icon">×</span>
+              </button>
+            </div>
 
-                {formStep === 1 ? (
-                  <>
-                    <div className="modern-form-group">
-                      <label htmlFor="name">{t('reviews.form_name')}</label>
+            {/* Body avec transitions */}
+            <div className="modern-modal-body">
+              {currentStep === 'success' ? (
+                <div className="success-animation">
+                  <div className="success-checkmark">
+                    <div className="check-icon">✓</div>
+                  </div>
+                  <p className="success-message">
+                    Votre avis sera publié après validation
+                  </p>
+                </div>
+              ) : (
+                <form onSubmit={submitReview} className="ultra-modern-form">
+                  {formError && (
+                    <div className="error-toast">
+                      <span className="error-icon">⚠️</span>
+                      {formError}
+                    </div>
+                  )}
+
+                  {/* Rating en premier - plus visuel */}
+                  <div className="rating-section">
+                    <label className="rating-label">Comment nous évaluez-vous ?</label>
+                    <div className="rating-wrapper">
+                      <Rating
+                        onClick={handleRatingChange}
+                        ratingValue={formData.rating}
+                        size={45}
+                        transition
+                        fillColor="#FFD700"
+                        emptyColor="#E5E5E5"
+                        allowHalfIcon
+                        className="custom-rating-stars"
+                      />
+                      <span className="rating-text">
+                        {formData.rating === 0 && "Cliquez sur les étoiles"}
+                        {formData.rating === 1 && "😞 Pas terrible"}
+                        {formData.rating === 2 && "😐 Moyen"}
+                        {formData.rating === 3 && "🙂 Bien"}
+                        {formData.rating === 4 && "😊 Très bien"}
+                        {formData.rating === 5 && "🤩 Excellent !"}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Nom et Email côte à côte */}
+                  <div className="form-row">
+                    <div className="form-group">
                       <input
                         type="text"
-                        id="name"
-                        className="modern-form-input"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
+                        value={formData.name}
+                        onChange={(e) => handleInputChange('name', e.target.value)}
+                        className="modern-input"
+                        placeholder="Votre nom"
                         disabled={isSubmitting}
-                        required
-                        placeholder={t('reviews.form_name_placeholder')}
                       />
                     </div>
-
-                    <div className="modern-form-group">
-                      <label htmlFor="email">{t('reviews.form_email')}</label>
+                    <div className="form-group">
                       <input
                         type="email"
-                        id="email"
-                        className="modern-form-input"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        value={formData.email}
+                        onChange={(e) => handleInputChange('email', e.target.value)}
+                        className="modern-input"
+                        placeholder="votre@email.com"
                         disabled={isSubmitting}
-                        required
-                        placeholder={t('reviews.form_email_placeholder')}
                       />
                     </div>
+                  </div>
 
-                    <div className="modern-form-actions">
-                      <button 
-                        type="button" 
-                        className="modern-btn modern-btn-secondary" 
-                        onClick={closeModal}
-                        disabled={isSubmitting}
-                      >
-                        {t('common.cancel')}
-                      </button>
-                      <button 
-                        type="button" 
-                        className="modern-btn modern-btn-primary"
-                        onClick={nextStep}
-                        disabled={isSubmitting}
-                      >
-                        {t('common.next')}
-                      </button>
+                  {/* Message */}
+                  <div className="form-group">
+                    <textarea
+                      value={formData.message}
+                      onChange={(e) => handleInputChange('message', e.target.value)}
+                      className="modern-textarea"
+                      placeholder="Parlez-nous de votre expérience... (minimum 10 caractères)"
+                      rows={4}
+                      disabled={isSubmitting}
+                      maxLength={250}
+                    />
+                    <div className="char-counter">
+                      {formData.message.length}/250
                     </div>
-                  </>
-                ) : (
-                  <>
-                    <div className="modern-form-group modern-rating-group">
-                      <label>{t('reviews.form_rating')}</label>
-                      <div className="modern-rating-stars">
-                        <Rating
-                          onClick={handleRating}
-                          ratingValue={rating}
-                          size={35}
-                          transition
-                          fillColor="#ff3a3a"
-                          emptyColor="rgba(255, 255, 255, 0.2)"
-                          className="custom-rating"
-                        />
-                      </div>
-                    </div>
+                  </div>
 
-                    <div className="modern-form-group">
-                      <label htmlFor="message">{t('reviews.form_message')}</label>
-                      <textarea
-                        id="message"
-                        className="modern-form-input modern-form-textarea"
-                        value={message}
-                        onChange={(e) => setMessage(e.target.value)}
-                        disabled={isSubmitting}
-                        required
-                        placeholder={t('reviews.form_message_placeholder')}
-                        rows={5}
-                      />
-                    </div>
-
-                    <div className="modern-form-actions">
-                      <button 
-                        type="button" 
-                        className="modern-btn modern-btn-secondary" 
-                        onClick={prevStep}
-                        disabled={isSubmitting}
-                      >
-                        {t('common.back')}
-                      </button>
-                      <button 
-                        type="submit" 
-                        className="modern-btn modern-btn-primary"
-                        disabled={isSubmitting}
-                      >
-                        {isSubmitting ? (
-                          <>
-                            <span className="modern-loading-spinner"></span>
-                            {t('common.submitting')}
-                          </>
-                        ) : t('common.submit')}
-                      </button>
-                    </div>
-                  </>
-                )}
-              </form>
-            )}
+                  {/* Submit button avec animation */}
+                  <button 
+                    type="submit" 
+                    className={`submit-btn ${isSubmitting ? 'submitting' : ''}`}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <div className="loading-spinner"></div>
+                        <span>Envoi en cours...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>Envoyer mon avis</span>
+                        <span className="btn-arrow">→</span>
+                      </>
+                    )}
+                  </button>
+                </form>
+              )}
+            </div>
           </div>
         </Modal>
       </div>
