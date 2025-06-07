@@ -1,20 +1,20 @@
-/* ===== MODERN REVIEW MODAL CSS - CHARTE MDMC ===== */
+/* ===== MODERN REVIEW MODAL CSS - CORRIGÉ AFFICHAGE ===== */
 
-/* Overlay avec glassmorphism */
+/* Overlay avec glassmorphism - Z-INDEX ÉLEVÉ */
 .ultra-modern-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.8);
-  backdrop-filter: blur(12px);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  animation: overlayFadeIn 0.3s ease-out;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: rgba(0, 0, 0, 0.8) !important;
+  backdrop-filter: blur(12px) !important;
+  z-index: 999999 !important; /* Z-index très élevé */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 20px !important;
+  animation: overlayFadeIn 0.3s ease-out !important;
 }
 
 @keyframes overlayFadeIn {
@@ -28,24 +28,32 @@
   }
 }
 
-/* Modal container - centré et dimensionné correctement */
+/* Modal container - FORCÉ À ÊTRE VISIBLE */
 .ultra-modern-review-modal {
-  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%);
-  border-radius: 20px;
+  background: linear-gradient(135deg, #ffffff 0%, #fafbfc 100%) !important;
+  border-radius: 20px !important;
   box-shadow: 
     0 25px 50px rgba(0, 0, 0, 0.2),
-    0 0 0 1px rgba(255, 255, 255, 0.1);
-  width: 100%;
-  max-width: 520px;
-  max-height: 85vh;
-  overflow: hidden;
-  transform: scale(0.95);
-  animation: modalSlideIn 0.3s ease-out forwards;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  position: relative;
+    0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  width: 100% !important;
+  max-width: 520px !important;
+  max-height: 85vh !important;
+  overflow: hidden !important;
+  transform: scale(1) !important; /* Pas d'animation qui peut cacher */
+  opacity: 1 !important; /* Force l'opacité */
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  position: relative !important;
+  z-index: 1000000 !important; /* Z-index encore plus élevé */
+  display: block !important; /* Force l'affichage */
+  visibility: visible !important; /* Force la visibilité */
 }
 
-@keyframes modalSlideIn {
+/* Animation d'entrée corrigée */
+.ReactModal__Content--after-open .ultra-modern-review-modal {
+  animation: modalSlideInFixed 0.3s ease-out forwards !important;
+}
+
+@keyframes modalSlideInFixed {
   from { 
     transform: scale(0.95) translateY(20px); 
     opacity: 0; 
@@ -57,56 +65,58 @@
 }
 
 .modern-modal-wrapper {
-  position: relative;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+  position: relative !important;
+  height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: white !important; /* Background de secours */
 }
 
-/* Header avec les couleurs MDMC */
+/* Header avec les couleurs MDMC - VISIBLE */
 .modern-modal-header {
-  background: linear-gradient(135deg, #ff3a3a 0%, #e02424 100%);
-  color: white;
-  padding: 28px 24px 24px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  position: relative;
-  overflow: hidden;
-  flex-shrink: 0;
+  background: linear-gradient(135deg, #ff3a3a 0%, #e02424 100%) !important;
+  color: white !important;
+  padding: 28px 24px 24px !important;
+  display: flex !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  position: relative !important;
+  overflow: hidden !important;
+  flex-shrink: 0 !important;
+  min-height: 80px !important; /* Hauteur minimum */
 }
 
 .modern-modal-header::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="6" cy="6" r="6"/></g></g></svg>');
-  pointer-events: none;
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><circle cx="6" cy="6" r="6"/></g></g></svg>') !important;
+  pointer-events: none !important;
 }
 
 .header-content {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  position: relative;
-  z-index: 1;
+  display: flex !important;
+  align-items: center !important;
+  gap: 16px !important;
+  position: relative !important;
+  z-index: 1 !important;
 }
 
 .modal-icon .icon-wrapper {
-  width: 52px;
-  height: 52px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 14px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 22px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  animation: iconFloat 3s ease-in-out infinite;
+  width: 52px !important;
+  height: 52px !important;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border-radius: 14px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 22px !important;
+  backdrop-filter: blur(10px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  animation: iconFloat 3s ease-in-out infinite !important;
 }
 
 @keyframes iconFloat {
@@ -119,80 +129,83 @@
 }
 
 .header-text {
-  flex: 1;
+  flex: 1 !important;
 }
 
 .modal-title {
-  font-size: 22px;
-  font-weight: 700;
-  margin: 0 0 4px 0;
-  letter-spacing: -0.3px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 22px !important;
+  font-weight: 700 !important;
+  margin: 0 0 4px 0 !important;
+  letter-spacing: -0.3px !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  color: white !important;
 }
 
 .modal-subtitle {
-  font-size: 14px;
-  opacity: 0.9;
-  margin: 0;
-  font-weight: 400;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px !important;
+  opacity: 0.9 !important;
+  margin: 0 !important;
+  font-weight: 400 !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  color: white !important;
 }
 
 .modern-close-btn {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 10px;
-  width: 36px;
-  height: 36px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  backdrop-filter: blur(10px);
-  position: relative;
-  z-index: 1;
+  background: rgba(255, 255, 255, 0.15) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 10px !important;
+  width: 36px !important;
+  height: 36px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: all 0.2s ease !important;
+  backdrop-filter: blur(10px) !important;
+  position: relative !important;
+  z-index: 1 !important;
 }
 
 .modern-close-btn:hover {
-  background: rgba(255, 255, 255, 0.25);
-  transform: scale(1.05);
+  background: rgba(255, 255, 255, 0.25) !important;
+  transform: scale(1.05) !important;
 }
 
 .close-icon {
-  font-size: 18px;
-  color: white;
-  font-weight: 300;
+  font-size: 18px !important;
+  color: white !important;
+  font-weight: 300 !important;
 }
 
-/* Body - scrollable et bien dimensionné */
+/* Body - scrollable et bien dimensionné - VISIBLE */
 .modern-modal-body {
-  padding: 28px 24px 24px;
-  overflow-y: auto;
-  flex: 1;
-  min-height: 0;
+  padding: 28px 24px 24px !important;
+  overflow-y: auto !important;
+  flex: 1 !important;
+  min-height: 0 !important;
+  background: white !important; /* Background blanc forcé */
 }
 
-/* Form styles avec charte MDMC */
+/* Form styles avec charte MDMC - VISIBLE */
 .ultra-modern-form {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 20px !important;
 }
 
 .error-toast {
-  background: linear-gradient(135deg, #ff3a3a, #e02424);
-  color: white;
-  padding: 14px 18px;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  box-shadow: 0 6px 20px rgba(255, 58, 58, 0.3);
-  animation: errorSlideIn 0.3s ease-out;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: linear-gradient(135deg, #ff3a3a, #e02424) !important;
+  color: white !important;
+  padding: 14px 18px !important;
+  border-radius: 12px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  box-shadow: 0 6px 20px rgba(255, 58, 58, 0.3) !important;
+  animation: errorSlideIn 0.3s ease-out !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
 @keyframes errorSlideIn {
@@ -206,168 +219,169 @@
   }
 }
 
-/* Rating section avec couleurs MDMC */
+/* Rating section avec couleurs MDMC - VISIBLE */
 .rating-section {
-  text-align: center;
-  padding: 24px 20px;
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border-radius: 16px;
-  border: 1px solid rgba(226, 232, 240, 0.8);
+  text-align: center !important;
+  padding: 24px 20px !important;
+  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%) !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
 }
 
 .rating-label {
-  display: block;
-  font-size: 17px;
-  font-weight: 600;
-  color: #1a202c;
-  margin-bottom: 18px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  display: block !important;
+  font-size: 17px !important;
+  font-weight: 600 !important;
+  color: #1a202c !important;
+  margin-bottom: 18px !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
 .rating-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 12px;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  gap: 12px !important;
 }
 
 .custom-rating-stars {
-  filter: drop-shadow(0 2px 6px rgba(255, 215, 0, 0.3));
+  filter: drop-shadow(0 2px 6px rgba(255, 215, 0, 0.3)) !important;
 }
 
 .rating-text {
-  font-size: 14px;
-  font-weight: 500;
-  color: #64748b;
-  transition: all 0.3s ease;
-  min-height: 20px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #64748b !important;
+  transition: all 0.3s ease !important;
+  min-height: 20px !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
-/* Form layout responsive */
+/* Form layout responsive - VISIBLE */
 .form-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 14px;
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 14px !important;
 }
 
 @media (max-width: 520px) {
   .form-row {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
   }
 }
 
 .form-group {
-  position: relative;
+  position: relative !important;
 }
 
-/* Input styles avec charte MDMC */
+/* Input styles avec charte MDMC - VISIBLE */
 .modern-input,
 .modern-textarea {
-  width: 100%;
-  padding: 14px 18px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  font-size: 15px;
-  background: white;
-  transition: all 0.3s ease;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  outline: none;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  box-sizing: border-box;
+  width: 100% !important;
+  padding: 14px 18px !important;
+  border: 2px solid #e2e8f0 !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+  background: white !important;
+  transition: all 0.3s ease !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  outline: none !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04) !important;
+  box-sizing: border-box !important;
+  color: #1a202c !important; /* Couleur du texte forcée */
 }
 
 .modern-input:focus,
 .modern-textarea:focus {
-  border-color: #ff3a3a;
+  border-color: #ff3a3a !important;
   box-shadow: 0 0 0 3px rgba(255, 58, 58, 0.1),
-              0 4px 12px rgba(0, 0, 0, 0.08);
-  transform: translateY(-1px);
+              0 4px 12px rgba(0, 0, 0, 0.08) !important;
+  transform: translateY(-1px) !important;
 }
 
 .modern-input::placeholder,
 .modern-textarea::placeholder {
-  color: #94a3b8;
-  font-weight: 400;
+  color: #94a3b8 !important;
+  font-weight: 400 !important;
 }
 
 .modern-textarea {
-  resize: vertical;
-  min-height: 90px;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  line-height: 1.5;
+  resize: vertical !important;
+  min-height: 90px !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  line-height: 1.5 !important;
 }
 
 .char-counter {
-  position: absolute;
-  bottom: -18px;
-  right: 0;
-  font-size: 12px;
-  color: #94a3b8;
-  font-weight: 500;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  position: absolute !important;
+  bottom: -18px !important;
+  right: 0 !important;
+  font-size: 12px !important;
+  color: #94a3b8 !important;
+  font-weight: 500 !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
-/* Submit button avec couleurs MDMC */
+/* Submit button avec couleurs MDMC - VISIBLE */
 .submit-btn {
-  background: linear-gradient(135deg, #ff3a3a 0%, #e02424 100%);
-  color: white;
-  border: none;
-  padding: 16px 28px;
-  border-radius: 12px;
-  font-size: 15px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  box-shadow: 0 6px 20px rgba(255, 58, 58, 0.3);
-  position: relative;
-  overflow: hidden;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  margin-top: 4px;
+  background: linear-gradient(135deg, #ff3a3a 0%, #e02424 100%) !important;
+  color: white !important;
+  border: none !important;
+  padding: 16px 28px !important;
+  border-radius: 12px !important;
+  font-size: 15px !important;
+  font-weight: 600 !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 10px !important;
+  box-shadow: 0 6px 20px rgba(255, 58, 58, 0.3) !important;
+  position: relative !important;
+  overflow: hidden !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
+  margin-top: 4px !important;
 }
 
 .submit-btn::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-  transition: left 0.5s ease;
+  content: '' !important;
+  position: absolute !important;
+  top: 0 !important;
+  left: -100% !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent) !important;
+  transition: left 0.5s ease !important;
 }
 
 .submit-btn:hover::before {
-  left: 100%;
+  left: 100% !important;
 }
 
 .submit-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 58, 58, 0.4);
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(255, 58, 58, 0.4) !important;
 }
 
 .submit-btn:disabled {
-  opacity: 0.7;
-  cursor: not-allowed;
-  transform: none;
+  opacity: 0.7 !important;
+  cursor: not-allowed !important;
+  transform: none !important;
 }
 
 .submit-btn.submitting {
-  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%);
+  background: linear-gradient(135deg, #94a3b8 0%, #64748b 100%) !important;
 }
 
 .loading-spinner {
-  width: 18px;
-  height: 18px;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-top: 2px solid white;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
+  width: 18px !important;
+  height: 18px !important;
+  border: 2px solid rgba(255, 255, 255, 0.3) !important;
+  border-top: 2px solid white !important;
+  border-radius: 50% !important;
+  animation: spin 1s linear infinite !important;
 }
 
 @keyframes spin {
@@ -377,29 +391,29 @@
 }
 
 .btn-arrow {
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease !important;
 }
 
 .submit-btn:hover .btn-arrow {
-  transform: translateX(3px);
+  transform: translateX(3px) !important;
 }
 
-/* Success animation avec couleurs MDMC */
+/* Success animation avec couleurs MDMC - VISIBLE */
 .success-animation {
-  text-align: center;
-  padding: 36px 20px;
+  text-align: center !important;
+  padding: 36px 20px !important;
 }
 
 .success-checkmark {
-  width: 72px;
-  height: 72px;
-  margin: 0 auto 20px;
-  background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  animation: successPulse 0.6s ease-out;
+  width: 72px !important;
+  height: 72px !important;
+  margin: 0 auto 20px !important;
+  background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+  border-radius: 50% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  animation: successPulse 0.6s ease-out !important;
 }
 
 @keyframes successPulse {
@@ -415,23 +429,23 @@
 }
 
 .check-icon {
-  font-size: 28px;
-  color: white;
-  font-weight: bold;
+  font-size: 28px !important;
+  color: white !important;
+  font-weight: bold !important;
 }
 
 .success-message {
-  font-size: 15px;
-  color: #64748b;
-  font-weight: 500;
-  margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 15px !important;
+  color: #64748b !important;
+  font-weight: 500 !important;
+  margin: 0 !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif !important;
 }
 
 /* Trigger button styling avec couleurs MDMC */
 .modern-review-trigger {
-  position: relative;
-  overflow: hidden;
+  position: relative !important;
+  overflow: hidden !important;
   background: linear-gradient(135deg, #ff3a3a 0%, #e02424 100%) !important;
   border: none !important;
   color: white !important;
@@ -439,14 +453,14 @@
 
 .modern-review-trigger:hover {
   background: linear-gradient(135deg, #e02424 0%, #dc1f1f 100%) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 58, 58, 0.4);
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 25px rgba(255, 58, 58, 0.4) !important;
 }
 
 .modern-review-trigger .btn-icon {
-  display: inline-block;
-  margin-right: 8px;
-  animation: starTwinkle 2s ease-in-out infinite;
+  display: inline-block !important;
+  margin-right: 8px !important;
+  animation: starTwinkle 2s ease-in-out infinite !important;
 }
 
 @keyframes starTwinkle {
@@ -458,157 +472,93 @@
   }
 }
 
-/* Responsive design optimisé */
+/* Responsive design optimisé - FORCÉ */
 @media (max-width: 640px) {
   .ultra-modern-overlay {
-    padding: 15px;
+    padding: 15px !important;
   }
   
   .ultra-modern-review-modal {
-    max-width: calc(100vw - 30px);
-    border-radius: 16px;
-    max-height: 90vh;
+    max-width: calc(100vw - 30px) !important;
+    border-radius: 16px !important;
+    max-height: 90vh !important;
   }
   
   .modern-modal-header {
-    padding: 22px 20px 20px;
+    padding: 22px 20px 20px !important;
   }
   
   .modern-modal-body {
-    padding: 22px 20px 20px;
+    padding: 22px 20px 20px !important;
   }
   
   .modal-title {
-    font-size: 19px;
+    font-size: 19px !important;
   }
   
   .header-content {
-    gap: 12px;
+    gap: 12px !important;
   }
   
   .modal-icon .icon-wrapper {
-    width: 46px;
-    height: 46px;
-    font-size: 19px;
+    width: 46px !important;
+    height: 46px !important;
+    font-size: 19px !important;
   }
   
   .ultra-modern-form {
-    gap: 18px;
+    gap: 18px !important;
   }
   
   .rating-section {
-    padding: 20px 16px;
+    padding: 20px 16px !important;
   }
   
   .submit-btn {
-    padding: 15px 24px;
-    font-size: 14px;
+    padding: 15px 24px !important;
+    font-size: 14px !important;
   }
 }
 
-@media (max-width: 480px) {
-  .ultra-modern-overlay {
-    padding: 10px;
-  }
-  
-  .ultra-modern-review-modal {
-    max-width: calc(100vw - 20px);
-    border-radius: 14px;
-  }
-  
-  .modern-modal-header {
-    padding: 18px 16px 16px;
-  }
-  
-  .modern-modal-body {
-    padding: 18px 16px 16px;
-  }
-  
-  .modal-title {
-    font-size: 17px;
-  }
-  
-  .modal-icon .icon-wrapper {
-    width: 42px;
-    height: 42px;
-    font-size: 17px;
-  }
-  
-  .rating-section {
-    padding: 18px 14px;
-  }
-  
-  .rating-label {
-    font-size: 16px;
-  }
+/* Fixes spécifiques pour React Modal */
+.ReactModal__Overlay {
+  z-index: 999999 !important;
 }
 
-/* Hauteur minimum pour éviter le scroll sur desktop */
-@media (min-height: 700px) {
-  .ultra-modern-review-modal {
-    max-height: 600px;
-  }
+.ReactModal__Content {
+  z-index: 1000000 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  outline: none !important;
+  padding: 0 !important;
+  position: relative !important;
+  overflow: visible !important;
+  webkit-overflow-scrolling: touch !important;
 }
 
-/* Animation pour améliorer les performances */
-.ultra-modern-review-modal,
-.ultra-modern-overlay {
-  will-change: transform, opacity;
-}
-
-/* Accessibility */
-@media (prefers-reduced-motion: reduce) {
-  .ultra-modern-review-modal,
-  .ultra-modern-overlay,
-  .submit-btn,
-  .modern-input,
-  .modern-textarea,
-  .icon-wrapper,
-  .btn-icon {
-    animation: none;
-    transition: none;
-  }
-}
-
-/* Focus states pour l'accessibilité */
-.modern-close-btn:focus,
-.submit-btn:focus {
-  outline: 2px solid #ff3a3a;
-  outline-offset: 2px;
-}
-
-.modern-input:focus,
-.modern-textarea:focus {
-  outline: none; /* On utilise box-shadow à la place */
-}
-
-/* Améliorations tactiles pour mobile */
-@media (hover: none) and (pointer: coarse) {
-  .submit-btn:hover {
-    transform: none;
-    box-shadow: 0 6px 20px rgba(255, 58, 58, 0.3);
-  }
-  
-  .modern-close-btn:hover {
-    transform: none;
-  }
+/* Force l'affichage si React Modal cache */
+.ReactModal__Content--after-open {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
 /* Scrollbar personnalisée pour Webkit */
 .modern-modal-body::-webkit-scrollbar {
-  width: 6px;
+  width: 6px !important;
 }
 
 .modern-modal-body::-webkit-scrollbar-track {
-  background: #f1f5f9;
-  border-radius: 3px;
+  background: #f1f5f9 !important;
+  border-radius: 3px !important;
 }
 
 .modern-modal-body::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
-  border-radius: 3px;
+  background: #cbd5e1 !important;
+  border-radius: 3px !important;
 }
 
 .modern-modal-body::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #94a3b8 !important;
 }
