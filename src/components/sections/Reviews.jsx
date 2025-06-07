@@ -1,189 +1,376 @@
-import React, { useState, useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
-import { Rating } from 'react-simple-star-rating';
-import Modal from 'react-modal';
-import '../../assets/styles/reviews.css';
-import '../../assets/styles/modal.css';
+@@ -0,0 +1,376 @@
+importer  React ,  {  useState ,  useEffect ,  useRef  }  depuis  'react' ;
+importer  {  useTranslation  }  depuis  'react-i18next' ;
+importer  {  Lien  }  depuis  'react-router-dom' ;
+importer  {  Note  }  depuis  'react-simple-star-rating' ;
+importer  Modal  depuis  'react-modal' ;
+importer  apiService  depuis  '../../services/api.service' ;
+importer  '../../assets/styles/reviews.css' ;
+importer  '../../assets/styles/modern-review-modal.css' ;
 
-Modal.setAppElement('#root'); // Adapte si besoin
+Modal . setAppElement ( '#root' ) ;
 
-const Reviews = () => {
-  const { t } = useTranslation();
-  const [activeIndex, setActiveIndex] = useState(0);
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+const  Avis  =  ( )  =>  {
+  const  { t }  =  useTranslation ( ) ;
+  const  [ activeIndex ,  setActiveIndex ]  =  useState ( 0 ) ;
+  const  [ modalIsOpen ,  setModalIsOpen ]  =  useState ( false ) ;
+  const  formRef  =  useRef ( null ) ;
 
-  // --- États pour le formulaire (inchangés) ---
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [rating, setRating] = useState(0);
-  const [message, setMessage] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [formError, setFormError] = useState(null);
-  const [formSuccess, setFormSuccess] = useState(null);
+  // États pour le formulaire
+  const  [ nom ,  setName ]  =  useState ( '' ) ;
+  const  [ email ,  setEmail ]  =  useState ( '' ) ;
+  const  [ note ,  setRating ]  =  useState ( 0 ) ;
+  const  [ message ,  setMessage ]  =  useState ( '' ) ;
+  const  [ isSubmitting ,  setIsSubmitting ]  =  useState ( false ) ;
+  const  [ formError ,  setFormError ]  =  useState ( null ) ;
+  const  [ formSuccess ,  setFormSuccess ]  =  useState ( null ) ;
+  const  [ formStep ,  setFormStep ]  =  useState ( 1 ) ;  // Pour l'expérience multi-étapes
 
-  // --- NOUVEAUX États pour les avis approuvés ---
-  const [approvedReviews, setApprovedReviews] = useState([]); // Pour stocker les avis de l'API
-  const [isLoadingApproved, setIsLoadingApproved] = useState(true); // Indicateur de chargement spécifique
-  const [fetchApprovedError, setFetchApprovedError] = useState(null); // Erreur spécifique
+  // États pour les avis approuvés
+  const  [ approvedReviews ,  setApprovedReviews ]  =  useState ( [ ] ) ;
+  const  [ isLoadingApproved ,  setIsLoadingApproved ]  =  useState ( true ) ;
+  const  [ fetchApprovedError ,  setFetchApprovedError ]  =  useState ( null ) ;
 
-  // --- useEffect pour charger les avis APPROUVÉS depuis l'API ---
-  useEffect(() => {
-    const fetchApprovedReviews = async () => {
-      setIsLoadingApproved(true);
-      setFetchApprovedError(null);
-      const apiUrl = import.meta.env.VITE_API_URL;
+  // Effet pour charger les avis approuvés
+  useEffect ( ( )  =>  {
+    const  fetchApprovedReviews  =  async  ( )  =>  {
+      setIsLoadingApproved ( vrai ) ;
+      setFetchApprovedError ( null ) ;
 
-      if (!apiUrl) {
-        console.error("Erreur: VITE_API_URL non définie.");
-        setFetchApprovedError("Erreur de configuration API.");
-        setIsLoadingApproved(false);
-        return;
+      essayer  {
+        consoler . log ( 'Appel API pour avis approuvés via apiService' ) ;
+        const  response  =  await  apiService . reviews . getReviews ( {  status : 'approuvé'  } ) ;
+
+        si  ( Array . isArray ( response . data ) )  {
+          setApprovedReviews ( réponse . données ) ;
+          consoler . log ( 'Avis approuvés chargés :' ,  réponse . data ) ;
+          définirActiveIndex ( 0 ) ;
+        }  autre  {
+          consoler . error ( 'La réponse de l\'API (avis approuvés) n\'a pas le format attendu :' ,  réponse ) ;
+          setFetchApprovedError ( "Format de réponse API invalide." ) ;
+        }
+      }  catch  ( erreur )  {
+        consoler . error ( "Erreur lors du fetch des avis approuvés:" ,  erreur ) ;
+        setFetchApprovedError ( "Impossible de charger les avis approuvés." ) ;
+      }  enfin  {
+        setIsLoadingApproved ( faux ) ;
       }
+    } ;
 
-      try {
-        console.log(`Appel API pour avis approuvés: ${apiUrl}/reviews?status=approved`);
-        // Appelle l'API pour récupérer les avis avec le statut 'approved'
-        const response = await fetch(`${apiUrl}/reviews?status=approved`);
+    récupérer les avis approuvés ( ) ;
+  } ,  [ ] ) ;
 
-        if (!response.ok) {
-          const errorText = await response.text();
-          console.error(`Erreur HTTP ${response.status} lors de la récupération des avis approuvés: ${errorText}`);
-          setFetchApprovedError(`Erreur ${response.status} serveur.`);
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
+  // Effet pour le carrousel
+  useEffect ( ( )  =>  {
+    si  ( approvedReviews . length  ===  0  ||  isLoadingApproved )  retour ;
 
-        const data = await response.json();
+     intervalle  constant =  setInterval ( ( )  =>  {
+      setActiveIndex ( ( prevIndex )  =>  ( prevIndex  +  1 )  %  approvedReviews . length ) ;
+    } ,  8000 ) ;
 
-        if (data.success && Array.isArray(data.data)) {
-          // Met à jour l'état avec les données reçues
-          setApprovedReviews(data.data);
-          console.log('Avis approuvés chargés:', data.data);
-          // Réinitialise l'index du carrousel si de nouvelles données arrivent
-          setActiveIndex(0);
-        } else {
-          console.error('La réponse de l\'API (avis approuvés) n\'a pas le format attendu:', data);
-          setFetchApprovedError("Format de réponse API invalide.");
-        }
+    return  ( )  =>  clearInterval ( intervalle ) ;
+  } ,  [ approvedReviews ,  isLoadingApproved ] ) ;
 
-      } catch (error) {
-        console.error("Erreur lors du fetch des avis approuvés:", error);
-        if (!fetchApprovedError) {
-          setFetchApprovedError("Impossible de charger les avis approuvés.");
-        }
-      } finally {
-        setIsLoadingApproved(false); // Arrête l'indicateur de chargement
-      }
-    };
-
-    fetchApprovedReviews(); // Appelle la fonction au montage
-
-  }, []); // Tableau vide pour exécution unique au montage
-
-  // --- Effet pour le carrousel (maintenant basé sur approvedReviews) ---
-  useEffect(() => {
-    // Ne démarre l'intervalle que si on a des avis et qu'ils ne sont pas en cours de chargement
-    if (approvedReviews.length === 0 || isLoadingApproved) return;
-
-    const interval = setInterval(() => {
-      setActiveIndex((prevIndex) => (prevIndex + 1) % approvedReviews.length);
-    }, 8000); // Change toutes les 8 secondes
-
-    // Nettoyage de l'intervalle
-    return () => clearInterval(interval);
-  }, [approvedReviews, isLoadingApproved]); // Se ré-exécute si les avis ou l'état de chargement changent
-
-  // Fonction pour afficher les étoiles (non interactives) du carrousel (inchangée)
-  const renderDisplayStars = (displayRating) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(<span key={i} className={`star ${i <= displayRating ? 'filled' : 'empty'}`}>★</span>);
+  // Fonction pour afficher les étoiles
+  const  renderDisplayStars  =  ( displayRating )  =>  {
+    const  étoiles  =  [ ] ;
+    pour  ( soit  i  =  1 ;  i  <=  5 ;  i ++ )  {
+      étoiles . push ( < span  key = { i }  className = { `star ${ i  <=  displayRating ? 'filled' : 'empty' } ` } > ★ </ span > ) ;
     }
-    return stars;
-  };
+     étoiles de retour ;
+  } ;
 
-  // Fonction pour naviguer dans le carrousel (inchangée)
-  const goToReview = (index) => {
-    setActiveIndex(index);
-  };
+  // Fonction pour naviguer dans le carrousel
+  const  goToReview  =  ( index )  =>  {
+    setActiveIndex ( index ) ;
+  } ;
 
-  // --- Fonctions pour le formulaire (inchangées) ---
-  const handleRating = (rate) => { setRating(rate); };
-  const submitReview = async (e) => { /* ... (logique de soumission inchangée) ... */ };
-  const openModal = () => { setModalIsOpen(true); setFormError(null); setFormSuccess(null); };
-  const closeModal = () => { setModalIsOpen(false); };
+  // Gestion du formulaire
+  const  handleRating  =  ( taux )  =>  {
+    setRating ( taux ) ;
+  } ;
 
-  // --- Rendu JSX ---
-  return (
-    <section id="reviews" className="reviews-section">
-      <div className="container">
-        <h2 className="section-title">{t('reviews.title')}</h2>
-        <p className="section-subtitle">{t('reviews.subtitle')}</p>
+  const  validateStep  =  ( )  =>  {
+    si  ( formStep  ===  1 )  {
+      si  ( ! nom  ||  ! email )  {
+        setFormError ( t ( 'reviews.form_error_required_fields' ) ) ;
+        renvoie  faux ;
+      }
+      // E-mail de validation basique
+      const  emailRegex  =  / ^ [ ^ \s @ ] + @ [ ^ \s @ ] + \. [ ^ \s @ ] + $ / ;
+      si  ( ! emailRegex . test ( email ) )  {
+        setFormError ( t ( 'reviews.form_error_invalid_email' ) ) ;
+        renvoie  faux ;
+      }
+      setFormError ( null ) ;
+      renvoie  vrai ;
+    }  sinon si  ( formStep === 2 ) {    
+      si  ( ! évaluation  ||  ! message )  {
+        setFormError ( t ( 'reviews.form_error_required_fields' ) ) ;
+        renvoie  faux ;
+      }
+      si  ( message . longueur  <  10 )  {
+        setFormError ( t ( 'reviews.form_error_message_too_short' ) ) ;
+        renvoie  faux ;
+      }
+      setFormError ( null ) ;
+      renvoie  vrai ;
+    }
+    renvoie  vrai ;
+  } ;
 
-        {/* --- Carrousel d'avis (maintenant basé sur l'API) --- */}
-        <div className="reviews-container">
-          {/* Affichage conditionnel pendant le chargement ou en cas d'erreur */}
-          {isLoadingApproved ? (
-            <div className="loading-spinner">{t('admin.loading')}</div> // Réutilise la clé de chargement
+  const  nextStep  =  ( )  =>  {
+    si  ( validateStep ( ) )  {
+      setFormStep ( 2 ) ;
+    }
+  } ;
+
+  const  prevStep  =  ( )  =>  {
+    définirFormStep ( 1 ) ;
+  } ;
+
+  const  submitReview  =  async  ( e )  =>  {
+    e . preventDefault ( ) ;
+
+    si  ( ! validateStep ( ) )  {
+      retour ;
+    }
+
+    setIsSubmitting ( vrai ) ;
+    setFormError ( null ) ;
+
+    essayer  {
+      const  reviewData  =  {
+        nom ,
+        e-mail ,
+        notation ,
+        message
+      } ;
+
+      attendre  apiService . reviews . createReview ( reviewData ) ;
+
+      // Réinitialiser le formulaire
+      définir le nom ( '' ) ;
+      définirEmail ( '' ) ;
+      définirÉvaluation ( 0 ) ;
+      définirMessage ( '' ) ;
+      définirFormStep ( 1 ) ;
+
+      setFormSuccess ( t ( 'avis.form_success' ) ) ;
+
+      // Fermer la modale après un délai
+      setTimeout ( ( )  =>  {
+        closeModal ( ) ;
+        setFormSuccess ( null ) ;
+      } ,  3000 ) ;
+
+    }  catch  ( erreur )  {
+      consoler . error ( 'Erreur lors de la soumission de l\'avis:' ,  error ) ;
+      setFormError ( t ( 'reviews.form_error_submit' ) ) ;
+    }  enfin  {
+      setIsSubmitting ( faux ) ;
+    }
+  } ;
+
+  const  openModal  =  ( )  =>  {
+    setModalIsOpen ( vrai ) ;
+    setFormError ( null ) ;
+    setFormSuccess ( null ) ;
+    définirFormStep ( 1 ) ;
+  } ;
+
+  const  closeModal  =  ( )  =>  {
+    setModalIsOpen ( faux ) ;
+  } ;
+
+  // Rendu JSX
+  retour  (
+    < section  id = "avis"  className = "avis-section" >
+      < div  className = "conteneur" >
+        < h2  className = "section-title" > { t ( 'reviews.title' ) } </ h2 >
+        < p  className = "section-subtitle" > { t ( 'reviews.subtitle' ) } </ p >
+
+        { /* Carrousel d'avis */ }
+        < div  className = "reviews-container" >
+          { est-ce que le chargement est approuvé ? (
+            < div  className = "loading-spinner" > { t ( 'admin.loading' ) } </ div >
           ) : fetchApprovedError ? (
-            <p className="error-message" style={{color: 'red', textAlign: 'center'}}>{fetchApprovedError}</p>
-          ) : approvedReviews.length > 0 ? (
-            <>
-              <div className="reviews-carousel">
-                {/* Boucle sur les avis APPROUVÉS récupérés */}
-                {approvedReviews.map((review, index) => (
-                  <div key={review._id} className={`review-card ${index === activeIndex ? 'active' : ''}`} style={{ transform: `translateX(${(index - activeIndex) * 100}%)` }}>
-                     <div className="review-header">
-                       <div className="review-avatar">
-                         {/* Utiliser une image par défaut si l'avatar n'est pas défini */}
-                         <img src={review.avatar || '/src/assets/images/avatars/default-avatar.png'} alt={`Avatar de ${review.name}`} loading="lazy" onError={(e) => { e.target.onerror = null; e.target.src='/src/assets/images/avatars/default-avatar.png'; }}/>
-                       </div>
-                       <div className="review-info">
-                         <h3 className="review-name">{review.name}</h3>
-                         {/* Afficher le titre/rôle s'il existe dans le modèle */}
-                         {review.title && <p className="review-role">{review.title}</p>}
-                         <div className="review-rating">
-                           {renderDisplayStars(review.rating)}
-                         </div>
-                       </div>
-                     </div>
-                     <div className="review-content">
-                       <p className="review-text">"{review.message}"</p>
-                       {/* Formater la date de création */}
-                       <p className="review-date">{new Date(review.createdAt).toLocaleDateString('fr-FR')}</p>
-                     </div>
-                  </div>
-                ))}
-              </div>
-              {/* Navigation basée sur le nombre d'avis approuvés */}
-              <div className="reviews-navigation">
-                {approvedReviews.map((_, index) => (
-                  <button key={index} className={`nav-dot ${index === activeIndex ? 'active' : ''}`} onClick={() => goToReview(index)} aria-label={`${t('reviews.go_to_review')} ${index + 1}`} />
-                ))}
-              </div>
-            </>
+            < p  className = "message-d'erreur"  style = { { couleur : 'rouge' ,  textAlign : 'centre' } } > { fetchApprovedError } </ p >
+          ) : approvedReviews . longueur  >  0 ? (
+            < >
+              < div  className = "avis-carrousel" >
+                { approvedReviews . map ( ( review ,  index )  =>  (
+                  < div  key = { review . _id }  className = { `review-card ${ index  ===  activeIndex ? 'active' : '' } ` }  style = { {  transform : `translateX( ${ ( index  -  activeIndex )  *  100 } %)`  } } >
+                     < div  className = "en-tête-de-révision" >
+                       < div  className = "review-avatar" >
+                         < img  src = { review . avatar  ||  '/src/assets/images/avatars/default-avatar.png' }  alt = { `Avatar de ${ review . name } ` }  loading = "lazy"  onError = { ( e )  =>  {  e . target . onerror  =  null ;  e . target . src = '/src/assets/images/avatars/default-avatar.png' ;  } } />
+                       </div>​​
+                       < div  className = "review-info" >
+                         < h3  className = "review-name" > { review . name } </ h3 >
+                         { review . title  &&  < p  className = "review-role" > { review . title } </ p > }
+                         < div  className = "évaluation-évaluation" >
+                           { renderDisplayStars ( avis . note ) }
+                         </div>​​
+                       </div>​​
+                     </div>​​
+                     < div  className = "contenu-de-la-revue" >
+                       < p  className = "texte-de-la-revue" > " { message . de la revue } " </ p >
+                       < p  className = "review-date" > { new  Date ( review . createdAt ) . toLocaleDateString ( 'fr-FR' ) } </ p >
+                     </div>​​
+                  </div>​​
+                ) ) }
+              </div>​​
+              < div  className = "avis-navigation" >
+                { approvedReviews.map ( ( _ , index ) = > (​   
+                  < touche  bouton = { index }  className = { `nav-dot ${ index  ===  activeIndex ? 'active' : '' } ` }  onClick = { ( )  =>  goToReview ( index ) }  aria-label = { ` ${ t ( 'reviews.go_to_review' ) }  ${ index  +  1 } ` }  />
+                ) ) }
+              </div>​​
+            </ >
           ) : (
-            // Message si aucun avis approuvé n'est trouvé
-            <p style={{textAlign: 'center'}}>{t('reviews.no_reviews')}</p>
-          )}
-        </div>
-        {/* --- Fin Carrousel --- */}
+            < p  style = { { textAlign : 'center' } } > { t ( 'reviews.no_reviews' ) } </ p >
+          ) }
+        </div>​​
 
+        { /* Boutons d'action */ }
+        < div  className = "avis-actions" >
+          < button  className = "btn btn-primary"  onClick = { openModal } > { t ( 'reviews.leave_review' ) } </ button >
+          < Lien  vers = "/tous-les-avis"  className = "btn btn-secondary" > { t ( 'reviews.view_all' ) } </ Lien >
+        </div>​​
 
-        {/* Boutons d'action (inchangés) */}
-        <div className="reviews-actions">
-          <button className="btn btn-primary" onClick={openModal}>{t('reviews.leave_review')}</button>
-          <Link to="/all-reviews" className="btn btn-secondary">{t('reviews.view_all')}</Link>
-        </div>
+        { /* Modale moderne pour laisser un avis */ }
+        < Modal 
+          estOuvert = { modalIsOpen } 
+          onRequestClose = { closeModal }
+          className = "modern-review-modal"
+          overlayClassName = "overlay-review-moderne"
+          contentLabel = { t ( 'reviews.leave_review' ) }
+          closeTimeoutMS = { 300 }
+        >
+          < div  className = "en-tête-modal-moderne" >
+            < h2 > { formStep  ===  1 ? t ( 'reviews.leave_review' ) : t ( 'reviews.rate_experience' ) } </ h2 >
+            < button  className = "modern-modal-close"  onClick = { closeModal }  aria-label = "Fermer" > </ button >
+          </div>​​
 
-        {/* Modale (inchangée) */}
-        <Modal isOpen={modalIsOpen} onRequestClose={closeModal} /* ... autres props ... */ >
-          {/* ... contenu de la modale ... */}
-        </Modal>
+          < div  className = "modern-modal-body" >
+            { formSuccess ? (
+              < div  className = "modern-form-success" >
+                { formSuccess }
+              </div>​​
+            ) : (
+              < form  ref = { formRef }  onSubmit = { submitReview }  className = "modern-review-form" >
+                { formError  &&  < div  className = "modern-form-error" > { formError } </ div > }
 
-      </div>
-    </section>
-  );
-};
+                { formStep  ===  1 ? (
+                  < >
+                    < div  className = "groupe-de-formulaires-modernes" >
+                      < label  htmlFor = "name" > { t ( 'reviews.form_name' ) } </ label >
+                      < entrée
+                        type = "texte"
+                        id = "nom"
+                        className = "entrée de formulaire moderne"
+                        valeur = { nom }
+                        onChange = { ( e )  =>  setName ( e . target . value ) }
+                        désactivé = { isSubmitting }
+                        requis
+                        espace réservé = { t ( 'reviews.form_name_placeholder' ) }
+                      />
+                    </div>​​
 
-export default Reviews;
+                    < div  className = "groupe-de-formulaires-modernes" >
+                      < label  htmlFor = "email" > { t ( 'reviews.form_email' ) } </ label >
+                      < entrée
+                        type = "e-mail"
+                        id = "email"
+                        className = "entrée de formulaire moderne"
+                        valeur = { email }
+                        onChange = { ( e )  =>  setEmail ( e . target . value ) }
+                        désactivé = { isSubmitting }
+                        requis
+                        espace réservé = { t ( 'reviews.form_email_placeholder' ) }
+                      />
+                    </div>​​
+
+                    < div  className = "actions-de-formulaire-moderne" >
+                      < bouton 
+                        type = "bouton" 
+                        className = "modern-btn modern-btn-secondaire" 
+                        onClick = { closeModal }
+                        désactivé = { isSubmitting }
+                      >
+                        { t ( 'common.cancel' ) }
+                      </ bouton >
+                      < bouton 
+                        type = "bouton" 
+                        className = "modern-btn modern-btn-primary"
+                        onClick = { nextStep }
+                        désactivé = { isSubmitting }
+                      >
+                        { t ( 'common.next' ) }
+                      </ bouton >
+                    </div>​​
+                  </ >
+                ) : (
+                  < >
+                    < div  className = "groupe-de-formulaires-modernes groupe-d'évaluation-moderne" >
+                      < label > { t ( 'reviews.form_rating' ) } </ label >
+                      < div  className = "étoiles-de-notation-modernes" >
+                        < Note
+                          onClick = { handleRating }
+                          ratingValue = { note }
+                          taille = { 35 }
+                          transition
+                          fillColor = "#ff3a3a"
+                          emptyColor = "rgba(255, 255, 255, 0.2)"
+                          className = "évaluation personnalisée"
+                        />
+                      </div>​​
+                    </div>​​
+
+                    < div  className = "groupe-de-formulaires-modernes" >
+                      < label  htmlFor = "message" > { t ( 'reviews.form_message' ) } </ label >
+                      < zone de texte
+                        id = "message"
+                        className = "entrée-de-formulaire-moderne zone-de-texte-de-formulaire-moderne"
+                        valeur = { message }
+                        onChange = { ( e )  =>  setMessage ( e . target . value ) }
+                        désactivé = { isSubmitting }
+                        requis
+                        espace réservé = { t ( 'reviews.form_message_placeholder' ) }
+                        lignes = { 5 }
+                      />
+                    </div>​​
+
+                    < div  className = "actions-de-formulaire-moderne" >
+                      < bouton 
+                        type = "bouton" 
+                        className = "modern-btn modern-btn-secondaire" 
+                        onClick = { prevStep }
+                        désactivé = { isSubmitting }
+                      >
+                        { t ( 'common.back' ) }
+                      </ bouton >
+                      < bouton 
+                        type = "soumettre" 
+                        className = "modern-btn modern-btn-primary"
+                        désactivé = { isSubmitting }
+                      >
+                        { est-ce que je soumets ? (
+                          < >
+                            < span  className = "modern-loading-spinner" > </ span >
+                            { t ( 'common.submitting' ) }
+                          </ >
+                        ) : t ( 'common.submit' ) }
+                      </ bouton >
+                    </div>​​
+                  </ >
+                ) }
+              </formulaire>​​
+            ) }
+          </div>​​
+        </ Modal >
+      </div>​​
+    </ section >
+  ) ;
+} ;
+
+exportation  par défaut  Avis ;
