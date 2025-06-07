@@ -24,8 +24,8 @@ export default {
   },
   "hero": {
     "title": "Boost your music with ad campaigns that convert",
-    "subtitle": "Push. Play. Blow up.", // TODO: Review translation (Slogan)
-    "slogan": "Push. Play. Blow up.", // TODO: Review translation (Slogan)
+    "subtitle": "Push. Play. Blow up.",
+    "slogan": "Push. Play. Blow up.",
     "description": "Expertise in YouTube Ads, Meta Ads, TikTok Ads and content strategy for artists and labels.",
     "cta": "Start the simulator",
     "stats": {
@@ -35,37 +35,26 @@ export default {
       "countries": "Countries covered"
     }
   },
-  // --- Updated Simulator Section ---
   "simulator": {
     "title": "Ad Campaign Simulator",
     "close_button_aria_label": "Close simulator",
-
-    // Common Options
     "option_select": "-- Select --",
-
-    // Step 1: Platform
     "step1_title": "Step 1: Choose your platform",
     "step1_platform_label": "Advertising platform",
     "platform_youtube": "YouTube Ads",
     "platform_meta": "Meta Ads (Facebook/Instagram)",
     "platform_tiktok": "TikTok Ads",
     "platform_error": "Please select a platform.",
-
-    // Step 2: Campaign Type
     "step2_title": "Step 2: Campaign Type",
     "step2_campaignType_label": "Choose the campaign type",
     "campaignType_awareness": "Awareness",
     "campaignType_engagement": "Engagement",
     "campaignType_conversion": "Conversion",
     "campaignType_error": "Please select a campaign type.",
-
-    // Step 3: Budget
     "step3_title": "Step 3: Estimated Monthly Budget",
-    "step3_budget_label": "Your monthly budget (minimum €500)", // Using € as in FR, adjust if needed
+    "step3_budget_label": "Your monthly budget (minimum €500)",
     "step3_budget_placeholder": "Ex: 1500",
-    "budget_error": "Please enter a budget of at least €500.", // Adjust currency symbol if needed
-
-    // Step 4: Target Region
+    "budget_error": "Please enter a budget of at least €500.",
     "step4_title": "Step 4: Target Country",
     "step4_region_label": "Choose the main target region",
     "region_europe": "Europe",
@@ -74,8 +63,6 @@ export default {
     "region_south_america": "South America",
     "region_asia": "Asia",
     "region_error": "Please select a target region.",
-
-    // Step 5: Artist Information
     "step5_title": "Step 5: Your Information",
     "step5_artist_label": "Artist or project name",
     "step5_artist_placeholder": "Your artist name",
@@ -83,24 +70,19 @@ export default {
     "step5_email_label": "Your email address",
     "step5_email_placeholder": "you@email.com",
     "email_error": "Please enter a valid email address.",
-
-    // Buttons & Actions
     "button_next": "Next",
     "button_prev": "Previous",
     "button_show_results": "See results",
     "submitting_text": "Calculating...",
     "button_modify": "Modify info",
     "cta_expert_button": "Talk to an expert",
-
-    // Step 6: Results
     "results_title": "Estimated Results",
     "results_views_label": "Potential Views / Impressions",
     "results_cpv_label": "Estimated Cost (CPV/CPM)",
     "results_reach_label": "Estimated Reach",
     "results_disclaimer": "These figures are estimates based on averages. Actual results may vary.",
-    "results_cta_expert": "Discuss these estimates with an expert" // Used for aria-label of Calendly link
+    "results_cta_expert": "Discuss these estimates with an expert"
   },
-  // --- End Updated Simulator Section ---
   "services": {
     "title": "Our Services",
     "subtitle": "Complete marketing solutions for the music industry",
@@ -114,7 +96,7 @@ export default {
     },
     "tiktok": {
       "title": "TikTok Ads",
-      "description": "Viral campaigns to reach Gen Z and beyond." // TODO: Review translation
+      "description": "Viral campaigns to reach Gen Z and beyond."
     },
     "content": {
       "title": "Content Strategy",
@@ -161,14 +143,14 @@ export default {
     },
     "partners": {
       "title": "They trust us",
-      "fmm": "Fédération des Musiques Métalliques", // Keep original name? Or translate?
+      "fmm": "Fédération des Musiques Métalliques",
       "fmm_description": "Official partner for promoting metal artists",
       "google": "Google Partner",
       "google_description": "Google Ads certified agency",
       "google_badge_alt": "Google Partner Badge",
-      "mhl": "MHL Agency & Co", // Keep original name
+      "mhl": "MHL Agency & Co",
       "mhl_description": "Collaboration on international campaigns",
-      "algorythme": "Algorythme", // Keep original name
+      "algorythme": "Algorythme",
       "algorythme_description": "Technology partner for data analysis"
     }
   },
@@ -177,7 +159,23 @@ export default {
     "subtitle": "Testimonials from artists and labels",
     "cta": "See all reviews",
     "leave_review": "Leave a review",
-    "view_all": "See all reviews"
+    "view_all": "See all reviews",
+    "rate_experience": "Rate your experience",
+    "go_to_review": "View review",
+    "no_reviews": "No reviews to display yet.",
+    "form_name": "Your name",
+    "form_email": "Your email",
+    "form_rating": "Your rating",
+    "form_message": "Your message",
+    "form_name_placeholder": "Enter your full name",
+    "form_email_placeholder": "Enter your email address",
+    "form_message_placeholder": "Share your experience with us...",
+    "form_error_required": "All fields are required.",
+    "form_error_required_fields": "Please fill in all required fields.",
+    "form_error_invalid_email": "Please enter a valid email address.",
+    "form_error_message_too_short": "Your message must be at least 10 characters long.",
+    "form_error_submit": "An error occurred while submitting. Please try again.",
+    "form_success": "Thank you! Your review has been submitted and will be published after moderation."
   },
   "footer": {
     "rights": "All rights reserved",
@@ -197,7 +195,25 @@ export default {
     "legal_terms": "Terms",
     "legal_cookies": "Cookies"
   },
-  "admin": { // Admin section - kept in English for simplicity, assuming admins use EN primarily
+  "common": {
+    "submit": "Submit",
+    "submitting": "Submitting...",
+    "cancel": "Cancel",
+    "next": "Next",
+    "back": "Back",
+    "close": "Close",
+    "loading": "Loading..."
+  },
+  "admin": {
+    "login": "Administrator Login",
+    "login_subtitle": "Access your dashboard",
+    "username": "Username",
+    "password": "Password",
+    "login_button": "Log in",
+    "logging_in": "Logging in...",
+    "login_error": "Incorrect username or password.",
+    "login_error_no_token": "Error: Missing login token.",
+    "login_error_network": "Network error during login.",
     "dashboard": "Dashboard",
     "reviews": "Reviews",
     "content": "Content",
@@ -214,6 +230,7 @@ export default {
     "pending_reviews": "Pending Reviews",
     "approved_reviews": "Approved Reviews",
     "active_campaigns": "Active Campaigns",
+    "total_campaigns": "Total Campaigns",
     "recent_activity": "Recent Activity",
     "new_review_received": "New review received",
     "content_updated": "Content updated",
@@ -244,7 +261,75 @@ export default {
     "change_password": "Change Password",
     "new_password": "New Password",
     "save_settings": "Save Settings",
-    "chatbot": { // Chatbot kept in English assuming admin context
+    "integrations": {
+      "title": "Marketing Integrations",
+      "description": "Connect your marketing tools to track your performance.",
+      "test_integration": "Test Integration",
+      "save_all": "Save All",
+      "google_analytics": "Google Analytics",
+      "gtm": "Google Tag Manager (GTM)",
+      "google_ads": "Google Ads",
+      "meta_pixel": "Meta Pixel (Facebook)",
+      "tiktok_pixel": "TikTok Pixel",
+      "ga_description": "Track traffic and user behavior on your site.",
+      "ga_id": "Google Analytics Measurement ID (G-XXXXXXXX)",
+      "ga_id_tooltip": "Find this ID in your GA account > Admin > Data Streams.",
+      "ga_events_title": "Events to Track",
+      "ga_page_views": "Page Views",
+      "ga_scroll_tracking": "Scroll Tracking",
+      "ga_outbound_links": "Outbound Link Clicks",
+      "ga_form_submissions": "Form Submissions"
+    },
+    "wordpress": {
+      "title": "WordPress Connector",
+      "description": "Connect your WordPress blog to sync articles.",
+      "site_url": "Your WordPress Site URL",
+      "username": "WordPress Username",
+      "app_password": "Application Password",
+      "app_password_tooltip": "Create an application password in your WP profile > Security.",
+      "test_connection": "Test Connection"
+    },
+    "landing_pages": {
+      "title": "Landing Page Generator",
+      "description": "Create and manage your campaign-specific landing pages.",
+      "your_pages": "Your Landing Pages",
+      "create_new": "Create New Page",
+      "no_pages": "You haven't created any landing pages yet.",
+      "template": "Template",
+      "created": "Created",
+      "visits": "Visits",
+      "conversions": "Conversions",
+      "actions": "Actions",
+      "edit": "Edit",
+      "duplicate": "Duplicate",
+      "previous": "Previous",
+      "next": "Next",
+      "cancel": "Cancel"
+    },
+    "settings_page": {
+      "title": "General Settings",
+      "description": "Configure authentication settings and global integrations.",
+      "wordpress_connection_title": "WordPress Connection (Global)",
+      "wordpress_url_label": "WordPress URL",
+      "wordpress_url_help": "The main URL of your WordPress site.",
+      "wordpress_username_label": "WP Username",
+      "wordpress_app_password_label": "WP Application Password",
+      "wordpress_app_password_help": "Generate this from your WordPress user profile.",
+      "test_connection_button": "Test WP Connection",
+      "marketing_integrations_title": "Marketing Integrations (Global)",
+      "save_settings_button": "Save Settings"
+    },
+    "dashboard_nav": "Dashboard",
+    "reviews_nav": "Reviews",
+    "smartlinks_nav": "Smart Links",
+    "content_nav": "Content",
+    "media_nav": "Media",
+    "marketing_nav": "Marketing",
+    "wordpress_nav": "WordPress",
+    "wordpress_sync_nav": "WordPress Sync",
+    "landing_pages_nav": "Landing Pages",
+    "settings_nav": "Settings",
+    "chatbot": {
       "title": "MDMC Assistant",
       "welcome_message": "Hello! I'm your MDMC assistant. How can I help you today?",
       "help_prompt": "Here are some topics I can help you with:",
