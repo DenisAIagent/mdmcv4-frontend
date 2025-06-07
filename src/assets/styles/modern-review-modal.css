@@ -1,0 +1,398 @@
+/* ===== modern-review-modal.css ===== */
+
+/* Overlay (fond) */
+.modern-review-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+  opacity: 0;
+  transition: opacity 400ms cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.modern-review-overlay.ReactModal__Overlay--after-open {
+  opacity: 1;
+}
+
+.modern-review-overlay.ReactModal__Overlay--before-close {
+  opacity: 0;
+}
+
+/* Contenu de la modale */
+.modern-review-modal {
+  position: relative;
+  background: linear-gradient(135deg, rgba(30, 30, 30, 0.95) 0%, rgba(15, 15, 15, 0.95) 100%);
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 40px rgba(0, 0, 0, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.1) inset,
+    0 0 30px rgba(255, 0, 0, 0.15);
+  width: 95%;
+  max-width: 550px;
+  max-height: 90vh;
+  overflow: hidden;
+  color: #fff;
+  transform: scale(0.9) translateY(20px);
+  opacity: 0;
+  transition: 
+    transform 500ms cubic-bezier(0.19, 1, 0.22, 1),
+    opacity 400ms cubic-bezier(0.19, 1, 0.22, 1);
+  outline: none;
+  border: none;
+}
+
+.modern-review-modal.ReactModal__Content--after-open {
+  transform: scale(1) translateY(0);
+  opacity: 1;
+}
+
+.modern-review-modal.ReactModal__Content--before-close {
+  transform: scale(0.95) translateY(10px);
+  opacity: 0;
+}
+
+/* En-tête de la modale */
+.modern-modal-header {
+  position: relative;
+  padding: 25px 30px 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(to right, rgba(255, 0, 0, 0.15), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modern-modal-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(90deg, #ffffff, #f0f0f0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.2);
+}
+
+.modern-modal-close {
+  background: transparent;
+  border: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-modal-close:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  transform: rotate(90deg);
+}
+
+.modern-modal-close:before {
+  content: '×';
+  position: relative;
+  z-index: 2;
+}
+
+.modern-modal-close:after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(255, 0, 0, 0.5) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.modern-modal-close:hover:after {
+  opacity: 1;
+}
+
+/* Corps de la modale */
+.modern-modal-body {
+  padding: 30px;
+  overflow-y: auto;
+  max-height: calc(90vh - 80px);
+}
+
+/* Formulaire */
+.modern-review-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modern-form-group {
+  position: relative;
+}
+
+.modern-form-group label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.modern-form-group:focus-within label {
+  color: #ff3a3a;
+}
+
+.modern-form-input {
+  width: 100%;
+  padding: 12px 16px;
+  background-color: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 8px;
+  color: #fff;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.modern-form-input:focus {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 0, 0, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 0, 0, 0.2);
+  outline: none;
+}
+
+.modern-form-textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+/* Groupe de notation */
+.modern-rating-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.modern-rating-stars {
+  display: flex;
+  gap: 5px;
+}
+
+/* Messages d'erreur et de succès */
+.modern-form-error {
+  background-color: rgba(255, 0, 0, 0.15);
+  border-left: 4px solid #ff3a3a;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+  font-size: 0.95rem;
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+.modern-form-success {
+  background-color: rgba(0, 255, 0, 0.15);
+  border-left: 4px solid #00cc00;
+  color: #fff;
+  padding: 12px 16px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.modern-form-success:before {
+  content: '✓';
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  background-color: rgba(0, 204, 0, 0.2);
+  border-radius: 50%;
+  text-align: center;
+  line-height: 24px;
+  font-weight: bold;
+}
+
+/* Boutons d'action */
+.modern-form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 10px;
+}
+
+.modern-btn {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.modern-btn:after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.modern-btn:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+.modern-btn-secondary {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.modern-btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+.modern-btn-primary {
+  background: linear-gradient(135deg, #ff3a3a 0%, #cc0000 100%);
+  color: white;
+  box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+}
+
+.modern-btn-primary:hover {
+  background: linear-gradient(135deg, #ff5555 0%, #dd0000 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 0, 0, 0.4);
+}
+
+.modern-btn-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(255, 0, 0, 0.3);
+}
+
+.modern-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+/* Animation de chargement */
+.modern-loading-spinner {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+}
+
+/* Animations */
+@keyframes shake {
+  10%, 90% { transform: translate3d(-1px, 0, 0); }
+  20%, 80% { transform: translate3d(2px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+  40%, 60% { transform: translate3d(3px, 0, 0); }
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0, 0);
+    opacity: 0.5;
+  }
+  20% {
+    transform: scale(25, 25);
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(40, 40);
+  }
+}
+
+/* Animation d'entrée pour les éléments du formulaire */
+.modern-form-group {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.ReactModal__Content--after-open .modern-form-group:nth-child(1) {
+  animation: fadeInUp 0.5s 0.1s forwards;
+}
+
+.ReactModal__Content--after-open .modern-form-group:nth-child(2) {
+  animation: fadeInUp 0.5s 0.2s forwards;
+}
+
+.ReactModal__Content--after-open .modern-form-group:nth-child(3) {
+  animation: fadeInUp 0.5s 0.3s forwards;
+}
+
+.ReactModal__Content--after-open .modern-form-group:nth-child(4) {
+  animation: fadeInUp 0.5s 0.4s forwards;
+}
+
+.ReactModal__Content--after-open .modern-form-actions {
+  opacity: 0;
+  animation: fadeInUp 0.5s 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 576px) {
+  .modern-review-modal {
+    width: 100%;
+    max-width: none;
+    border-radius: 15px;
+  }
+  
+  .modern-modal-header {
+    padding: 20px 20px 10px;
+  }
+  
+  .modern-modal-body {
+    padding: 20px;
+  }
+  
+  .modern-form-actions {
+    flex-direction: column;
+  }
+  
+  .modern-btn {
+    width: 100%;
+  }
+}
+
