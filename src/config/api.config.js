@@ -1,19 +1,44 @@
 // src/config/api.config.js
 
-// Lire l'URL du backend depuis la variable d'environnement VITE_API_URL.
-// Fournir une URL par défaut pour le développement local si la variable n'est pas définie.
-// Cette URL par défaut DOIT correspondre à la structure attendue (incluant /api).
-const backendBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:5001/api';
-
-// Log pour vérifier quelle URL est utilisée (sera visible dans la console du navigateur pendant le dev et en production)
-console.log("API Base URL for service calls (from api.config.js):", backendBaseUrl);
-
 const API_CONFIG = {
-    // BASE_URL est maintenant la base URL complète de ton API backend, se terminant par /api
-    BASE_URL: backendBaseUrl,
-
-    // Timeout des requêtes en millisecondes
-    TIMEOUT: 15000, // Un peu plus long pour tenir compte des variations réseau
+  // URL du backend - Railway production
+  BASE_URL: process.env.REACT_APP_API_URL || 'https://analyzer-backend-production-a35c.up.railway.app/api',
+  
+  // Timeout pour les requêtes (10 secondes)
+  TIMEOUT: 10000,
+  
+  // Headers par défaut
+  DEFAULT_HEADERS: {
+    'Content-Type': 'application/json',
+  },
+  
+  // Configuration CORS
+  WITH_CREDENTIALS: true,
 };
+
+// Configuration pour différents environnements
+const ENV_CONFIG = {
+  development: {
+    BASE_URL: 'http://localhost:5001/api',
+  },
+  production: {
+    BASE_URL: 'https://analyzer-backend-production-a35c.up.railway.app/api',
+  }
+};
+
+// Détecter l'environnement et ajuster la config
+const currentEnv = process.env.NODE_ENV || 'production';
+if (ENV_CONFIG[currentEnv]) {
+  Object.assign(API_CONFIG, ENV_CONFIG[currentEnv]);
+}
+
+// Debug en développement
+if (process.env.NODE_ENV === 'development') {
+  console.log('🔍 API Config:', {
+    Environment: currentEnv,
+    Base_URL: API_CONFIG.BASE_URL,
+    Frontend_URL: window.location.origin
+  });
+}
 
 export default API_CONFIG;
