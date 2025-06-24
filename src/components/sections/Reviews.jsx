@@ -126,31 +126,39 @@ class AirtableReviewsService {
   }
 
   getFallbackReviews() {
-    console.log('🔄 Airtable: Utilisation des données de fallback');
+    console.log("🔄 Airtable: Utilisation des données de fallback");
     return [
       {
-        id: 'fallback_1',
-        name: "Sarah L.",
-        company: "TechStart SAS",
+        id: "IF",
+        name: "Isabelle Fontan",
+        company: "MOX Musique",
         rating: 5,
-        comment: "Service exceptionnel ! L'équipe MDMC a transformé notre présence digitale. ROI impressionnant dès le premier mois.",
+        comment: "Denis est un professionnel fiable, sérieux, réactif et surtout efficace. Nous avons travaillé ensemble sur de nombreuses campagnes, il a su me conseiller au mieux et je suis très satisfaite des résultats que nous avons obtenus. C'est l'expert Google Ads qui sera à l'écoute de votre problématique !",
         avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b641?w=64&h=64&fit=crop&crop=face"
       },
       {
-        id: 'fallback_2',
-        name: "Marc D.",
-        company: "Innovate Corp",
+        id: "FT",
+        name: "Fred Tavernier",
+        company: "Try & Dye Records",
         rating: 5,
-        comment: "Professionnalisme et créativité au rendez-vous. Nos campagnes n'ont jamais été aussi performantes !",
+        comment: "Cela fait maintenant quelques années que nous travaillons avec Denis pour la gestion de nos campagnes promotionnelles autour de la sortie des vidéoclips de nos artistes, notamment OUTED, et nous sommes très contents du résultat. La communication et les échanges sont efficaces et rapides et les résultats au rendez-vous. Denis est à l'écoute de nos besoins et sait réagir en conséquence en fonction des budgets.",
         avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=64&h=64&fit=crop&crop=face"
       },
       {
-        id: 'fallback_3',
-        name: "Emma R.",
-        company: "Digital Solutions",
+        id: "TB",
+        name: "Tania Barros",
+        company: "Où sortir à Lisbonne",
         rating: 5,
-        comment: "Équipe réactive et résultats concrets. Je recommande vivement pour tout projet digital ambitieux.",
+        comment: "Super travail de Denis. J'aime beaucoup travailler avec lui. Il est disponible et très pro. Je recommande les yeux fermés !",
         avatar: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=64&h=64&fit=crop&crop=face"
+      },
+      {
+        id: "ML",
+        name: "Manon L’Huillier",
+        company: "MLH Promotion",
+        rating: 5,
+        comment: "Un travail efficace sur chaque collaboration. Denis a su être à l'écoute de nos attentes et nous proposer des stratégies adaptées aux deadlines et aux budgets imposés.",
+        avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b641?w=64&h=64&fit=crop&crop=face"
       }
     ];
   }
